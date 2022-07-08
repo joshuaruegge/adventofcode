@@ -1,5 +1,6 @@
 package advent.utilities.general;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Coord implements Comparable<Coord> {
@@ -56,6 +57,37 @@ public class Coord implements Comparable<Coord> {
 	//returns copy of self
 	public Coord copy() {
 		return new Coord(x,y);
+	}
+	
+	//returns version with x and y swapped
+	public Coord invert() {
+		return new Coord(y,x);
+	}
+	
+	public ArrayList<Coord> directNeighbors() {
+		ArrayList<Coord> list = new ArrayList<Coord>();
+		for(int xOff = -1; xOff < 2; xOff++) {
+			for(int yOff = -1; yOff < 2; yOff++) {
+				//if not diagonal or self
+				if(xOff == 0 ^ yOff == 0) {
+					list.add(new Coord(x+xOff,y+yOff));
+				}
+			}
+		}
+		return list;
+	}
+	
+	public ArrayList<Coord> allNeighbors() {
+		ArrayList<Coord> list = new ArrayList<Coord>();
+		for(int xOff = -1; xOff < 2; xOff++) {
+			for(int yOff = -1; yOff < 2; yOff++) {
+				//if not self
+				if(!(xOff == 0 && yOff == 0)) {
+					list.add(new Coord(x+xOff,y+yOff));
+				}
+			}
+		}
+		return list;
 	}
 
 	//orders coordinates in left-to-right, top-to-bottom order
