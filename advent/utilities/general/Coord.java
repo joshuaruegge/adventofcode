@@ -15,11 +15,11 @@ public class Coord implements Comparable<Coord> {
 	public Coord() {
 		x = 0;
 		y = 0;
-	}
+	}	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(y, x);
+		return Objects.hash(y,x);
 	}
 
 	@Override
@@ -31,7 +31,11 @@ public class Coord implements Comparable<Coord> {
 		if (getClass() != obj.getClass())
 			return false;
 		Coord other = (Coord) obj;
-		return y == other.y && x == other.x;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
 	}
 	
 	public String toString() {
@@ -103,5 +107,11 @@ public class Coord implements Comparable<Coord> {
 			return (o.x > this.x ? -1 : 1);
 	}
 	
+	public Coord left() {
+		return new Coord(y,-x);
+	}
 	
+	public Coord right() {
+		return new Coord(-y,x);
+	}
 }
