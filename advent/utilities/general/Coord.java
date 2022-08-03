@@ -70,8 +70,8 @@ public class Coord implements Comparable<Coord> {
 	
 	public ArrayList<Coord> directNeighbors() {
 		ArrayList<Coord> list = new ArrayList<Coord>();
-		for(int xOff = -1; xOff < 2; xOff++) {
-			for(int yOff = -1; yOff < 2; yOff++) {
+		for(int yOff = -1; yOff < 2; yOff++) {
+			for(int xOff = -1; xOff < 2; xOff++) {
 				//if not diagonal or self
 				if(xOff == 0 ^ yOff == 0) {
 					list.add(new Coord(x+xOff,y+yOff));
@@ -83,8 +83,8 @@ public class Coord implements Comparable<Coord> {
 	
 	public ArrayList<Coord> allNeighbors() {
 		ArrayList<Coord> list = new ArrayList<Coord>();
-		for(int xOff = -1; xOff < 2; xOff++) {
-			for(int yOff = -1; yOff < 2; yOff++) {
+		for(int yOff = -1; yOff < 2; yOff++) {
+			for(int xOff = -1; xOff < 2; xOff++) {
 				//if not self
 				if(!(xOff == 0 && yOff == 0)) {
 					list.add(new Coord(x+xOff,y+yOff));
