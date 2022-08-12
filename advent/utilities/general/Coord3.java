@@ -1,5 +1,6 @@
 package advent.utilities.general;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Coord3 {
@@ -22,6 +23,24 @@ public class Coord3 {
 		x += o.x;
 		y += o.y;
 		z += o.z;
+	}
+	
+	public Coord3 sum(Coord3 o) {
+		return new Coord3(x + o.x, y+o.y, z+o.z);
+	}
+	
+	public ArrayList<Coord3> allNeighbors() {
+		ArrayList<Coord3> neighbors = new ArrayList<Coord3>();
+		for(int zOff = -1; zOff < 2; zOff++) {
+			for(int xOff = -1; xOff < 2; xOff++) {
+				for(int yOff = -1; yOff < 2; yOff++) {
+					if(!(zOff == 0 && xOff == 0 && yOff == 0)) {
+						neighbors.add(new Coord3(x+xOff,y+yOff,z+zOff));
+					}
+				}
+			}
+		}
+		return neighbors;
 	}
 	
 	public String toString() {
