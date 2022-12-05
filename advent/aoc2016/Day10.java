@@ -245,7 +245,7 @@ public class Day10 implements IDay {
 	@Override
 	public String part1() {
 		//parse lines into arraylist and sort by alphabetical so
-		//bots are created before recieving values
+		//bots are created before receiving values+
 		ArrayList<String> lines = new ArrayList<String>();
 		for(String s : input.split("\r\n"))
 			lines.add(s);

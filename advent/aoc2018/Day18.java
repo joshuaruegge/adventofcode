@@ -1,5 +1,6 @@
 package advent.aoc2018;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import advent.utilities.general.Coord;
@@ -65,52 +66,53 @@ public class Day18 implements IDay {
 	public String part1() {
 		String[] lines = input.split("\r\n");
 		max = lines.length;
-		int[][] map = new int[max][max];
+	
+		HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
 		for(int y = 0; y < lines.length; y++) {
 			String line = lines[y];
 			for(int x = 0; x < line.length(); x++) {
-				map[x][y] = (line.charAt(x) == '#' ? 2 : (line.charAt(x) == '|') ? 1 : 0);
+				map.put(new Coord(x,y), (line.charAt(x) == '#' ? 2 : (line.charAt(x) == '|') ? 1 : 0));
 			}
 		}
 		
-		for(int iter = 0; iter < 10; iter++) {
-			int[][] newMap = new int[max][max];
+		for(int i = 0; i < 10; i++) {
+			HashMap<Coord,Integer> newMap = new HashMap<Coord,Integer>();
 			for(int x = 0; x < max; x++) {
 				for(int y = 0; y < max; y++) {
-					switch(map[x][y]) {
+					Coord cur = new Coord(x,y);
+					switch(map.get(cur)) {
 					case 0:
-						if(surroundCount(x,y,map,1) > 2)
-							newMap[x][y] = 1;
+						if(mapSurroundCount(cur,map,1) > 2)
+							newMap.put(cur, 1);
 						else
-							newMap[x][y] = 0;
+							newMap.put(cur, 0);
 						break;
 					case 1:
-						if(surroundCount(x,y,map,2) > 2)
-							newMap[x][y] = 2;
+						if(mapSurroundCount(cur,map,2) > 2)
+							newMap.put(cur, 2);
 						else
-							newMap[x][y] = 1;
+							newMap.put(cur, 1);
 						break;
 					case 2:
-						if(surroundCount(x,y,map,1) > 0 && surroundCount(x,y,map,2) > 0)
-							newMap[x][y] = 2;
+						if(mapSurroundCount(cur,map,1) > 0 && mapSurroundCount(cur,map,2) > 0)
+							newMap.put(cur, 2);
 						else
-							newMap[x][y] = 0;
+							newMap.put(cur, 0);
 					}
 				}
 			}
 			map = newMap;
 		}
 		
+		
 		int oneCount = 0;
 		int twoCount = 0;
 		
-		for(int[] a : map) {
-			for(int b : a) {
-				if(b == 1)
-					oneCount++;
-				if(b == 2)
-					twoCount++;
-			}
+		for(Coord c : map.keySet()) {
+			if(map.get(c) == 1)
+				oneCount++;
+			else if(map.get(c) == 2)
+				twoCount++;
 		}
 		
 		return Integer.toString(oneCount * twoCount);
@@ -136,7 +138,7 @@ public class Day18 implements IDay {
 	public String part2() {
 		String[] lines = input.split("\r\n");
 		max = lines.length;
-		//maps are now coord -> integer hashmaps because int[][]s dont hash, compare, or set reliably
+	
 		HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
 		for(int y = 0; y < lines.length; y++) {
 			String line = lines[y];
@@ -145,11 +147,10 @@ public class Day18 implements IDay {
 			}
 		}
 		
-		HashMap<HashMap<Coord,Integer>,Integer> states = new HashMap<HashMap<Coord,Integer>,Integer>();
-		
+		ArrayList<HashMap<Coord,Integer>> states = new ArrayList<HashMap<Coord,Integer>>();
 		int counter = 0;
 		do {
-			states.put(map,counter);
+			states.add(map);
 			HashMap<Coord,Integer> newMap = new HashMap<Coord,Integer>();
 			for(int x = 0; x < max; x++) {
 				for(int y = 0; y < max; y++) {
@@ -177,9 +178,9 @@ public class Day18 implements IDay {
 			}
 			map = newMap;
 			counter++;
-		} while(!states.containsKey(map));
+		} while(!states.contains(map));
 		
-		int cycleLength = counter - states.get(map);
+		int cycleLength = counter - states.indexOf(map);
 	
 		//at this point, we've discovered a loop, so we know that the state we curently are at
 		//will be the same state we're at at 1 billion - (1 billion % loopSize) states

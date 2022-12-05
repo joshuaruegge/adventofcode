@@ -161,15 +161,6 @@ public class Day13 implements IDay {
 			+ "                          |         \\---------------------/           |            |  \\----------------------+-----/                                  \r\n"
 			+ "                          \\-------------------------------------------/            \\-------------------------/                                        ";
 	
-	String input2 = "/->-\\        \r\n"
-			+ "|   |  /----\\\r\n"
-			+ "| /-+--+-\\  |\r\n"
-			+ "| | |  | v  |\r\n"
-			+ "\\-+-/  \\-+--/\r\n"
-			+ "  \\------/   \r\n"
-			+ "\r\n"
-			+ "";
-	
 	@Override
 	public String part1() {
 		//turn input into string arraylist so x,y can be accessed by get(y).charAt(x)
@@ -188,16 +179,16 @@ public class Day13 implements IDay {
 					Coord facing = null;
 					switch(c) {
 					case '^':
-						facing = new Coord(0,-1);
+						facing = Coord.UP;
 						break;
 					case 'v':
-						facing = new Coord(0,1);
+						facing = Coord.DOWN;
 						break;
 					case '>':
-						facing = new Coord(1,0);
+						facing = Coord.RIGHT;
 						break;
 					case '<':
-						facing = new Coord(-1,0);
+						facing = Coord.LEFT;
 						break;
 					}
 					carts.add(new Cart(cartPos,facing));

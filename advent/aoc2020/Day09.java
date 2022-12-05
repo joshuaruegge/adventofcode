@@ -1017,8 +1017,9 @@ public class Day09 implements IDay {
 		List<Long> nums = Arrays.stream(input.split("\r\n")).map(x -> Long.parseLong(x)).toList();
 		int curIndex = 25;
 		while(curIndex < nums.size()) {
+			//build list of all sums of previous 25 numbers
 			HashSet<Long> sums = new HashSet<Long>();
-			for(int i = curIndex - 1; i > curIndex - 26; i--) {
+			for(int i = curIndex - 1; i > curIndex - 25; i--) {
 				for(int j = i-1; j > curIndex - 26; j--) {
 					sums.add(nums.get(i) + nums.get(j));
 				}

@@ -2048,22 +2048,6 @@ public class Day06 implements IDay {
 			+ "jqlk\r\n"
 			+ "ljqk";
 	
-	String input2 = "abc\r\n"
-			+ "\r\n"
-			+ "a\r\n"
-			+ "b\r\n"
-			+ "c\r\n"
-			+ "\r\n"
-			+ "ab\r\n"
-			+ "ac\r\n"
-			+ "\r\n"
-			+ "a\r\n"
-			+ "a\r\n"
-			+ "a\r\n"
-			+ "a\r\n"
-			+ "\r\n"
-			+ "b";
-	
 	@Override
 	public String part1() {
 		int count = 0;

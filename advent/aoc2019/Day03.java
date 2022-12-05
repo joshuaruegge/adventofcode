@@ -2,7 +2,6 @@ package advent.aoc2019;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Scanner;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -21,8 +20,7 @@ public class Day03 implements IDay {
 	
 	@Override
 	public String part1() {
-		Scanner scan = new Scanner(input);
-		String[] line1 = scan.nextLine().split(",");
+		String[] line1 = input.split("\r\n")[0].split(",");
 		Coord pos1 = new Coord(0,0);
 		//collect set of all coordinates first wire touches
 		HashSet<Coord> line1Pos = new HashSet<Coord>();
@@ -31,16 +29,16 @@ public class Day03 implements IDay {
 			Coord dir = new Coord();
 			switch(s.charAt(0)) {
 			case 'U':
-				dir = new Coord(0,-1);
+				dir = Coord.UP;
 				break;
 			case 'D':
-				dir = new Coord(0,1);
+				dir = Coord.DOWN;
 				break;
 			case 'L':
-				dir = new Coord(-1,0);
+				dir = Coord.LEFT;
 				break;
 			case 'R':
-				dir = new Coord(1,0);
+				dir = Coord.RIGHT;
 				break;
 			}
 			//iterate number of times in input
@@ -52,23 +50,23 @@ public class Day03 implements IDay {
 			}
 		}
 		//repeat for second wire
-		String[] line2 = scan.nextLine().split(",");
+		String[] line2 = input.split("\r\n")[1].split(",");
 		Coord pos2 = new Coord(0,0);
 		HashSet<Coord> line2Pos = new HashSet<Coord>();
 		for(String s : line2) {
 			Coord dir = new Coord();
 			switch(s.charAt(0)) {
 			case 'U':
-				dir = new Coord(0,-1);
+				dir = Coord.UP;
 				break;
 			case 'D':
-				dir = new Coord(0,1);
+				dir = Coord.DOWN;
 				break;
 			case 'L':
-				dir = new Coord(-1,0);
+				dir = Coord.LEFT;
 				break;
 			case 'R':
-				dir = new Coord(1,0);
+				dir = Coord.RIGHT;
 				break;
 			}
 			int max = Integer.parseInt(s.substring(1));
@@ -77,6 +75,7 @@ public class Day03 implements IDay {
 				line2Pos.add(pos2.copy());	
 			}	
 		}
+		
 		//intersections
 		HashSet<Coord> intersections = new HashSet<Coord>();
 		//iterate over whichever array is shorter
@@ -88,18 +87,12 @@ public class Day03 implements IDay {
 		}
 		
 		//check each intersection, return shortest distance
-		int shortestDist = Integer.MAX_VALUE;
-		for(Coord c : intersections) {
-			if(c.dist(new Coord()) < shortestDist)
-				shortestDist = c.dist(new Coord());
-		}
-		return Integer.toString(shortestDist);
+		return intersections.stream().map(x -> x.dist(new Coord())).min(Integer::compare).get().toString();
 	}
 
 	@Override
 	public String part2() {
-		Scanner scan = new Scanner(input);
-		String[] line1 = scan.nextLine().split(",");
+		String[] line1 = input.split("\r\n")[0].split(",");
 		Coord pos1 = new Coord(0,0);
 		//change to a hashmap of coordinates and distance to reach coordinates
 		HashMap<Coord,Integer> line1Pos = new HashMap<Coord,Integer>();
@@ -109,16 +102,16 @@ public class Day03 implements IDay {
 			Coord dir = new Coord();
 			switch(s.charAt(0)) {
 			case 'U':
-				dir = new Coord(0,-1);
+				dir = Coord.UP;
 				break;
 			case 'D':
-				dir = new Coord(0,1);
+				dir = Coord.DOWN;
 				break;
 			case 'L':
-				dir = new Coord(-1,0);
+				dir = Coord.LEFT;
 				break;
 			case 'R':
-				dir = new Coord(1,0);
+				dir = Coord.RIGHT;
 				break;
 			}
 			for(int d = 0; d < Integer.parseInt(s.substring(1)); d++) {
@@ -131,7 +124,7 @@ public class Day03 implements IDay {
 				}
 			}
 		}
-		String[] line2 = scan.nextLine().split(",");
+		String[] line2 = input.split("\r\n")[1].split(",");
 		Coord pos2 = new Coord(0,0);
 		HashMap<Coord,Integer> line2Pos = new HashMap<Coord,Integer>();
 		line2Pos.put(pos2,0);
@@ -140,16 +133,16 @@ public class Day03 implements IDay {
 			Coord dir = new Coord();
 			switch(s.charAt(0)) {
 			case 'U':
-				dir = new Coord(0,-1);
+				dir = Coord.UP;
 				break;
 			case 'D':
-				dir = new Coord(0,1);
+				dir = Coord.DOWN;
 				break;
 			case 'L':
-				dir = new Coord(-1,0);
+				dir = Coord.LEFT;
 				break;
 			case 'R':
-				dir = new Coord(1,0);
+				dir = Coord.RIGHT;
 				break;
 			}
 			for(int d = 0; d < Integer.parseInt(s.substring(1)); d++) {

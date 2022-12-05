@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
-import advent.utilities.general.PathNode;
 
 public class Day24 implements IDay {
 
@@ -82,9 +83,7 @@ public class Day24 implements IDay {
 			}
 		}
 		
-		int[] permBase = new int[locations.size()];
-		for(int i = 0; i < locations.size(); i++)
-			permBase[i] = i;
+		int[] permBase = IntStream.range(0, locations.size()).toArray();
 		ArrayList<int[]> perms = perms(permBase,permBase.length);
 		//go through all permutations of location visit order, find shortest
 		shortest = Integer.MAX_VALUE;
@@ -125,28 +124,26 @@ public class Day24 implements IDay {
 		return Integer.toString(shortest);
 	}
 	
-	
-	//BFS pathfinding
-	public int distance(Coord start, Coord end) {
-		ArrayList<PathNode> open = new ArrayList<PathNode>();
-		HashSet<PathNode> closed = new HashSet<PathNode>();
-		open.add(new PathNode(start,0,0));
-		while(open.size() > 0) {
-			PathNode cur = open.remove(0);
-			Coord curPos = cur.pos;
-			if(curPos.equals(end))
-				return cur.gcost;
-			if(cur.gcost > shortest)
-				return 100000;
-			for(Coord c : curPos.directNeighbors()) {
-				if(!walls.contains(c)) {
-					PathNode newNode = new PathNode(c,cur.gcost + 1, 0);
-					if(!closed.contains(newNode) && !open.contains(newNode)) {
-						open.add(newNode);
-					}
+	public int distance (Coord start, Coord end) {	
+		HashMap<Coord,Integer> gScore = new HashMap<Coord,Integer>();
+		LinkedList<Coord> queue = new LinkedList<Coord>();
+		gScore.put(start, 0);
+		queue.add(start);
+		while(queue.size() != 0) {
+			Coord cur = queue.remove();
+			if(cur.equals(end)) {
+				return gScore.get(cur);
+			}
+			
+			for(Coord c : cur.directNeighbors()) {
+				if(!gScore.containsKey(c) && walls.contains(c))
+					continue;
+				int tentativeG = gScore.get(cur) + 1;
+				if(tentativeG < gScore.getOrDefault(c, Integer.MAX_VALUE)) {
+					gScore.put(c, tentativeG);
+					queue.add(c);
 				}
 			}
-			closed.add(cur);
 		}
 		return -1;
 	}
@@ -201,9 +198,7 @@ public class Day24 implements IDay {
 			}
 		}
 		
-		int[] permBase = new int[locations.size()];
-		for(int i = 0; i < locations.size(); i++)
-			permBase[i] = i;
+		int[] permBase = IntStream.range(0, locations.size()).toArray();
 		ArrayList<int[]> perms = perms(permBase,permBase.length);
 		//go through all permutations of location visit order, find shortest
 		shortest = Integer.MAX_VALUE;

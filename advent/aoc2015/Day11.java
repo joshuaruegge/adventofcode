@@ -1,7 +1,5 @@
 package advent.aoc2015;
 
-import java.util.Arrays;
-
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 
@@ -56,7 +54,7 @@ public class Day11 implements IDay {
 				break;
 		}
 		part1 = new String(pass);
-		return Arrays.toString(pass);
+		return part1;
 	}
 
 	@Override
@@ -100,7 +98,7 @@ public class Day11 implements IDay {
 			if(pairs > 1 && ascending)
 				break;
 		}
-		return Arrays.toString(pass);
+		return new String(pass);
 	}
 
 	public static void main(String[] args) {

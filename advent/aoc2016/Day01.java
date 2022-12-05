@@ -20,9 +20,9 @@ public class Day01 implements IDay {
 		for(String s : input.split(", ")) {
 			//turn right or left based on first character
 			if(s.charAt(0) == 'R') {
-				facing = right(facing);
+				facing = facing.right();
 			} else {
-				facing = left(facing);
+				facing = facing.left();
 			}
 			//iterate number of steps specified in input
 			for(int i = 0; i < Integer.parseInt(s.substring(1)); i++) {
@@ -32,17 +32,6 @@ public class Day01 implements IDay {
 		//return Manhattan distance from (0,0) of final position
 		return Integer.toString(position.dist(new Coord(0,0)));
 	}
-
-	//rotates a coordinate left
-	public static Coord left(Coord c) {
-		return new Coord(c.y, -c.x);
-	}
-	
-	//rotates a coordinate right
-	public static Coord right(Coord c) {
-		return new Coord(-c.y,c.x);
-	}
-
 
 	@Override
 	public String part2() {
@@ -56,17 +45,16 @@ public class Day01 implements IDay {
 		for(String s : input.split(", ")) {
 			//turn right or left based on first character
 			if(s.charAt(0) == 'R') {
-				facing = right(facing);
+				facing = facing.right();
 			} else {
-				facing = left(facing);
+				facing = facing.left();
 			}
 			//iterate number of steps specified in input
 			for(int i = 0; i < Integer.parseInt(s.substring(1)); i++) {
 				position.sumSelf(facing);
 				//if position has already been seen, return distance of position
-				if(seenPositions.contains(position))
+				if(!seenPositions.add(position.copy()))
 					return Integer.toString(position.dist(new Coord(0,0)));
-				seenPositions.add(position.copy());
 			}
 		}
 		return null;

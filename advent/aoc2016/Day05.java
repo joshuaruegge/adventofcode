@@ -2,6 +2,7 @@ package advent.aoc2016;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -9,6 +10,9 @@ import advent.utilities.general.IDay;
 public class Day05 implements IDay {
 
 	String input = "uqwqemis";
+	
+	//enable for silly output
+	boolean coolscroll = false;
 	
 	@Override
 	public String part1() {
@@ -81,6 +85,8 @@ public class Day05 implements IDay {
 				}
 			}
 			counter++;
+			if(coolscroll && counter%100 == 0)
+				System.out.println(Arrays.toString(pass));
 		}
 		return new String(pass);
 	}

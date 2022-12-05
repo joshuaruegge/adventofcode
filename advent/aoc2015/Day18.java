@@ -128,7 +128,10 @@ public class Day18 implements IDay {
 			for(int x = 0; x < 100; x++) {
 				for(int y = 0; y < 100; y++) {
 					Coord c = new Coord(x,y);
-					int neighborCount = neighbors(c,lights);
+					int neighborCount = 0;
+					for(Coord d : c.allNeighbors())
+						if(lights.contains(d))
+							neighborCount++;
 					//if on, stays on with 2 or 3 neighbors
 					if(lights.contains(c)) {
 						if(neighborCount == 2 || neighborCount == 3) {
@@ -147,15 +150,6 @@ public class Day18 implements IDay {
 		return Integer.toString(lights.size());
 	}
 	
-	//examines 8 cardinal neighbors of coord c, counts how many are present in list
-	public int neighbors(Coord c, HashSet<Coord> a) {
-		int neighbors = 0;
-		for(Coord d : c.allNeighbors())
-			if(a.contains(d))
-				neighbors++;
-		return neighbors;
-	}
-
 	@Override
 	public String part2() {
 		//same code, but lock corners each loop
@@ -178,7 +172,10 @@ public class Day18 implements IDay {
 			for(int x = 0; x < 100; x++) {
 				for(int y = 0; y < 100; y++) {
 					Coord c = new Coord(x,y);
-					int neighborCount = neighbors(c,lights);
+					int neighborCount = 0;
+					for(Coord d : c.allNeighbors())
+						if(lights.contains(d))
+							neighborCount++;
 					if(lights.contains(c)) {
 						if(neighborCount == 2 || neighborCount == 3) {
 							newLights.add(c);

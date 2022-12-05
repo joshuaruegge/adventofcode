@@ -511,7 +511,6 @@ public class Day18 implements IDay {
 				
 				//handle parenthesis case
 				s = s.replaceAll("\\(([0-9]*)\\)", "$1");
-				continue loop;
 			}
 		}
 		return s;	

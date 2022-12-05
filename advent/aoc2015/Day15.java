@@ -49,7 +49,7 @@ public class Day15 implements IDay {
 			int dur = 0;
 			int fla = 0;
 			int tex = 0;
-			;
+			
 			//for each ingredient, increase total characteristics by (ingredient change) * (ingredient count)
 			for(int i = 0; i < 4; i++) {
 				cap += a[i] * ingredients.get(i)[0];

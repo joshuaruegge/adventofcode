@@ -7,6 +7,11 @@ public class Coord implements Comparable<Coord> {
 	public int x = 0;
 	public int y = 0;
 	
+	public static final Coord UP = new Coord(0,-1);
+	public static final Coord DOWN = new Coord(0,1);
+	public static final Coord LEFT = new Coord(-1,0);
+	public static final Coord RIGHT = new Coord(1,0);
+	
 	public Coord(int r, int c) {
 		x = r;
 		y = c;

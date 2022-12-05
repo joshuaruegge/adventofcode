@@ -2,6 +2,7 @@ package advent.aoc2015;
 
 import java.util.ArrayList;
 
+import advent.utilities.general.Coord3;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 
@@ -1010,27 +1011,20 @@ public class Day02 implements IDay {
 	
 	@Override
 	public String part1() {
-		//parse input into list of arraylists - each arraylist represents l,w,h of one present
-		ArrayList<ArrayList<Integer>> presents = new ArrayList<ArrayList<Integer>>();
+		//parse presents into improvised tuples using Coord3
+		ArrayList<Coord3> presents = new ArrayList<Coord3>();
 		for(String s : input.split("\r\n")) {
 			//split into individual dimensions adn parse
 			String[] parts = s.split("x");
-			ArrayList<Integer> present = new ArrayList<Integer>();
-			for(int i = 0; i < 3; i++)
-				present.add(Integer.parseInt(parts[i]));
-			presents.add(present);
+			presents.add(new Coord3(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),Integer.parseInt(parts[2])));
 		}
 		//wrapping total
 		int total = 0;
-		for(ArrayList<Integer> present : presents) {
-			//calculate side lengths
-			int l = present.get(0);
-			int w = present.get(1);
-			int h = present.get(2);
+		for(Coord3 present: presents) {
 			//calculate areas
-			int side1 = l*w;
-			int side2 = w*h;
-			int side3 = l*h;
+			int side1 = present.x * present.y;
+			int side2 = present.y * present.z;
+			int side3 = present.x * present.z;
 			//total surface area, plus slack
 			total += 2*side1 + 2*side2 + 2*side3 + Math.min(side1, Math.min(side2,side3));
 		}
@@ -1039,28 +1033,22 @@ public class Day02 implements IDay {
 
 	@Override
 	public String part2() {
-		//parse input into list of arraylists - each arraylist represents l,w,h of one present
-		ArrayList<ArrayList<Integer>> presents = new ArrayList<ArrayList<Integer>>();
+		//parse presents into improvised tuples using Coord3
+		ArrayList<Coord3> presents = new ArrayList<Coord3>();
 		for(String s : input.split("\r\n")) {
+			//split into individual dimensions adn parse
 			String[] parts = s.split("x");
-			ArrayList<Integer> present = new ArrayList<Integer>();
-			for(int i = 0; i < 3; i++)
-				present.add(Integer.parseInt(parts[i]));
-			presents.add(present);
+			presents.add(new Coord3(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),Integer.parseInt(parts[2])));
 		}
 		//ribbon total
 		int total = 0;
-		for(ArrayList<Integer> present : presents) {
-			//side lengths
-			int l = present.get(0);
-			int w = present.get(1);
-			int h = present.get(2);
+		for(Coord3 present : presents) {
 			//perimeters
-			int p1 = 2 * (l+w);
-			int p2 = 2 * (w+h);
-			int p3 = 2 * (l+h);
+			int p1 = 2 * (present.x + present.y);
+			int p2 = 2 * (present.y + present.z);
+			int p3 = 2 * (present.x + present.z);
 			//smallest perimeter, and cubic for bow
-			total += Math.min(p1, Math.min(p2, p3)) + l*w*h;
+			total += Math.min(p1, Math.min(p2, p3)) + present.x * present.y * present.z;
 		}
 		return Integer.toString(total);
 	}

@@ -1,7 +1,5 @@
 package advent.aoc2019;
 
-import java.util.Scanner;
-
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 
@@ -116,21 +114,19 @@ public class Day01 implements IDay {
 	@Override
 	public String part1() {
 		//simple - for each line of input, calculate fuel necessary and add it to the total
-		Scanner scan = new Scanner(input);
 		int total = 0;
-		while(scan.hasNextLine()) {
-			total += (Integer.parseInt(scan.nextLine()) / 3) - 2;
+		for(String s : input.split("\r\n")) {
+			total += (Integer.parseInt(s) / 3) - 2;
 		}
 		return Integer.toString(total);
 	}
 
 	@Override
 	public String part2() {
-		Scanner scan = new Scanner(input);
 		int total = 0;
-		while(scan.hasNextLine()) {
+		for(String s : input.split("\r\n")) {
 			//calculate starting fuel value
-			int fuel = (Integer.parseInt(scan.nextLine()) / 3) - 2;
+			int fuel = (Integer.parseInt(s) / 3) - 2;
 		
 			//until fuel drops below zero, add current value to total, then update fuel value
 			while(fuel > 0) {

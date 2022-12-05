@@ -268,18 +268,10 @@ public class Day02 implements IDay {
 			for(char c : s.toCharArray()) {
 				freq.put(c, freq.getOrDefault(c, 0) + 1);
 			}
-			for(int i : freq.values()) {
-				if(i == 2) {
-					twoCount++;
-					break;
-				}
-			}
-			for(int i : freq.values()) {
-				if(i == 3) {
-					threeCount++;
-					break;
-				}
-			}
+			if(freq.values().contains(2))
+				twoCount++;
+			if(freq.values().contains(3))
+				threeCount++;
 		}
 		return Integer.toString(twoCount * threeCount);
 	}

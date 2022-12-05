@@ -61,6 +61,8 @@ public class Day24 implements IDay {
 				if((combo & (1 << j))  != 0) {
 					weight += weights[j];
 				}
+				if(weight > targetWeight)
+					break;
 			}
 			if(weight == targetWeight) {
 				bestCombo = combo;
@@ -110,6 +112,8 @@ public class Day24 implements IDay {
 				if((combo & (1 << j))  != 0) {
 					weight += weights[j];
 				}
+				if(weight > targetWeight)
+					break;
 			}
 			if(weight == targetWeight) {
 				//calculate quantum, determine and log if best
@@ -117,6 +121,8 @@ public class Day24 implements IDay {
 				for(int i = 0; i < weights.length; i++) {
 					if((combo & (1 << i)) != 0)
 						quantum *= weights[i];
+					if(quantum > bestQuantum)
+						break;
 				}
 				if(quantum < bestQuantum) {
 					bestQuantum = quantum;

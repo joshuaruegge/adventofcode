@@ -4213,15 +4213,18 @@ public class Day16 implements IDay {
 			if(!possibleCodes.containsKey(realOpcode))
 				possibleCodes.put(realOpcode, potentialValids);
 			else {
+				/**
 				//combine existing values with this iteration
 				possibleCodes.put(realOpcode, combine(possibleCodes.get(realOpcode),potentialValids));
+				**/
+				possibleCodes.get(realOpcode).retainAll(potentialValids);
 			}
 		}
 		
 		HashMap<Integer,Integer> realOpcodes = new HashMap<Integer,Integer>();
 		//in our list, if a real opcode only matches one default opcode, that is the true opcode
 		//further, that opcode can be removed from other lists, potentially reducing them to only one, and on and on till all real opcodes are known
-		while(anyUnknown(possibleCodes)) {
+		while(possibleCodes.values().stream().filter(x -> x.size() > 0).count() > 0) {
 			for(int i : possibleCodes.keySet()) {
 				if(possibleCodes.get(i).size() == 1) {
 					//use stream to extract from hashset
@@ -4253,24 +4256,6 @@ public class Day16 implements IDay {
 		return Integer.toString(registers[0]);
 	}
 	
-	//determines if any integers in a are "unknown" (have a non-empty set)
-	public boolean anyUnknown(HashMap<Integer,HashSet<Integer>> a) {
-		for(HashSet<Integer> b : a.values())
-			if(b.size() > 0)
-				return true;
-		return false;
-	}
-	
-	//returns a new HashSet containing only values present in both a and b
-	//assumes a is of equal or greater size than b
-	public HashSet<Integer> combine(HashSet<Integer> a, HashSet<Integer> b) {
-		HashSet<Integer> ret = new HashSet<Integer>();
-		for(int i : a)
-			if(b.contains(i))
-				ret.add(i);
-		return ret;
-	}
-
 	public static void main(String[] args) {
 		DayRunner.run(new Day16());
 	}

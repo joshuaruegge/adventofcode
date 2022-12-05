@@ -89,7 +89,7 @@ public class Day22 implements IDay {
 			}
 		}
 		
-LinkedList<Integer> winner = (deck1.size() > 0 ? deck1 : deck2);
+		LinkedList<Integer> winner = (deck1.size() > 0 ? deck1 : deck2);
 		
 		int score = 0;
 		for(int i = 0; i < winner.size(); i++) {

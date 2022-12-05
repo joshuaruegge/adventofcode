@@ -1,6 +1,7 @@
 package advent.aoc2019;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.regex.Matcher;
@@ -24,23 +25,10 @@ public class Day17 implements IDay {
 		DayRunner.run(new Day17());
 	}
 
-	//rotates a coordinate left
-	public static Coord left(Coord c) {
-		return new Coord(c.y, -c.x);
-	}
-	
-	//rotates a coordinate right
-	public static Coord right(Coord c) {
-		return new Coord(-c.y,c.x);
-	}
-
 	@Override
 	public String part1() {
 		//initialize and run computer to get map output
-		ArrayList<Long> program = new ArrayList<Long>();
-		for(String s : input.split(",")) {
-			program.add(Long.parseLong(s));
-		}
+		ArrayList<Long> program = new ArrayList<Long>(Arrays.stream(input.split(",")).map(x -> Long.parseLong(x)).toList());
 		IntCodeComputer i = new IntCodeComputer(program);
 		i.run();
 		
@@ -70,13 +58,9 @@ public class Day17 implements IDay {
 		check:
 		for(Coord c : scaffold) {
 			//intersections have scaffolding on all 4 sides, so if a point does not have scaffolding at all 4 neighbors, we skip it
-			for(int xOff = -1; xOff < 2; xOff++) {
-				for(int yOff = -1; yOff < 2; yOff++) {
-					if(xOff == 0 ^ yOff == 0) {
-						if(!scaffold.contains(new Coord(c.x + xOff,c.y + yOff)))
-							continue check;
-					}
-				}
+			for(Coord d : c.directNeighbors()) {
+				if(!scaffold.contains(d))
+					continue check;
 			}
 			align += c.x * c.y;
 			intersect.add(c);			
@@ -105,18 +89,19 @@ public class Day17 implements IDay {
 			}
 			path += step + ",";
 			//figure out which direction the turn is
-			if(scaffold.contains(position.sum(left(facing)))) {
+			if(scaffold.contains(position.sum(facing.left()))) {
 				path += "L,";
-				facing = left(facing);
-			} else if(scaffold.contains(position.sum(right(facing)))) {
+				facing = facing.left();
+			} else if(scaffold.contains(position.sum(facing.right()))) {
 				path += "R,";
-				facing = right(facing);
+				facing = facing.right();
 			} else {
 				break;
 			}
 		}
 		
 		//I bargained my firstborn and a year off the life of every developer in the United States for this regex. Use it well.
+		//essentially, it iterates through all potential segments of length 1-20, and finds the three that can together make up the whole pattern
 		Pattern pattern = Pattern.compile("^(.{1,20})\\1*(.{1,20})(?:\\1|\\2)*(.{1,20})(?:\\1|\\2|\\3)*$");
 		Matcher match = pattern.matcher(path);
 		
@@ -137,10 +122,7 @@ public class Day17 implements IDay {
 		mainFunction = mainFunction.substring(0,mainFunction.length() - 1);
 		
 		//reinitialize bot
-		ArrayList<Long> program = new ArrayList<Long>();
-		for(String s : input.split(",")) {
-			program.add(Long.parseLong(s));
-		}
+		ArrayList<Long> program = new ArrayList<Long>(Arrays.stream(input.split(",")).map(x -> Long.parseLong(x)).toList());
 		//set to alternate mode
 		program.set(0, 2l);
 		IntCodeComputer i = new IntCodeComputer(program);

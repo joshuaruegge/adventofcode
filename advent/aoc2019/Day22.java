@@ -118,6 +118,21 @@ public class Day22 implements IDay {
 			+ "deal with increment 3\r\n"
 			+ "cut -1";
 	
+	@Override
+	public String part1() {
+		//because shuffle options work in a loop (shuffling a deck of length (count) (count-1) times will return the same deck),
+		//to find the position of a card after one shuffle, we can instead do (count-2) shuffles and check the
+		//number on the card at the position of the card we are looking for.
+		//this is similar to doing a "reverse" shuffle, then instead of looking for the number 2019, we look at the position 2019
+		return shuffle(new BigInteger("10007"),new BigInteger("10005"),new BigInteger("2019")).toString();
+	}
+
+	@Override
+	public String part2() {
+		//this one is a lot simpler - just shuffle the given deck, then find the card at position 2020
+		return shuffle(new BigInteger("119315717514047"), new BigInteger("101741582076661"), new BigInteger("2020")).toString();
+	}
+	
 	public static void main(String[] args) {
 		DayRunner.run(new Day22());
 	}
@@ -134,41 +149,20 @@ public class Day22 implements IDay {
 		for(String s : input.split("\r\n")) {
 			String[] words = s.split(" ");
 			if(words[0].equals("cut")) {
-				//o += (i * Long.parseLong(words[1]));
 				o = o.add(i.multiply(new BigInteger(words[1])));
 			}
 			if(words[1].equals("with")) {
-				//i *= modPow(Long.parseLong(words[3]), count - 2, count);
 				i = i.multiply(new BigInteger(words[3]).modPow(count.subtract(BigInteger.ONE.add(BigInteger.ONE)), count));
 			}
 			if(words[1].equals("into")) {
 				o = o.subtract(i);
-				//o -= i;
 				i = i.negate();
-				//i *= -1;
 			}
 			
 		}
-		//o *= modPow(1-i,count-2,count);
 		o = o.multiply(BigInteger.ONE.subtract(i).modPow(count.subtract(BigInteger.ONE.add(BigInteger.ONE)), count));
-		//i = modPow(i,shuffles,count)
 		i = i.modPow(shuffles, count);
-		//return ((position * i) + ((1-i) * o)) % count;
 		return position.multiply(i).add(BigInteger.ONE.subtract(i).multiply(o)).mod(count);	
 	}
 
-	@Override
-	public String part1() {
-		//because shuffle options work in a loop (shuffling a deck of length (count) (count-1) times will return the same deck),
-		//to find the position of a card after one shuffle, we can instead do (count-2) shuffles and check the
-		//number on the card at the position of the card we are looking for.
-		//this is similar to doing a "reverse" shuffle, then instead of looking for the number 2019, we look at the position 2019
-		return shuffle(new BigInteger("10007"),new BigInteger("10005"),new BigInteger("2019")).toString();
-	}
-
-	@Override
-	public String part2() {
-		//this one is a lot simpler - just shuffle the given deck, then find the card at position 2020
-		return shuffle(new BigInteger("119315717514047"), new BigInteger("101741582076661"), new BigInteger("2020")).toString();
-	}
 }

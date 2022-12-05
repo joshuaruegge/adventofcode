@@ -810,19 +810,19 @@ public class Day12 implements IDay {
 			switch(s.charAt(0)) {
 			case 'N':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					pos.sumSelf(new Coord(0,-1));
+					pos.sumSelf(Coord.UP);
 				break;
 			case 'S':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					pos.sumSelf(new Coord(0,1));
+					pos.sumSelf(Coord.DOWN);
 				break;
 			case 'E':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					pos.sumSelf(new Coord(1,0));
+					pos.sumSelf(Coord.RIGHT);
 				break;
 			case 'W':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					pos.sumSelf(new Coord(-1,0));
+					pos.sumSelf(Coord.LEFT);
 				break;
 			case 'F':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
@@ -851,19 +851,19 @@ public class Day12 implements IDay {
 			switch(s.charAt(0)) {
 			case 'N':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					waypoint.sumSelf(new Coord(0,-1));
+					waypoint.sumSelf(Coord.UP);
 				break;
 			case 'S':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					waypoint.sumSelf(new Coord(0,1));
+					waypoint.sumSelf(Coord.DOWN);
 				break;
 			case 'E':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					waypoint.sumSelf(new Coord(1,0));
+					waypoint.sumSelf(Coord.RIGHT);
 				break;
 			case 'W':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)
-					waypoint.sumSelf(new Coord(-1,0));
+					waypoint.sumSelf(Coord.LEFT);
 				break;
 			case 'F':
 				for(int i = 0; i < Integer.parseInt(s.substring(1)); i++)

@@ -92,14 +92,16 @@ public class Day22 implements IDay {
 		HashMap<Traversal,Traversal> parent = new HashMap<Traversal,Traversal>();
 		HashMap<Traversal,Integer> gScore = new HashMap<Traversal,Integer>();
 		HashMap<Traversal,Integer> fScore = new HashMap<Traversal,Integer>();
+		
 		PriorityQueue<Traversal> open = new PriorityQueue<Traversal>(new Comparator<Traversal>() {
 
 			@Override
 			public int compare(Traversal o1, Traversal o2) {
-				return Integer.compare(fScore.getOrDefault(o1,Integer.MAX_VALUE), fScore.getOrDefault(o2,Integer.MAX_VALUE));
+				return Integer.compare(fScore.getOrDefault(o1,0), fScore.getOrDefault(o2,0));
 			}
 		
 		});
+		
 		open.add(new Traversal(new Coord(0,0),2));
 		gScore.put(new Traversal(new Coord(0,0),2), 0);
 		fScore.put(new Traversal(new Coord(0,0),2), target.dist(new Coord(0,0)));
@@ -129,8 +131,7 @@ public class Day22 implements IDay {
 						parent.put(next,cur);
 						gScore.put(next, possGScore);
 						fScore.put(next, possGScore + c.dist(target));
-						if(!open.contains(next))
-							open.add(next);
+						open.add(next);
 					}
 				}
 			}

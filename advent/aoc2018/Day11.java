@@ -38,7 +38,7 @@ public class Day11 implements IDay {
 				}
 			}
 		}
-		return highest.toString();
+		return highest.x + "," + highest.y;
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Day11 implements IDay {
 				}
 			}
 		}
-		return highest.toString();
+		return highest.x + "," + highest.y + "," + highest.z;
 	}
 
 	public static void main(String[] args) {

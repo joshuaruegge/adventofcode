@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -33,26 +32,6 @@ public class Day10 implements IDay{
 			+ "#..#.####.######..###\r\n"
 			+ "..#.####.############\r\n"
 			+ "..##...###..#########";
-	static String input2 = ".#..##.###...#######\r\n"
-			+ "##.############..##.\r\n"
-			+ ".#.######.########.#\r\n"
-			+ ".###.#######.####.#.\r\n"
-			+ "#####.##.#.##.###.##\r\n"
-			+ "..#####..#.#########\r\n"
-			+ "####################\r\n"
-			+ "#.####....###.#.#.##\r\n"
-			+ "##.#################\r\n"
-			+ "#####.##.###..####..\r\n"
-			+ "..######..##.#######\r\n"
-			+ "####.##.####...##..#\r\n"
-			+ ".#####..#.######.###\r\n"
-			+ "##...#.##########...\r\n"
-			+ "#.##########.#######\r\n"
-			+ ".####.#.###.###.#.##\r\n"
-			+ "....##.##.###..#####\r\n"
-			+ ".#.#.###########.###\r\n"
-			+ "#.#.#.#####.####.###\r\n"
-			+ "###.##.####.##.#..##";
 	
 	static int maxX = 0;
 	static int maxY = 0;
@@ -61,90 +40,12 @@ public class Day10 implements IDay{
 	
 	static Coord bestCoord = new Coord();
 	
-	public static void main(String[] args) {
-		DayRunner.run(new Day10());
-	}
-	
-	//iterates through asteroid list to determine which ones are currently visible from origin
-	public static ArrayList<Coord> generateUnobstructed(ArrayList<Coord> asteroids,Coord origin) {
-		//if the list is sorted in angle order and then distance to origin order, then
-		//we can generate proper unobstructed list by adding tiles that do not match existing slopes within the list
-		//if a tile with said slope is already in the list, all others will be behind it and obscured from sight
-		ArrayList<Coord> unobstructeds = new ArrayList<Coord>();
-		outer:
-		for(Coord c : asteroids) {
-			for(Coord d : unobstructeds) {
-				if(slope(origin,c).equals(slope(origin,d))) {
-					continue outer;
-				}
-			}
-			unobstructeds.add(c);
-		}
-		return unobstructeds;
-	}
-	
-	//uses vector dot-product/cross-product calculation formula to determine a (slope) vector's angle
-	//relative to a vertical upwards vector. 
-	public static double clockwiseAngleAdjusted(Coord origin, Coord point) {
-		Coord upVector = new Coord(0,-1);
-		Coord slope = slope(origin,point);
-		
-		int dot = (upVector.x * slope.x) + (upVector.y * slope.y);
-		int cross = (upVector.x * slope.y) - (slope.x * upVector.y);
-		
-		double angle = Math.atan2(cross, dot)/Math.PI;
-		//adjust so we're always positive distance (0-2pi instead of -pi-pi)
-		if(Math.signum(angle) == -1)
-			angle += 2;
-		return angle;
-	}
-	
-	//returns the "slope" from the origin to the point
-	//including reducing the slope to its least divisible form using the GCF
-	public static Coord slope(Coord origin, Coord point) {
-		Coord slope = point.sum(new Coord(-origin.x, -origin.y));
-		int gcf = gcf(Math.abs(slope.x),Math.abs(slope.y));
-		if(gcf != 1) {
-			slope = new Coord(slope.x / gcf, slope.y / gcf);
-		}
-		return slope.copy();
-	}
-	
-	//determines if coordinate is within maximum map bounds
-	public static boolean inBounds(Coord c) {
-		return c.x > -1 && c.y > -1 && c.x <= maxX && c.y <= maxY;
-	}
-	
-	//basic greatest common factor of two inputs
-	public static int gcf(int a, int b) {
-		if(a == 0 || b == 0) {
-			return (a == 0 ? b : a);
-		}
-		ArrayList<Integer> aFactors = new ArrayList<Integer>();
-		for(int i = 1; i <= a; i++) {
-			if(a % i == 0)
-				aFactors.add(i);
-		}
-		ArrayList<Integer> bFactors = new ArrayList<Integer>();
-		for(int i = 1; i <= b; i++) {
-			if(b % i == 0)
-				bFactors.add(i);
-		}
-		ArrayList<Integer> cfs = new ArrayList<Integer>();
-		for(int i : (aFactors.size() > bFactors.size() ? bFactors : aFactors)) {
-			if((aFactors.size() > bFactors.size() ? aFactors : bFactors).contains(i))
-				cfs.add(i);
-		}
-		Collections.sort(cfs);
-		return cfs.get(cfs.size() - 1);
-	}
 
 	@Override
 	public String part1() {
-		Scanner scan = new Scanner(input);
 		int y = 0;
-		while(scan.hasNextLine()) {
-			String line = scan.nextLine();
+		
+		for(String line : input.split("\r\n")) {
 			for(int x = 0; x < line.length(); x++) {
 				if(line.charAt(x) == '#') {
 					asteroidPositions.add(new Coord(x,y));
@@ -262,4 +163,83 @@ public class Day10 implements IDay{
 		Coord twoHundred = destroyeds.get(199);
 		return Integer.toString(twoHundred.x * 100 + twoHundred.y);
 	}
+	
+	public static void main(String[] args) {
+		DayRunner.run(new Day10());
+	}
+	
+	//iterates through asteroid list to determine which ones are currently visible from origin
+	public static ArrayList<Coord> generateUnobstructed(ArrayList<Coord> asteroids,Coord origin) {
+		//if the list is sorted in angle order and then distance to origin order, then
+		//we can generate proper unobstructed list by adding tiles that do not match existing slopes within the list
+		//if a tile with said slope is already in the list, all others will be behind it and obscured from sight
+		ArrayList<Coord> unobstructeds = new ArrayList<Coord>();
+		outer:
+		for(Coord c : asteroids) {
+			for(Coord d : unobstructeds) {
+				if(slope(origin,c).equals(slope(origin,d))) {
+					continue outer;
+				}
+			}
+			unobstructeds.add(c);
+		}
+		return unobstructeds;
+	}
+	
+	//uses vector dot-product/cross-product calculation formula to determine a (slope) vector's angle
+	//relative to a vertical upwards vector. 
+	public static double clockwiseAngleAdjusted(Coord origin, Coord point) {
+		Coord upVector = new Coord(0,-1);
+		Coord slope = slope(origin,point);
+		
+		int dot = (upVector.x * slope.x) + (upVector.y * slope.y);
+		int cross = (upVector.x * slope.y) - (slope.x * upVector.y);
+		
+		double angle = Math.atan2(cross, dot)/Math.PI;
+		//adjust so we're always positive distance (0-2pi instead of -pi-pi)
+		if(Math.signum(angle) == -1)
+			angle += 2;
+		return angle;
+	}
+	
+	//returns the "slope" from the origin to the point
+	//including reducing the slope to its least divisible form using the GCF
+	public static Coord slope(Coord origin, Coord point) {
+		Coord slope = point.sum(new Coord(-origin.x, -origin.y));
+		int gcf = gcf(Math.abs(slope.x),Math.abs(slope.y));
+		if(gcf != 1) {
+			slope = new Coord(slope.x / gcf, slope.y / gcf);
+		}
+		return slope.copy();
+	}
+	
+	//determines if coordinate is within maximum map bounds
+	public static boolean inBounds(Coord c) {
+		return c.x > -1 && c.y > -1 && c.x <= maxX && c.y <= maxY;
+	}
+	
+	//basic greatest common factor of two inputs
+	public static int gcf(int a, int b) {
+		if(a == 0 || b == 0) {
+			return (a == 0 ? b : a);
+		}
+		ArrayList<Integer> aFactors = new ArrayList<Integer>();
+		for(int i = 1; i <= a; i++) {
+			if(a % i == 0)
+				aFactors.add(i);
+		}
+		ArrayList<Integer> bFactors = new ArrayList<Integer>();
+		for(int i = 1; i <= b; i++) {
+			if(b % i == 0)
+				bFactors.add(i);
+		}
+		ArrayList<Integer> cfs = new ArrayList<Integer>();
+		for(int i : (aFactors.size() > bFactors.size() ? bFactors : aFactors)) {
+			if((aFactors.size() > bFactors.size() ? aFactors : bFactors).contains(i))
+				cfs.add(i);
+		}
+		Collections.sort(cfs);
+		return cfs.get(cfs.size() - 1);
+	}
+
 }

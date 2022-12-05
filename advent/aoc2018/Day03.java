@@ -1325,7 +1325,7 @@ public class Day03 implements IDay {
 		}
 		return Integer.toString(overlaps.size());
 	}
-
+	
 	@Override
 	public String part2() {
 		HashSet<Coord> claims = new HashSet<Coord>();

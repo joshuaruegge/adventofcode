@@ -2,6 +2,7 @@ package advent.aoc2018;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import advent.utilities.general.Coord4;
 import advent.utilities.general.DayRunner;
@@ -1261,9 +1262,7 @@ public class Day25 implements IDay {
 	@Override
 	public String part1() {
 		String[] lines = input.split("\r\n");
-		int[] parents = new int[lines.length];
-		for(int i = 0; i < parents.length; i++)
-			parents[i] = i;
+		int[] parents = IntStream.range(0, lines.length).toArray();
 		
 		HashMap<Coord4,Integer> id = new HashMap<Coord4,Integer>();
 		for(int i = 0; i < lines.length; i++) {

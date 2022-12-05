@@ -2,7 +2,6 @@ package advent.aoc2019;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -71,57 +70,14 @@ public class Day14 implements IDay {
 			+ "1 NVZWL, 1 KMNJF => 8 WLCFR\r\n"
 			+ "153 ORE => 4 MLJK\r\n"
 			+ "1 BWXGC => 6 NQZTV";
-	static String input2 = "171 ORE => 8 CNZTR\r\n"
-			+ "7 ZLQW, 3 BMBT, 9 XCVML, 26 XMNCP, 1 WPTQ, 2 MZWV, 1 RJRHP => 4 PLWSL\r\n"
-			+ "114 ORE => 4 BHXH\r\n"
-			+ "14 VRPVC => 6 BMBT\r\n"
-			+ "6 BHXH, 18 KTJDG, 12 WPTQ, 7 PLWSL, 31 FHTLT, 37 ZDVW => 1 FUEL\r\n"
-			+ "6 WPTQ, 2 BMBT, 8 ZLQW, 18 KTJDG, 1 XMNCP, 6 MZWV, 1 RJRHP => 6 FHTLT\r\n"
-			+ "15 XDBXC, 2 LTCX, 1 VRPVC => 6 ZLQW\r\n"
-			+ "13 WPTQ, 10 LTCX, 3 RJRHP, 14 XMNCP, 2 MZWV, 1 ZLQW => 1 ZDVW\r\n"
-			+ "5 BMBT => 4 WPTQ\r\n"
-			+ "189 ORE => 9 KTJDG\r\n"
-			+ "1 MZWV, 17 XDBXC, 3 XCVML => 2 XMNCP\r\n"
-			+ "12 VRPVC, 27 CNZTR => 2 XDBXC\r\n"
-			+ "15 KTJDG, 12 BHXH => 5 XCVML\r\n"
-			+ "3 BHXH, 2 VRPVC => 7 MZWV\r\n"
-			+ "121 ORE => 7 VRPVC\r\n"
-			+ "7 XCVML => 6 RJRHP\r\n"
-			+ "5 BHXH, 4 VRPVC => 5 LTCX";
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day14());
-	}
-	
-	
-	//locates order with name s in list a
-	public static Order findOrder(ArrayList<Order> a, String s) {
-		for(Order o : a) {
-			if(o.name.equals(s))
-				return o;
-		}
-		return null;
-	}
-	
-	//locates recipe with product s in list a
-	public static Recipe find(ArrayList<Recipe> a, String s) {
-		for(Recipe r : a) {
-			if(r.product.name.equals(s))
-				return r;
-		}
-		return null;
-	}
-
-
 
 	@Override
 	public String part1() {
-		Scanner scan = new Scanner(input);
 		//a Recipe consists of an Order for the result, and an ArrayList<Order> of ingredients
 		//an Order object is essentially a pair of a name string and an int quantity
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		while(scan.hasNextLine()) {
-			String[] lineParts = scan.nextLine().split(" => ");
+		for(String s : input.split("\r\n")) {
+			String[] lineParts = s.split(" => ");
 			//make result of recipe
 			String[] resultParts = lineParts[1].split(" ");
 			Order result = new Order(resultParts[1],Integer.parseInt(resultParts[0]));
@@ -185,16 +141,13 @@ public class Day14 implements IDay {
 		return Integer.toString(oreCost);
 	}
 
-
-
 	@Override
 	public String part2() {
-		Scanner scan = new Scanner(input);
 		//a Recipe consists of an Order for the result, and an ArrayList<Order> of ingredients
 		//an Order object is essentially a pair of a name string and an int quantity
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		while(scan.hasNextLine()) {
-			String[] lineParts = scan.nextLine().split(" => ");
+		for(String s : input.split("\r\n")) {
+			String[] lineParts = s.split(" => ");
 			//make result of recipe
 			String[] resultParts = lineParts[1].split(" ");
 			Order result = new Order(resultParts[1],Integer.parseInt(resultParts[0]));
@@ -295,5 +248,26 @@ public class Day14 implements IDay {
 		return Integer.toString(fuelProduced);
 		
 	}
-
+	
+	public static void main(String[] args) {
+		DayRunner.run(new Day14());
+	}
+	
+	//locates order with name s in list a
+	public static Order findOrder(ArrayList<Order> a, String s) {
+		for(Order o : a) {
+			if(o.name.equals(s))
+				return o;
+		}
+		return null;
+	}
+	
+	//locates recipe with product s in list a
+	public static Recipe find(ArrayList<Recipe> a, String s) {
+		for(Recipe r : a) {
+			if(r.product.name.equals(s))
+				return r;
+		}
+		return null;
+	}
 }

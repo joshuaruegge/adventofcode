@@ -977,8 +977,6 @@ public class Day05 implements IDay {
 			+ "BFBBBFBRLR\r\n"
 			+ "BFFFBFFLLL";
 	
-	
-	
 	@Override
 	public String part1() {
 		int highestSeatID = 0;

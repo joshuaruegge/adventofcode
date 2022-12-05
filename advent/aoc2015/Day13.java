@@ -3,6 +3,7 @@ package advent.aoc2015;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -90,9 +91,7 @@ public class Day13 implements IDay {
 		}
 		//similarly to day 9, use permutation of all possible arrangements, and calculate 
 		//values for happiness that result from neighbors in each arrangement
-		int[] permBase = new int[names.size()];
-		for(int i = 0; i < permBase.length; i++)
-			permBase[i] = i;
+		int[] permBase = IntStream.range(0, names.size()).toArray();
 		ArrayList<int[]> perms = perms(permBase,permBase.length);
 		//keep track of score of best discovered arrangement
 		int best = 0;
@@ -164,9 +163,7 @@ public class Day13 implements IDay {
 		//values for happiness that result from neighbors in each arrangement
 		
 		//for part 2: we add one extra number to the permutations (for ourself)
-		int[] permBase = new int[names.size()+1];
-		for(int i = 0; i < permBase.length; i++)
-			permBase[i] = i;
+		int[] permBase = IntStream.range(0, names.size() + 1).toArray();
 		//now, create all neighbor relations for extra person (all equal to zero per instructions)
 		for(int i = 0; i < permBase.length - 1; i++) {
 			Coord c = new Coord(permBase.length - 1, i);

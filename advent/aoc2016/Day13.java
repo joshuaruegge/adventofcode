@@ -1,12 +1,13 @@
 package advent.aoc2016;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Comparator;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
-import advent.utilities.general.PathNode;
 
 public class Day13 implements IDay {
 
@@ -37,28 +38,38 @@ public class Day13 implements IDay {
 		return Integer.toString(pathfind(new Coord(1,1),DEST));
 	}
 
-	public int pathfind(Coord start, Coord end) {
-		ArrayList<PathNode> open = new ArrayList<PathNode>();
-		HashSet<PathNode> closed = new HashSet<PathNode>();
-		open.add(new PathNode(start,0,0));
-		while(open.size() > 0) {
-			PathNode cur = open.remove(0);
-			Coord curPos = cur.pos;
-			if(curPos.equals(end)) {
-				return cur.gcost;
+	public int pathfind (Coord start, Coord end) {
+		
+		HashMap<Coord,Integer> gScore = new HashMap<Coord,Integer>();
+		PriorityQueue<Coord> queue = new PriorityQueue<Coord>( new Comparator<Coord>() {
+
+			@Override
+			public int compare(Coord o1, Coord o2) {
+				return Integer.compare(gScore.getOrDefault(o1,0) + o1.dist(end), gScore.getOrDefault(o2,0) + o2.dist(end));
 			}
 			
-			for(Coord c : curPos.directNeighbors()) {
-				if(path.contains(c)) {
-					PathNode newNode = new PathNode(c,cur.gcost + 1, 0);
-					if(!closed.contains(newNode) && !open.contains(newNode))
-						open.add(newNode);
+		});
+		gScore.put(start, 0);
+		queue.add(start);
+		while(queue.size() != 0) {
+			Coord cur = queue.remove();
+			if(cur.equals(end)) {
+				return gScore.get(cur);
+			}
+			
+			for(Coord c : cur.directNeighbors()) {
+				if(!path.contains(c))
+					continue;
+				int tentativeG = gScore.get(cur) + 1;
+				if(tentativeG < gScore.getOrDefault(c, Integer.MAX_VALUE)) {
+					gScore.put(c, tentativeG);
+					queue.add(c);
 				}
 			}
-			closed.add(cur);
 		}
 		return -1;
 	}
+	
 	@Override
 	public String part2() {
 		//clear paths

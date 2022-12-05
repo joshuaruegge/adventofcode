@@ -1,6 +1,7 @@
 package advent.aoc2018;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -15,10 +16,7 @@ public class Day08 implements IDay {
 	@Override
 	public String part1() {
 		pointer = 0;
-		numbers = new ArrayList<Integer>();
-		for(String s : input.split(" ")) {
-			numbers.add(Integer.parseInt(s));
-		}
+		numbers = new ArrayList<Integer>(Arrays.stream(input.split(" ")).map(x -> Integer.parseInt(x)).toList());
 		return Integer.toString(metadataTotal());
 	}
 	
@@ -43,10 +41,7 @@ public class Day08 implements IDay {
 	@Override
 	public String part2() {
 		pointer = 0;
-		numbers = new ArrayList<Integer>();
-		for(String s : input.split(" ")) {
-			numbers.add(Integer.parseInt(s));
-		}
+		numbers = new ArrayList<Integer>(Arrays.stream(input.split(" ")).map(x -> Integer.parseInt(x)).toList());
 		return Integer.toString(valuesTotal());
 	}
 	

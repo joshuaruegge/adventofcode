@@ -8,9 +8,6 @@ public class Day13 implements IDay {
 	String input = "1002392\r\n"
 			+ "23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,37,x,x,x,x,x,421,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,17,x,19,x,x,x,x,x,x,x,x,x,29,x,487,x,x,x,x,x,x,x,x,x,x,x,x,13";
 	
-	String input2 = "939\r\n"
-			+ "7,13,x,x,59,x,31,19";
-	
 	@Override
 	public String part1() {
 		String[] chunks = input.split("\r\n");
@@ -45,7 +42,7 @@ public class Day13 implements IDay {
 		
 		//chinese remainder theorem 
 		
-		//total moduli - product of all moduli in or intervals
+		//total moduli - product of all moduli in intervals
 		long mod = 1;
 		for(int i : intervals)
 			if(i != -1)

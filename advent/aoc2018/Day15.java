@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -206,14 +206,7 @@ public class Day15 implements IDay {
 		HashMap<Coord,Coord> parent = new HashMap<Coord,Coord>();
 		HashMap<Coord,Integer> gCost = new HashMap<Coord,Integer>();
 		gCost.put(start, 0);
-		HashMap<Coord,Integer> fCost = new HashMap<Coord,Integer>();
-		fCost.put(start, start.dist(end));
-		PriorityQueue<Coord> open = new PriorityQueue<Coord>(new Comparator<Coord>() {
-			@Override
-			public int compare(Coord o1, Coord o2) {
-				return Integer.compare(fCost.getOrDefault(o1, Integer.MAX_VALUE), fCost.getOrDefault(o2, Integer.MAX_VALUE));
-			}
-		});
+		LinkedList<Coord> open = new LinkedList<Coord>();
 		open.add(start);
 		while(open.size() > 0) {
 			Coord cur = open.poll();
@@ -233,9 +226,7 @@ public class Day15 implements IDay {
 				if(possG < gCost.getOrDefault(c, Integer.MAX_VALUE)) {
 					parent.put(c, cur);
 					gCost.put(c,possG);
-					fCost.put(c, possG + c.dist(end));
-					if(!open.contains(c))
-						open.add(c);
+					open.add(c);
 				}
 			}
 		}

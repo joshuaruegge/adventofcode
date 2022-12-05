@@ -18,7 +18,6 @@ public class Day23 implements IDay {
 		int cur = 0;
 		int oldCurCup = 0;
 		for(int iter = 0; iter < 100; iter++) {
-			System.out.println(cups);
 			int cupAtCur = cups.get(cur);
 			oldCurCup = cupAtCur;
 			cupAtCur--;

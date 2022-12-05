@@ -68,6 +68,7 @@ public class Day14 implements IDay {
 	//determines if the integer sequence in search appears in sequence, ending at either size-1 or size-2
 	//because our problem adds one or two indexes to the array at a time, our sequence will always either be at the end or at the end minus one
 	//returns 0 if it appears at the end, 1 if it appears at end - 1, and -1 if it appears in neither
+	//this saves way more time compared to .contains() ing over the entire array
 	public int contains(ArrayList<Integer> sequence, ArrayList<Integer> search) {
 		if(sequence.size() <= search.size())
 			return -1;

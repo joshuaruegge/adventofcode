@@ -78,7 +78,7 @@ public class Day12 implements IDay {
 				
 				//if any parts contain red as object value, skip forwards past entire object
 				for(String s : parts) {
-					if(s.matches(".*:\"red\",*")) {
+					if(s.matches(".*:\"red\"*")) {
 						i += object.length();
 						break;
 					}

@@ -371,7 +371,7 @@ public class Day16 implements IDay {
 		//at this point, this is like the opcode matching from 2018 - given our potential lists, we determine the real identity of each
 		//realIndex maps (index in rules) -> (index in ticket)
 		HashMap<Integer,Integer> realIndex = new HashMap<Integer,Integer>();
-		while(nonEmpty(ticketIndices)) {
+		while(ticketIndices.stream().filter(x -> x.size() != 0).count() > 0) {
 			for(int index = 0; index < ticketIndices.size(); index++) {
 				HashSet<Integer> possibilities = ticketIndices.get(index);
 				if(possibilities.size() == 1) {
@@ -399,14 +399,6 @@ public class Day16 implements IDay {
 		return Long.toString(total);
 	}
 	
-	//determines whether any hashset in the list is not empty
-	public boolean nonEmpty(ArrayList<HashSet<Integer>> a) {
-		for(HashSet<Integer> b : a)
-			if(!b.isEmpty())
-				return true;
-		return false;
-	}
-
 	public static void main(String[] args) {
 		DayRunner.run(new Day16());
 	}

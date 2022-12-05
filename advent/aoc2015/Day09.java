@@ -3,6 +3,7 @@ package advent.aoc2015;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -66,10 +67,7 @@ public class Day09 implements IDay {
 		}
 		//trying every permutation is quite possibly the worst traveling salesperson solution
 		//but, with only 8 cities, it's realtime-manageable despite being computationally awful
-		int[] permBase = new int[cities.size()];
-		for(int i = 0; i < permBase.length; i++) {
-			permBase[i] = i;
-		}
+		int[] permBase = IntStream.range(0, cities.size()).toArray();
 		//calculate all order permutations of (0 - cities.size() - 1)
 		ArrayList<int[]> perms = perms(permBase,permBase.length);
 		int best = Integer.MAX_VALUE;
@@ -138,10 +136,7 @@ public class Day09 implements IDay {
 		}
 		//with a single digit city count, trying all permutations is computationally superexponential
 		//but still realtime manageable
-		int[] permBase = new int[cities.size()];
-		for(int i = 0; i < permBase.length; i++) {
-			permBase[i] = i;
-		}
+		int[] permBase = IntStream.range(0, cities.size()).toArray();
 		ArrayList<int[]> perms = perms(permBase,permBase.length);
 		int best = 0;
 		for(int[] a : perms) {

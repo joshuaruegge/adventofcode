@@ -1,6 +1,7 @@
 package advent.aoc2019;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -17,9 +18,7 @@ public class Day02 implements IDay{
 	@Override
 	public String part1() {
 		//split string into number array, initialize computer object, change registers, and execute
-		ArrayList<Long> program = new ArrayList<Long>();
-		for(String s : input.split(","))
-			program.add(Long.parseLong(s));
+		ArrayList<Long> program = new ArrayList<Long>(Arrays.stream(input.split(",")).map(x -> Long.parseLong(x)).toList());
 		program.set(1, 12l);
 		program.set(2, 2l);
 		IntCodeComputer i = new IntCodeComputer(program);
@@ -29,9 +28,7 @@ public class Day02 implements IDay{
 
 	@Override
 	public String part2() {
-		ArrayList<Long> program = new ArrayList<Long>();
-		for(String s : input.split(","))
-			program.add(Long.parseLong(s));
+		ArrayList<Long> program = new ArrayList<Long>(Arrays.stream(input.split(",")).map(x -> Long.parseLong(x)).toList());
 		//same as above, but try out input values until condition is met
 		for(int i = 0; i < 99; i++) {
 			for(int j = 0; j < 99; j++) {

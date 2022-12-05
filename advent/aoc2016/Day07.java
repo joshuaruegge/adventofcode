@@ -2066,9 +2066,8 @@ public class Day07 implements IDay {
 			//now, go over odds and search for valid babs
 			boolean bab = false;
 			for(int i = 1; i < parts.length; i+=2) {
-				String t = parts[i];
-				for(int j = 0; j < t.length() - 2; j++) {
-					if(babs.contains(t.substring(j,j+3))) {
+				for(String curbab : babs) {
+					if(parts[i].contains(curbab)) {
 						bab = true;
 						break;
 					}

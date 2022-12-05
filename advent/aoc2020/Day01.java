@@ -215,10 +215,10 @@ public class Day01 implements IDay {
 		HashSet<Integer> numRequired = new HashSet<Integer>();
 		for(String s : input.split("\r\n")) {
 			int num = Integer.parseInt(s);
-			if(numRequired.contains(num)) {
+			if(numRequired.contains(2020-num)) {
 				return Integer.toString(num * (2020 - num));
 			}
-			numRequired.add(2020 - num);
+			numRequired.add(num);
 		}
 		return null;
 	}

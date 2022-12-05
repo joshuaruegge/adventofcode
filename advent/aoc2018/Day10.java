@@ -1,7 +1,6 @@
 package advent.aoc2018;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
@@ -337,10 +336,9 @@ public class Day10 implements IDay {
 			+ "position=<-20977,  31919> velocity=< 2, -3>\r\n"
 			+ "position=<-31594, -20969> velocity=< 3,  2>";
 	
-	@Override
 	public String part1() {
-		//points as (position, velocity) arraylist
-		ArrayList<ArrayList<Coord>> points = new ArrayList<ArrayList<Coord>>();
+		ArrayList<Coord> pos = new ArrayList<Coord>();
+		ArrayList<Coord> vel = new ArrayList<Coord>();
 		for(String s : input.split("\r\n")) {
 			String[] parts = s.split("> ");
 			String[] posParts = parts[0].split(", ");
@@ -349,34 +347,25 @@ public class Day10 implements IDay {
 			String[] velParts = parts[1].split(", ");
 			int velX = Integer.parseInt(velParts[0].substring(velParts[0].indexOf("<") + 1).trim());
 			int velY = Integer.parseInt(velParts[1].substring(0,velParts[1].length() - 1).trim());
-			ArrayList<Coord> point = new ArrayList<Coord>();
-			point.add(new Coord(posX,posY));
-			point.add(new Coord(velX,velY));
-			points.add(point);
+			pos.add(new Coord(posX,posY));
+			vel.add(new Coord(velX,velY));
 		}
 		do {
-			for(ArrayList<Coord> point : points)
-				point.get(0).sumSelf(point.get(1));
-		} while(!allAdjacent(points));
-		//convert into readable output
-		int minX = Integer.MAX_VALUE;
-		int maxX = 0;
-		int minY = Integer.MAX_VALUE;
-		int maxY = 0;
-		HashSet<Coord> positions = new HashSet<Coord>();
-		for(ArrayList<Coord> point : points) {
-			Coord pos = point.get(0);
-			positions.add(pos);
-			minX = Math.min(pos.x, minX);
-			maxX = Math.max(pos.x, maxX);
-			minY = Math.min(pos.y, minY);
-			maxY = Math.max(pos.y, maxY);
-		}
-	
+			for(int i = 0; i < pos.size(); i++) {
+				pos.get(i).sumSelf(vel.get(i));
+			}
+		} while (!allAdjacent(pos));
+		
+
+		int minX = pos.stream().map(x -> x.x).min(Integer::compare).get();
+		int maxX = pos.stream().map(x -> x.x).max(Integer::compare).get();
+		int minY = pos.stream().map(x -> x.y).min(Integer::compare).get();
+		int maxY = pos.stream().map(x -> x.y).max(Integer::compare).get();
+		
 		StringBuilder out = new StringBuilder("\n");
 		for(int y = minY; y <= maxY; y++) {
 			for(int x = minX; x <= maxX; x++) {
-				if(positions.contains(new Coord(x,y))) {
+				if(pos.contains(new Coord(x,y))) {
 					out.append('#');
 				} else {
 					out.append('.');
@@ -385,18 +374,16 @@ public class Day10 implements IDay {
 			out.append('\n');
 		}
 		return out.toString();
+		
 	}
 	
 	//presumably, our valid "state" where the letters show up is one where all points are adjacent to at least one other point
-	public boolean allAdjacent(ArrayList<ArrayList<Coord>> points) {
-		HashSet<Coord> positions = new HashSet<Coord>();
-		for(ArrayList<Coord> p : points)
-			positions.add(p.get(0));
-		//now, iterate over positions - if at least one neighboring point is in positions, point is valid
+	public boolean allAdjacent(ArrayList<Coord> a) {
+		//iterate over positions - if at least one neighboring point is in positions, point is valid
 		pointLoop:
-		for(Coord c : positions) {
+		for(Coord c : a) {
 			for(Coord d : c.allNeighbors()) {
-				if(positions.contains(d))
+				if(a.contains(d))
 					continue pointLoop;
 			}
 			//if we made it here, no neighbors are in positions - state is invalid
@@ -407,8 +394,8 @@ public class Day10 implements IDay {
 
 	@Override
 	public String part2() {
-		//points as (position, velocity) arraylist
-		ArrayList<ArrayList<Coord>> points = new ArrayList<ArrayList<Coord>>();
+		ArrayList<Coord> pos = new ArrayList<Coord>();
+		ArrayList<Coord> vel = new ArrayList<Coord>();
 		for(String s : input.split("\r\n")) {
 			String[] parts = s.split("> ");
 			String[] posParts = parts[0].split(", ");
@@ -417,17 +404,17 @@ public class Day10 implements IDay {
 			String[] velParts = parts[1].split(", ");
 			int velX = Integer.parseInt(velParts[0].substring(velParts[0].indexOf("<") + 1).trim());
 			int velY = Integer.parseInt(velParts[1].substring(0,velParts[1].length() - 1).trim());
-			ArrayList<Coord> point = new ArrayList<Coord>();
-			point.add(new Coord(posX,posY));
-			point.add(new Coord(velX,velY));
-			points.add(point);
+			pos.add(new Coord(posX,posY));
+			vel.add(new Coord(velX,velY));
 		}
 		int counter = 0;
 		do {
-			for(ArrayList<Coord> point : points)
-				point.get(0).sumSelf(point.get(1));
+			for(int i = 0; i < pos.size(); i++) {
+				pos.get(i).sumSelf(vel.get(i));
+			}
 			counter++;
-		} while(!allAdjacent(points));
+		} while (!allAdjacent(pos));
+		
 		return Integer.toString(counter);
 	}
 

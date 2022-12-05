@@ -151,7 +151,7 @@ public class Day14 implements IDay {
 	}
 	
 	//you wouldn't BELIEVE how difficult fast and accurate byte[] to hex conversion can be
-	//BigInteger doesnt work, String.format doesnt work, but bitshift tomfoolery does
+	//BigInteger doesnt work, String.format doesnt work, but manual bitshift does
 	public String hex(byte[] b) {
 		final char[] hexArray = "0123456789abcdef".toCharArray();
 		char[] hexChars = new char[b.length * 2];

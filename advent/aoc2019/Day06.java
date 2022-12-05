@@ -2,7 +2,6 @@ package advent.aoc2019;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -2314,24 +2313,45 @@ public class Day06 implements IDay {
 			+ "RDG)VGN\r\n"
 			+ "F1D)5X5\r\n"
 			+ "3CT)6CH";
-	static String input2 = "COM)B\r\n"
-			+ "B)C\r\n"
-			+ "C)D\r\n"
-			+ "D)E\r\n"
-			+ "E)F\r\n"
-			+ "B)G\r\n"
-			+ "G)H\r\n"
-			+ "D)I\r\n"
-			+ "E)J\r\n"
-			+ "J)K\r\n"
-			+ "K)L\r\n"
-			+ "K)YOU\r\n"
-			+ "I)SAN";
 	
 	static HashMap<String,String> pairs = new HashMap<String,String>();
 	
-	public static void main(String[] args) {
-		DayRunner.run(new Day06());
+
+	@Override
+	public String part1() {
+		for(String s : input.split("\r\n")) {
+			String[] parts = s.split("\\)");
+			pairs.put(parts[1], parts[0]);	
+		}
+		//essentially just totaling tree depths, but using pathfinding method because tree structure was annoying
+		int dist = 0;
+		for(String key : pairs.keySet()) {
+			dist += pathTo(key,"COM",new ArrayList<String>()).size();
+		}
+		return Integer.toString(dist);
+	}
+
+	@Override
+	public String part2() {
+		pairs.clear();
+		for(String s : input.split("\r\n")) {
+			String[] parts = s.split("\\)");
+			pairs.put(parts[1], parts[0]);	
+		}
+		
+		int minTransfers = Integer.MAX_VALUE;
+		//pathfind from our two locations to every location in the tree, finding the shortest connector
+		for(String key : pairs.keySet()) {
+			ArrayList<String> youPath = pathTo("YOU",key,new ArrayList<String>());
+			ArrayList<String> sanPath = pathTo("SAN",key,new ArrayList<String>());
+			if(youPath != null && sanPath != null) {
+				//take off one to account for the starting nodes and the connection present in both
+				if(youPath.size() - 1 + sanPath.size() - 1 < minTransfers) {
+					minTransfers = youPath.size() - 1 + sanPath.size() - 1;
+				}
+			}
+		}
+		return Integer.toString(minTransfers);
 	}
 	
 	//pathfinding method - recursively work our way through pairs/down the tree until dead end or destination reached
@@ -2349,35 +2369,7 @@ public class Day06 implements IDay {
 		}
 	}
 	
-	@Override
-	public String part1() {
-		Scanner scan = new Scanner(input);
-		while(scan.hasNextLine()) {
-			String[] parts = scan.nextLine().split("\\)");
-			pairs.put(parts[1], parts[0]);	
-		}
-		//essentially just totaling tree depths, but using pathfinding method because tree structure was annoying
-		int dist = 0;
-		for(String key : pairs.keySet()) {
-			dist += pathTo(key,"COM",new ArrayList<String>()).size();
-		}
-		return Integer.toString(dist);
-	}
-
-	@Override
-	public String part2() {
-		int minTransfers = Integer.MAX_VALUE;
-		//pathfind from our two locations to every location in the tree, finding the shortest connector
-		for(String key : pairs.keySet()) {
-			ArrayList<String> youPath = pathTo("YOU",key,new ArrayList<String>());
-			ArrayList<String> sanPath = pathTo("SAN",key,new ArrayList<String>());
-			if(youPath != null && sanPath != null) {
-				//take off one to account for the starting nodes and the connection present in both
-				if(youPath.size() - 1 + sanPath.size() - 1 < minTransfers) {
-					minTransfers = youPath.size() - 1 + sanPath.size() - 1;
-				}
-			}
-		}
-		return Integer.toString(minTransfers);
+	public static void main(String[] args) {
+		DayRunner.run(new Day06());
 	}
 }

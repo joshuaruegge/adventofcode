@@ -49,10 +49,6 @@ public class Day25 implements IDay {
 			+ "south\r\n"
 			+ "south\r\n"
 			+ "test";
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day25());
-	}
 
 	@Override
 	public String part1() {
@@ -64,7 +60,7 @@ public class Day25 implements IDay {
 		IntCodeComputer bot = new IntCodeComputer(program);
 		bot.run();
 		
-		//in case you want to have fun exploring day 25 manually
+		//in case you want to have fun exploring day 25 manually, or have to build your item command list
 		boolean manual = false;
 		String totalInput = "";
 		if(manual) {
@@ -105,9 +101,7 @@ public class Day25 implements IDay {
 				bot.input(10);
 				bot.run();
 			}
-			
-			
-			
+			in.close();
 		} else {
 			//replace itemPickup with the set of code that will pick up all your valid items and move to security door
 			//this can be found by picking up all items and moving to security door manually, then entering "print".
@@ -115,9 +109,7 @@ public class Day25 implements IDay {
 			//or, alternatively, copy-paste the section after "weight testing segment" below the while loop above, 
 			//then manually pick up all items, move to the security room,
 			//and enter "test"
-			Scanner lines = new Scanner(itemPickup);
-			while(lines.hasNextLine()) {
-				String line = lines.nextLine();
+			for(String line : itemPickup.split("\r\n")) {
 				for(char c : line.toCharArray()) {
 					bot.input(c);
 				}
@@ -186,5 +178,8 @@ public class Day25 implements IDay {
 	public String part2() {
 		return "Merry Christmas!";
 	}
-
+	
+	public static void main(String[] args) {
+		DayRunner.run(new Day25());
+	}
 }

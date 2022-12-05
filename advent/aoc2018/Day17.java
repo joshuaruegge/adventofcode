@@ -1896,20 +1896,6 @@ public class Day17 implements IDay {
 					state.put(new Coord(inX,y),0);
 				}
 			}
-			
-			/**
-			int min = Integer.parseInt(secondHalf[1]);
-			int max = Integer.parseInt(secondHalf[2]);
-			if(x != 0) {
-				for(int inY = min; inY <= max; inY++) {
-					state.put(new Coord(x,inY),0);
-				}
-			} else {
-				for(int inX = min; inX <= max; inX++) {
-					state.put(new Coord(inX,y),0);
-				}
-			}
-			**/
 		}
 		
 		minX = state.keySet().stream().mapToInt(x -> x.x).min().getAsInt();
@@ -1934,7 +1920,7 @@ public class Day17 implements IDay {
 			if(state.getOrDefault(cur, 0) != 0) {
 				//push water downwards
 				if(state.get(cur) == 1 && !state.containsKey(cur.sum(new Coord(0,1)))) {
-					queueIfNecessary(cur.sum(new Coord(0,1)),1);
+					queueIfNecessary(cur.sum(Coord.DOWN),1);
 				}
 				//check sideways to see if water is properly bounded to turn still
 				if(state.get(cur) == 1) {
@@ -1946,7 +1932,7 @@ public class Day17 implements IDay {
 							break;
 						}
 						//last comparison is below check, so move check to block below check
-						check = check.sum(new Coord(0,1));
+						check = check.sum(Coord.DOWN);
 						if(state.getOrDefault(check, -1) != 0 && state.getOrDefault(check, -1) != 2) {
 							//not safely supported - mark and break
 							supported = false;
@@ -1960,7 +1946,7 @@ public class Day17 implements IDay {
 							break;
 						}
 						//last comparison is below check, so move check to block below check
-						check = check.sum(new Coord(0,1));
+						check = check.sum(Coord.DOWN);
 						if(state.getOrDefault(check, -1) != 0 && state.getOrDefault(check, -1) != 2) {
 							//not safely supported - mark and break
 							supported = false;
@@ -1974,14 +1960,14 @@ public class Day17 implements IDay {
 				
 				if(state.get(cur) == 1 && (state.getOrDefault(cur.sum(new Coord(0,1)), -1) == 2 || state.getOrDefault(cur.sum(new Coord(0,1)), -1) == 0)) { 
 					//spread flowing left and right if possible
-					queueIfNecessary(cur.sum(new Coord(1,0)),1);
-					queueIfNecessary(cur.sum(new Coord(-1,0)),1);
+					queueIfNecessary(cur.sum(Coord.RIGHT),1);
+					queueIfNecessary(cur.sum(Coord.LEFT),1);
 				}
 				
 				if(state.get(cur) == 2) {
 					//spread still left and right if possible
-					queueIfNecessary(cur.sum(new Coord(1,0)),2);
-					queueIfNecessary(cur.sum(new Coord(-1,0)),2);
+					queueIfNecessary(cur.sum(Coord.RIGHT),2);
+					queueIfNecessary(cur.sum(Coord.LEFT),2);
 				}
 			}	
 		}
@@ -2042,20 +2028,6 @@ public class Day17 implements IDay {
 					state.put(new Coord(inX,y),0);
 				}
 			}
-			
-			/**
-			int min = Integer.parseInt(secondHalf[1]);
-			int max = Integer.parseInt(secondHalf[2]);
-			if(x != 0) {
-				for(int inY = min; inY <= max; inY++) {
-					state.put(new Coord(x,inY),0);
-				}
-			} else {
-				for(int inX = min; inX <= max; inX++) {
-					state.put(new Coord(inX,y),0);
-				}
-			}
-			**/
 		}
 		
 		minX = state.keySet().stream().mapToInt(x -> x.x).min().getAsInt();
@@ -2080,7 +2052,7 @@ public class Day17 implements IDay {
 			if(state.getOrDefault(cur, 0) != 0) {
 				//push water downwards
 				if(state.get(cur) == 1 && !state.containsKey(cur.sum(new Coord(0,1)))) {
-					queueIfNecessary(cur.sum(new Coord(0,1)),1);
+					queueIfNecessary(cur.sum(Coord.DOWN),1);
 				}
 				//check sideways to see if water is properly bounded to turn still
 				if(state.get(cur) == 1) {
@@ -2092,7 +2064,7 @@ public class Day17 implements IDay {
 							break;
 						}
 						//last comparison is below check, so move check to block below check
-						check = check.sum(new Coord(0,1));
+						check = check.sum(Coord.DOWN);
 						if(state.getOrDefault(check, -1) != 0 && state.getOrDefault(check, -1) != 2) {
 							//not safely supported - mark and break
 							supported = false;
@@ -2106,7 +2078,7 @@ public class Day17 implements IDay {
 							break;
 						}
 						//last comparison is below check, so move check to block below check
-						check = check.sum(new Coord(0,1));
+						check = check.sum(Coord.DOWN);
 						if(state.getOrDefault(check, -1) != 0 && state.getOrDefault(check, -1) != 2) {
 							//not safely supported - mark and break
 							supported = false;
@@ -2120,14 +2092,14 @@ public class Day17 implements IDay {
 				
 				if(state.get(cur) == 1 && (state.getOrDefault(cur.sum(new Coord(0,1)), -1) == 2 || state.getOrDefault(cur.sum(new Coord(0,1)), -1) == 0)) { 
 					//spread flowing left and right if possible
-					queueIfNecessary(cur.sum(new Coord(1,0)),1);
-					queueIfNecessary(cur.sum(new Coord(-1,0)),1);
+					queueIfNecessary(cur.sum(Coord.RIGHT),1);
+					queueIfNecessary(cur.sum(Coord.LEFT),1);
 				}
 				
 				if(state.get(cur) == 2) {
 					//spread still left and right if possible
-					queueIfNecessary(cur.sum(new Coord(1,0)),2);
-					queueIfNecessary(cur.sum(new Coord(-1,0)),2);
+					queueIfNecessary(cur.sum(Coord.RIGHT),2);
+					queueIfNecessary(cur.sum(Coord.LEFT),2);
 				}
 			}	
 		}

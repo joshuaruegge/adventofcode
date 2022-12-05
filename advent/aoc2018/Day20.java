@@ -27,22 +27,22 @@ public class Day20 implements IDay {
 		for(char c : paths) {
 			switch(c) {
 			case 'W':
-				Coord next = position.sum(new Coord(-1,0));
+				Coord next = position.sum(Coord.LEFT);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'E':
-				next = position.sum(new Coord(1,0));
+				next = position.sum(Coord.RIGHT);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'N':
-				next = position.sum(new Coord(0,-1));
+				next = position.sum(Coord.UP);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'S':
-				next = position.sum(new Coord(0,1));
+				next = position.sum(Coord.DOWN);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
@@ -79,22 +79,22 @@ public class Day20 implements IDay {
 		for(char c : paths) {
 			switch(c) {
 			case 'W':
-				Coord next = position.sum(new Coord(-1,0));
+				Coord next = position.sum(Coord.LEFT);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'E':
-				next = position.sum(new Coord(1,0));
+				next = position.sum(Coord.RIGHT);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'N':
-				next = position.sum(new Coord(0,-1));
+				next = position.sum(Coord.UP);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;
 			case 'S':
-				next = position.sum(new Coord(0,1));
+				next = position.sum(Coord.DOWN);
 				distances.put(next, Math.min(distances.getOrDefault(next, Integer.MAX_VALUE), distances.get(position) + 1));
 				position = next;
 				break;

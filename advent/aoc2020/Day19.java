@@ -487,10 +487,10 @@ public class Day19 implements IDay {
 	public String part2() {
 		//based on our new rules, we can get an idea of what a match should look like
 		//for rule 8: 42 | 42 8, a match will be in the form (42) (42)*, where (42)* represents any number of matches to 42
-		//for rule 11: 42 31 | 42 11 31, a match will be in the form (42 (42 ()* 31)* 31 , where the () represents further nested 42 (optional nesting) 31 pairs
+		//for rule 11: 42 31 | 42 11 31, a match will be in the form (42 (42 ()* 31)* 31) , where the () represents further nested 42 (optional nesting) 31 pairs
 		//notably, both 42 and 31 point to messages with length of 8
 		//also notably, 0 points directly to 8 and 11, meaning our only important rules are 42 and 31 (and whatever subrules that determine them, but these are non-circular)
-		//therefore, a rule that satisfies the rule zero must follow the format (42) (42)* (42 (42 ()* 31)* 31
+		//therefore, a rule that satisfies the rule zero must follow the format (42) (42)* (42 (42 ()* 31)* 31)
 		//therefore, we can make a few assertions:
 		//1. for a message to be valid, it must be made up of sets of 8 characters that match either 42 or 31
 		//1a. a message must therefore be a size multiple of 8

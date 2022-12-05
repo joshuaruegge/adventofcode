@@ -48,6 +48,8 @@ public class Day17 implements IDay {
 				if((combo & (1 << container)) != 0) {
 					capacity += containers.get(container);
 				}
+				if(capacity > 150)
+					break;
 			}
 			if(capacity == 150)
 				validCount++;
@@ -62,9 +64,11 @@ public class Day17 implements IDay {
 		for(String s : input.split("\r\n")) {
 			containers.add(Integer.parseInt(s));
 		}
-		//first, iterate to find lowest required number of containers
 		int lowestContainers = Integer.MAX_VALUE;
+		int numLowest = 0;
 		for(int combo = 0; combo < (1 << containers.size()); combo ++) {
+			if(Integer.bitCount(combo) > lowestContainers)
+				continue;
 			int capacity = 0;
 			for(int container = 0; container < containers.size(); container++) {
 				//this returns nonzero if the digit at position container is 1, 
@@ -78,28 +82,17 @@ public class Day17 implements IDay {
 				//bitCount returns number of ones in binary of integer
 				//coincidentally, for this representation, this is number of containers used
 				int numContainers = Integer.bitCount(combo);
-				if(numContainers < lowestContainers)
+				if(numContainers < lowestContainers) {
 					lowestContainers = numContainers;
-			}
-		}
-		
-		//then, iterate once more and count number of combos that equal 150 with our lowest number
-		int numLowest = 0;
-		for(int combo = 0; combo < (1 << containers.size()); combo ++) {
-			int capacity = 0;
-			for(int container = 0; container < containers.size(); container++) {
-				//this returns nonzero if the digit at position container is 1, 
-				//and returns 0 if it's zero. so if it's not zero, we are "using" this
-				//container for this possibility, so add its capacity to total
-				if((combo & (1 << container)) != 0) {
-					capacity += containers.get(container);
+					//reset numLowest, because we have a new lowest. set it to 1 to count current
+					numLowest = 1;
+				} else if(numContainers == lowestContainers) {
+					numLowest++;
 				}
-			}
-			if(capacity == 150 && Integer.bitCount(combo) == lowestContainers) {
-				numLowest++;
 			}
 		}
 		return Integer.toString(numLowest);
+		
 	}
 
 	public static void main(String[] args) {

@@ -22,16 +22,16 @@ public class Day03 implements IDay {
 			//update position
 			switch(c) {
 			case '^':
-				position.sumSelf(new Coord(0,-1));
+				position.sumSelf(Coord.UP);
 				break;
 			case 'v':
-				position.sumSelf(new Coord(0,1));
+				position.sumSelf(Coord.DOWN);
 				break;
 			case '<':
-				position.sumSelf(new Coord(-1,0));
+				position.sumSelf(Coord.LEFT);
 				break;
 			case '>':
-				position.sumSelf(new Coord(1,0));
+				position.sumSelf(Coord.RIGHT);
 				break;
 			}
 		}
@@ -53,16 +53,16 @@ public class Day03 implements IDay {
 			char c1 = input.charAt(i);
 			switch(c1) {
 			case '^':
-				p1.sumSelf(new Coord(0,-1));
+				p1.sumSelf(Coord.UP);
 				break;
 			case 'v':
-				p1.sumSelf(new Coord(0,1));
+				p1.sumSelf(Coord.DOWN);
 				break;
 			case '<':
-				p1.sumSelf(new Coord(-1,0));
+				p1.sumSelf(Coord.LEFT);
 				break;
 			case '>':
-				p1.sumSelf(new Coord(1,0));
+				p1.sumSelf(Coord.RIGHT);
 				break;
 			}
 			
@@ -73,16 +73,16 @@ public class Day03 implements IDay {
 			char c2 = input.charAt(i+1);
 			switch(c2) {
 			case '^':
-				p2.sumSelf(new Coord(0,-1));
+				p2.sumSelf(Coord.UP);
 				break;
 			case 'v':
-				p2.sumSelf(new Coord(0,1));
+				p2.sumSelf(Coord.DOWN);
 				break;
 			case '<':
-				p2.sumSelf(new Coord(-1,0));
+				p2.sumSelf(Coord.LEFT);
 				break;
 			case '>':
-				p2.sumSelf(new Coord(1,0));
+				p2.sumSelf(Coord.RIGHT);
 				break;
 			}
 		}

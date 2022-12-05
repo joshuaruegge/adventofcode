@@ -1,14 +1,11 @@
 package advent.aoc2019;
 
-import java.util.Scanner;
-
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 
 public class Day04 implements IDay {
 	
-	static String input = "";
-	static String input2 = "172851-675869";
+	static String input = "172851-675869";
 	
 	public static void main(String[] args) {
 		DayRunner.run(new Day04());
@@ -16,11 +13,8 @@ public class Day04 implements IDay {
 
 	@Override
 	public String part1() {
-		//parse range from input
-		Scanner scan = new Scanner(input2);
-		String[] range = scan.nextLine().split("-");
-		int min = Integer.parseInt(range[0]);
-		int max = Integer.parseInt(range[1]);
+		int min = Integer.parseInt(input.split("-")[0]);
+		int max = Integer.parseInt(input.split("-")[1]);
 		int valids = 0;
 		counter:
 		for(int x = min; x < max; x++) {
@@ -50,10 +44,8 @@ public class Day04 implements IDay {
 
 	@Override
 	public String part2() {
-		Scanner scan = new Scanner(input2);
-		String[] range = scan.nextLine().split("-");
-		int min = Integer.parseInt(range[0]);
-		int max = Integer.parseInt(range[1]);
+		int min = Integer.parseInt(input.split("-")[0]);
+		int max = Integer.parseInt(input.split("-")[1]);
 		int valids = 0;
 		counter:
 		for(int x = min; x < max; x++) {

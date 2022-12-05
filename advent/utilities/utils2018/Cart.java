@@ -17,7 +17,6 @@ public class Cart implements Comparable<Cart>{
 
 	@Override
 	public int compareTo(Cart o) {
-		// TODO Auto-generated method stub
 		return pos.compareTo(o.pos);
 	}
 	

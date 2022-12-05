@@ -29,6 +29,10 @@ public class Coord3 {
 		return new Coord3(x + o.x, y+o.y, z+o.z);
 	}
 	
+	public Coord3 diff(Coord3 o) {
+		return new Coord3(x-o.x,y-o.y,z-o.z);
+	}
+	
 	public ArrayList<Coord3> allNeighbors() {
 		ArrayList<Coord3> neighbors = new ArrayList<Coord3>();
 		for(int zOff = -1; zOff < 2; zOff++) {

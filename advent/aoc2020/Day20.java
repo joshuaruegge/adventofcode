@@ -1920,16 +1920,14 @@ public class Day20 implements IDay {
 				if(nextTile != null) {
 					curTile.right = nextTile;
 					nextTile.left = curTile;
-					//if edges already match, no need to rotate
-					if(Arrays.equals(curTile.rightEdge, nextTile.leftEdge)) {
-						
-					}
+					
 					//if simple flip away, flip and continue
 					if(Arrays.equals(curTile.rightEdge, GridTile.reverse(nextTile.leftEdge))) {
 						//flip vertically
 						nextTile.data = flip(nextTile.data);
 						nextTile.calculateEdges();
 					}
+					
 					//otherwise, try rotates
 					for(int i = 0; i < 4; i++) {
 						nextTile.data = flip(transpose(nextTile.data));
@@ -1950,6 +1948,7 @@ public class Day20 implements IDay {
 					break;
 				}
 			}
+			
 			//now that we are done with row, jump back to beginning, and find tile below beginning
 			GridTile bottomTile = null;
 			for(GridTile t : tiles) {
@@ -1960,16 +1959,15 @@ public class Day20 implements IDay {
 					break;
 				}
 			}
-			//if we make sure bottomtile matches the one above it, hopefully we don't need to do any vertical rotation the rest of the row
+			
+			//if we make sure bottom tile matches the one above it, hopefully we don't need to do any vertical rotation the rest of the row
 			if(bottomTile != null) {
 				idCol = 0;
 				idRow++;
 				
 				firstInRow.bottom = bottomTile;
 				bottomTile.top = firstInRow;
-				if(Arrays.equals(bottomTile.topEdge, firstInRow.bottomEdge)) {
-					//no rotation/flip necessary
-				}
+				
 				if(Arrays.equals(bottomTile.topEdge, GridTile.reverse(firstInRow.bottomEdge))) {
 					//horizontal flip
 					bottomTile.data = hflip(bottomTile.data);
@@ -2048,13 +2046,9 @@ public class Day20 implements IDay {
 		//stream to deepcopy
 		boolean[][] without = Arrays.stream(a).map(x -> x.clone()).toArray($ -> a.clone());
 		
-		//assume square
-		int rowMax = a.length;
-		int colMax = a.length;
-		
 		//iterate over all possible indices - if sea monster found, set sea monster indices to false in without
-		for(int row = 0; row < rowMax; row++) {
-			for(int col = 0; col < colMax; col++) {
+		for(int row = 0; row < a.length; row++) {
+			for(int col = 0; col < a.length; col++) {
 				try {
 					//hardcoded for sea monster indices, relative to current assuming current is head
 					if(a[row][col] && a[row+1][col] && a[row+1][col+1] && a[row+1][col-1] && a[row+1][col-6] && a[row+1][col-7] && a[row+1][col-12] && a[row+1][col-13] && a[row+1][col-18] && a[row+2][col-2] && a[row+2][col-5] && a[row+2][col-8] && a[row+2][col-11] && a[row+2][col-14] && a[row+2][col-17]) {

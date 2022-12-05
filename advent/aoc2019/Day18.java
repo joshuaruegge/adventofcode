@@ -1,15 +1,14 @@
 package advent.aoc2019;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
-import advent.utilities.general.PathNode;
 import advent.utilities.utils2019.State;
 
 public class Day18 implements IDay {
@@ -95,12 +94,6 @@ public class Day18 implements IDay {
 			+ "#.###.#.###.#.#####.#.#.#.###.#.#.#.###.#.#.###.###.#.#.#.#####.###.#####.#.#.###\r\n"
 			+ "#.....#.....#.......#...#.......#.......#.#.........#...#...W.....#.........#...#\r\n"
 			+ "#################################################################################";
-	static String input2 = "########################\r\n"
-			+ "#@..............ac.GI.b#\r\n"
-			+ "###d#e#f################\r\n"
-			+ "###A#B#C################\r\n"
-			+ "###g#h#i################\r\n"
-			+ "########################";
 	
 	static HashSet<Coord> walls = new HashSet<Coord>();
 	
@@ -112,153 +105,13 @@ public class Day18 implements IDay {
 	static int ALL_KEYS;
 	
 	static int worldBest = Integer.MAX_VALUE;
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day18());
-		System.exit(0);
-	}
-	
-	//recursively calculate best key path (dijkstra-like, but closer to brute force)
-	public static int distanceToCollectKeys(State cur, HashMap<State,Integer> cache) {
-		//if all keys have been collected, we're done!!
-		if(cur.keys == ALL_KEYS) {
-			if(cur.dist < worldBest)
-				worldBest = cur.dist;
-			return 0;
-		}
-		//if we're already worse than the best rolling solution, we can trim here
-		if(cur.dist > worldBest)
-			return 1000000;
-		//if we have this call cached, we can return it
-		if(cache.containsKey(cur)) {
-			return cache.get(cur);
-		}
-		//this value was originally Integer.MAX_VALUE, but turns out that doesn't play nice when you add numbers to it
-		int result = 1000000;
-		//iterate over possible keys
-		for(int i = 0; i < keys.size(); i++) {
-			//if key is not held
-			//bitmask trick: (1 << i) will produce the equivalent to having key i collected
-			//so, performing bitwise and of curKeys and (1 << i) will return (1 << i) if that key is in curKeys, and zero if not
-			//ex: (100110) & (000100) == (000100)
-			//but (100110) & (010000) == 0
-			if((cur.keys & (1 << i)) != (1 << i)) {
-				//initialize return value of path (2-item array list, distance and keys required for path)
-				ArrayList<Integer> distAndKeys;
-				//initialize and create keyDistance key (2-item array list, start and end)
-				ArrayList<Coord> key = new ArrayList<Coord>();
-				key.add(cur.position);
-				key.add(keys.get(i));
-				//if we have this value cached, return it
-				if(keyDistances.containsKey(key)) {
-					distAndKeys = keyDistances.get(key);
-				} else {
-					//calculate and cache result
-					distAndKeys = path(cur.position,keys.get(i),cur.keys);
-					keyDistances.put(key, distAndKeys);
-				}
-				//unreachable, continue
-				if(distAndKeys == null)
-					continue;
-				//already too large, continue
-				if(distAndKeys.get(0) > result)
-					continue;
-				if(!((cur.keys & distAndKeys.get(1)) == distAndKeys.get(1))) {
-					//not enough keys, continue
-					continue;
-				}
-				
-				//create new state starting from newly-grabbed key, with newly-grabbed key added to key bitmask, and with new distance
-				//(cur.keys | (1 << i) inserts the bit for key i to the current key bitmask)
-				State newState = new State(keys.get(i),(cur.keys | (1 << i)),cur.dist + distAndKeys.get(0));
-				//distance is this new state plus recursive call for best distance of all remaining keys
-				int dist = distAndKeys.get(0) + distanceToCollectKeys(newState,cache);
-				//if distance is better than current result, replace
-				if(dist < result)
-					result = dist;
-			}
-		}
-		//cache and return result
-		cache.put(cur,result);
-		return result;
-	}
-	
-	//BFS from c to d
-	//returns a 2-item array list: the first item is the distance between the points
-	//and the second item is the bitmask of keys required to traverse the path (i.e., doors along the path)
-	public static ArrayList<Integer> path(Coord start, Coord end, int curKeys) {
-		//starting keys required value (none)
-		int keysRequired = 0;
-		//BFS arrays
-		LinkedList<PathNode> queue = new LinkedList<PathNode>();
-		HashSet<PathNode> closed = new HashSet<PathNode>();
-		//final path
-		ArrayList<Coord> path = null;
-		//enqueue start
-		queue.add(new PathNode(start,0,0));
-		while(queue.size() > 0) {
-			//remove head of queue
-			PathNode cur = queue.poll();
-			Coord curPos = cur.pos;
-			//arrived at end!! build path list, then break
-			if(curPos.equals(end)) {
-				path = new ArrayList<Coord>();
-				for(PathNode p : cur.path) {
-					path.add(p.pos);
-				}
-				break;
-			}
-			//append neighbors to queue
-			for(int xOff = -1; xOff < 2; xOff++) {
-				for(int yOff = -1; yOff < 2; yOff++) {
-					if(xOff == 0 ^ yOff == 0) {
-						Coord neighbor = new Coord(curPos.x + xOff, curPos.y + yOff);
-						//in order:
-						//stop if neighbor is a wall
-						//stop if neighbor is a key that is NOT our destination and is NOT a key we already have
-						//this prevents pathing to a key that is past another ungrabbed key - otherwise, we might pick up keys out of order
-						//the curKeys bitshift and comparison is the same as the bitmask trick in the recursion method
-						if(!walls.contains(neighbor) && (!keys.contains(neighbor) || neighbor.equals(end) || (curKeys & (1 << keys.indexOf(neighbor))) == (1 << keys.indexOf(neighbor)))) {
-							PathNode newNode = new PathNode(cur,neighbor,cur.gcost + 1,0);
-							newNode.path.add(newNode);
-							if(!queue.contains(newNode) && !closed.contains(newNode)) {
-								queue.add(newNode);
-							}
-							
-						}
-					}
-				}
-			}
-			closed.add(cur);
-		}
-		
-		//if no path was found, return null
-		if(path == null)
-			return null;
-		
-		//iterate over path, check if any are doors
-		for(Coord c : path) {
-			if(doors.containsKey(c)) {
-				//if there is a door along the path, add the bit for the required key to keysRequired
-				Coord key = doors.get(c);
-				keysRequired = keysRequired | (1 << keys.indexOf(key));
-			}
-		}
-		//create and return 2-item array
-		ArrayList<Integer> ret = new ArrayList<Integer>();
-		ret.add(path.size());
-		ret.add(keysRequired);
-		return ret;
-	}
 
 	@Override
 	public String part1() {
 		//parse input. both doors and keys are added into the doorsAndKeysTemp map, which stores the location and its original character
 		int inY = 0;
-		Scanner scan = new Scanner(input);
 		HashMap<Coord,Character> doorsAndKeysTemp = new HashMap<Coord,Character>();
-		while(scan.hasNextLine()) {
-			String line = scan.nextLine();
+		for(String line : input.split("\r\n")) {
 			for(int i = 0; i < line.length(); i++) {
 				if(line.charAt(i) == '.') {
 					continue;
@@ -631,6 +484,133 @@ public class Day18 implements IDay {
 		
 		//return total distance. easy!
 		return Integer.toString(totalDistance);
+	}
+	
+	public static void main(String[] args) {
+		DayRunner.run(new Day18());
+	}
+	
+	//recursively calculate best key path (dijkstra-like, but closer to brute force)
+	public static int distanceToCollectKeys(State cur, HashMap<State,Integer> cache) {
+		//if all keys have been collected, we're done!!
+		if(cur.keys == ALL_KEYS) {
+			if(cur.dist < worldBest)
+				worldBest = cur.dist;
+			return 0;
+		}
+		//if we're already worse than the best rolling solution, we can trim here
+		if(cur.dist > worldBest || cur.dist >= 1000000)
+			return 1000000;
+		//if we have this call cached, we can return it
+		if(cache.containsKey(cur)) {
+			return cache.get(cur);
+		}
+		//this value was originally Integer.MAX_VALUE, but turns out that doesn't play nice when you add numbers to it
+		int result = 1000000;
+		//iterate over possible keys
+		for(int i = 0; i < keys.size(); i++) {
+			//if key is not held
+			//bitmask trick: (1 << i) will produce the equivalent to having key i collected
+			//so, performing bitwise and of curKeys and (1 << i) will return (1 << i) if that key is in curKeys, and zero if not
+			//ex: (100110) & (000100) == (000100)
+			//but (100110) & (010000) == 0
+			if((cur.keys & (1 << i)) != (1 << i)) {
+				//initialize return value of path (2-item array list, distance and keys required for path)
+				ArrayList<Integer> distAndKeys;
+				//initialize and create keyDistance key (2-item array list, start and end)
+				ArrayList<Coord> key = new ArrayList<Coord>();
+				key.add(cur.position);
+				key.add(keys.get(i));
+				//if we have this value cached, return it
+				if(keyDistances.containsKey(key)) {
+					distAndKeys = keyDistances.get(key);
+				} else {
+					//calculate and cache result
+					distAndKeys = path(cur.position,keys.get(i),cur.keys);
+					keyDistances.put(key, distAndKeys);
+				}
+				//unreachable, continue
+				if(distAndKeys == null)
+					continue;
+				//already too large, continue
+				if(distAndKeys.get(0) > result)
+					continue;
+				if(!((cur.keys & distAndKeys.get(1)) == distAndKeys.get(1))) {
+					//not enough keys, continue
+					continue;
+				}
+				
+				//create new state starting from newly-grabbed key, with newly-grabbed key added to key bitmask, and with new distance
+				//(cur.keys | (1 << i) inserts the bit for key i to the current key bitmask)
+				State newState = new State(keys.get(i),(cur.keys | (1 << i)),cur.dist + distAndKeys.get(0));
+				//distance is this new state plus recursive call for best distance of all remaining keys
+				int dist = distAndKeys.get(0) + distanceToCollectKeys(newState,cache);
+				//if distance is better than current result, replace
+				if(dist < result)
+					result = dist;
+			}
+		}
+		//cache and return result
+		cache.put(cur,result);
+		return result;
+	}
+	
+	//returns a 2-item array list: the first item is the distance between the points
+	//and the second item is the bitmask of keys required to traverse the path (i.e., doors along the path)
+	public static ArrayList<Integer> path(Coord start, Coord end, int curKeys) {
+		//starting keys required (none)
+		int keysRequired = 0; 
+		HashMap<Coord,Integer> gScore = new HashMap<Coord,Integer>();
+		gScore.put(start, 0);
+		HashMap<Coord,Coord> parent = new HashMap<Coord,Coord>();
+		LinkedList<Coord> queue = new LinkedList<Coord>();
+		
+		queue.add(start);
+		
+		ArrayList<Coord> path = null;
+		while(queue.size() > 0) {
+			Coord cur = queue.poll();
+			if(cur.equals(end)) {
+				path = new ArrayList<Coord>();
+				while(parent.containsKey(cur)) {
+					path.add(cur.copy());
+					cur = parent.get(cur);
+				}
+				Collections.reverse(path);
+				break;
+			}
+			//in order:
+			//stop if neighbor is a wall
+			//stop if neighbor is a key that is NOT our destination and is NOT a key we already have
+			//this prevents pathing to a key that is past another ungrabbed key - otherwise, we might pick up keys out of order
+			//the curKeys bitshift and comparison is the same as the bitmask trick in the recursion method
+			for(Coord c : cur.directNeighbors()) {
+				if(!walls.contains(c) && (!keys.contains(c) || c.equals(end) || (curKeys & (1 << keys.indexOf(c))) == (1 << keys.indexOf(c)))) {
+					int tentativeG = gScore.get(cur) + 1;
+					if(tentativeG < gScore.getOrDefault(c, Integer.MAX_VALUE)) {
+						gScore.put(c, tentativeG);
+						parent.put(c, cur);
+						queue.add(c);
+					}
+				}
+			}
+		}
+		if(path == null)
+			return null;
+		
+		//iterate over path, check if any are doors
+		for(Coord c : path) {
+			if(doors.containsKey(c)) {
+				//if there is a door along the path, add the bit for the required key to keysRequired
+				Coord key = doors.get(c);
+				keysRequired = keysRequired | (1 << keys.indexOf(key));
+			}
+		}
+		//create and return 2-item array
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		ret.add(path.size());
+		ret.add(keysRequired);
+		return ret;
 	}
 	
 	//determines whether any character in the entire arraylist is equal to c
