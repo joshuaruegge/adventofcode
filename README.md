@@ -1,5 +1,5 @@
 # adventofcode
-![Advent of code logo](url "https://dansanderson.com/lab-notes/advent-of-code-mega65/aoc2.png")
+![Advent of code logo](https://dansanderson.com/lab-notes/advent-of-code-mega65/aoc2.png)
 
 Solutions to the yearly [Advent of Code](https://adventofcode.com/2022/about) challenges in Java, 2015-2022 (ongoing).
 
