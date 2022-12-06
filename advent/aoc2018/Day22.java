@@ -8,17 +8,17 @@ import java.util.PriorityQueue;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 import advent.utilities.utils2018.Traversal;
 
 public class Day22 implements IDay {
 
-	String input = "depth: 8112\r\n"
-			+ "target: 13,743";
+	static String input;
 	
 	@Override
 	public String part1() {
-		int depth = Integer.parseInt(input.split("\r\n")[0].split(": ")[1]);
-		String[] t = input.split("\r\n")[1].split(": ")[1].split(",");
+		int depth = Integer.parseInt(input.split("\n")[0].split(": ")[1]);
+		String[] t = input.split("\n")[1].split(": ")[1].split(",");
 		Coord target = new Coord(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
 		int xMax = target.x + 1;
 		int yMax = target.y + 1;
@@ -56,8 +56,8 @@ public class Day22 implements IDay {
 	
 	@Override
 	public String part2() {
-		int depth = Integer.parseInt(input.split("\r\n")[0].split(": ")[1]);
-		String[] t = input.split("\r\n")[1].split(": ")[1].split(",");
+		int depth = Integer.parseInt(input.split("\n")[0].split(": ")[1]);
+		String[] t = input.split("\n")[1].split(": ")[1].split(",");
 		Coord target = new Coord(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
 		//adjust target coords for zero-indexing
 		target.x--;
@@ -152,6 +152,7 @@ public class Day22 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,22);
 		DayRunner.run(new Day22());
 	}
 

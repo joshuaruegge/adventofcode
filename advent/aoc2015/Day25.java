@@ -2,10 +2,11 @@ package advent.aoc2015;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day25 implements IDay {
 
-	String input = "To continue, please consult the code grid in the manual.  Enter the code at row 2981, column 3075.";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -42,6 +43,7 @@ public class Day25 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,25).replace("\n","");
 		DayRunner.run(new Day25());
 	}
 

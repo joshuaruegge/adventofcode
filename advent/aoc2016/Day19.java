@@ -2,10 +2,11 @@ package advent.aoc2016;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day19 implements IDay {
 
-	String input = "3012210";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -79,6 +80,7 @@ public class Day19 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,19).replace("\n","");
 		DayRunner.run(new Day19());
 	}
 

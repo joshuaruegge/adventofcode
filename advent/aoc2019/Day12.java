@@ -5,19 +5,17 @@ import java.util.ArrayList;
 import advent.utilities.general.Coord3;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day12 implements IDay{
 
-	static String input = "<x=10, y=15, z=7>\r\n"
-			+ "<x=15, y=10, z=0>\r\n"
-			+ "<x=20, y=12, z=3>\r\n"
-			+ "<x=0, y=-3, z=13>";	
+	static String input;
 
 	@Override
 	public String part1() {
 		//we're storing system states as a list of list of coordinates - each internal list contains a position coordinate and a velocity coordinate
 		ArrayList<ArrayList<Coord3>> bodies = new ArrayList<ArrayList<Coord3>>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(", ");
 			ArrayList<Coord3> temp = new ArrayList<Coord3>();
 			temp.add(new Coord3(Integer.parseInt(parts[0].substring(parts[0].indexOf("=") + 1)),Integer.parseInt(parts[1].substring(parts[1].indexOf("=") + 1)),Integer.parseInt(parts[2].substring(parts[2].indexOf("=") + 1,parts[2].length() - 1))));
@@ -55,7 +53,7 @@ public class Day12 implements IDay{
 	@Override
 	public String part2() {
 		ArrayList<ArrayList<Coord3>> bodies = new ArrayList<ArrayList<Coord3>>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(", ");
 			ArrayList<Coord3> temp = new ArrayList<Coord3>();
 			temp.add(new Coord3(Integer.parseInt(parts[0].substring(parts[0].indexOf("=") + 1)),Integer.parseInt(parts[1].substring(parts[1].indexOf("=") + 1)),Integer.parseInt(parts[2].substring(parts[2].indexOf("=") + 1,parts[2].length() - 1))));
@@ -102,11 +100,7 @@ public class Day12 implements IDay{
 		long lcm = fastLCM(xPeriod,fastLCM(yPeriod,zPeriod));
 		return Long.toString(lcm);
 	}
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day12());
-	}
-	
+
 	//compares whether two 2-dimensional coordinate arrays contain the same values
 	//for all instances of a given position(0 for x, 1 for y, 2 for z)
 	public static boolean positionMatch(ArrayList<ArrayList<Coord3>> a, ArrayList<ArrayList<Coord3>> b,int position) {
@@ -163,5 +157,10 @@ public class Day12 implements IDay{
 			b = remainder;
 		} while (b != 0);
 		return a;
+	}
+
+	public static void main(String[] args) {
+		input = Input.fetchInput(2019,12);
+		DayRunner.run(new Day12());
 	}
 }

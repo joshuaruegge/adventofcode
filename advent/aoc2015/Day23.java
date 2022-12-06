@@ -5,67 +5,18 @@ import java.util.ArrayList;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day23 implements IDay {
 
-	String input = "jio a, +16\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "jmp +23\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "tpl a\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "jio a, +8\r\n"
-			+ "inc b\r\n"
-			+ "jie a, +4\r\n"
-			+ "tpl a\r\n"
-			+ "inc a\r\n"
-			+ "jmp +2\r\n"
-			+ "hlf a\r\n"
-			+ "jmp -7";
-	
-	String input2 = "inc a\r\n"
-			+ "jio a, +2\r\n"
-			+ "tpl a\r\n"
-			+ "inc a";
-	
+	static String input ;
+
 	@Override
 	public String part1() {
 		//store program as list of coords, with coords acting as tuple to hold (instruction ID, parameter)
 		//the only 2-parameter instructions, jio and jie, only ever reference register a, so they can be ignored
 		ArrayList<Coord> program = new ArrayList<Coord>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			switch(parts[0]) {
 			case "hlf":
@@ -144,7 +95,7 @@ public class Day23 implements IDay {
 		//store program as list of coords, with coords acting as tuple to hold (instruction ID, parameter)
 		//the only 2-parameter instructions, jio and jie, only ever reference register a, so they can be ignored
 		ArrayList<Coord> program = new ArrayList<Coord>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			switch(parts[0]) {
 			case "hlf":
@@ -219,6 +170,7 @@ public class Day23 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,23);
 		DayRunner.run(new Day23());
 	}
 

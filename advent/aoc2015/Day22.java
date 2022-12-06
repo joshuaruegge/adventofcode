@@ -4,17 +4,17 @@ import java.util.HashMap;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day22 implements IDay {
 
-	String input = "Hit Points: 71\r\n"
-			+ "Damage: 10";
+	static String input;
 	
 	static int bossDmg;
 	@Override
 	public String part1() {
 		//parse input
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int startBossHP = Integer.parseInt(lines[0].split(": ")[1]);
 		bossDmg = Integer.parseInt(lines[1].split(": ")[1]);
 		int startPlayerHP = 50;
@@ -107,7 +107,7 @@ public class Day22 implements IDay {
 	@Override
 	public String part2() {
 		//parse input
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int startBossHP = Integer.parseInt(lines[0].split(": ")[1]);
 		bossDmg = Integer.parseInt(lines[1].split(": ")[1]);
 		int startPlayerHP = 50;
@@ -205,6 +205,7 @@ public class Day22 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,22);
 		DayRunner.run(new Day22());
 	}
 

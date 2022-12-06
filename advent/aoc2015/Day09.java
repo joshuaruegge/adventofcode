@@ -8,37 +8,11 @@ import java.util.stream.IntStream;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day09 implements IDay {
 
-	String input = "Faerun to Tristram = 65\r\n"
-			+ "Faerun to Tambi = 129\r\n"
-			+ "Faerun to Norrath = 144\r\n"
-			+ "Faerun to Snowdin = 71\r\n"
-			+ "Faerun to Straylight = 137\r\n"
-			+ "Faerun to AlphaCentauri = 3\r\n"
-			+ "Faerun to Arbre = 149\r\n"
-			+ "Tristram to Tambi = 63\r\n"
-			+ "Tristram to Norrath = 4\r\n"
-			+ "Tristram to Snowdin = 105\r\n"
-			+ "Tristram to Straylight = 125\r\n"
-			+ "Tristram to AlphaCentauri = 55\r\n"
-			+ "Tristram to Arbre = 14\r\n"
-			+ "Tambi to Norrath = 68\r\n"
-			+ "Tambi to Snowdin = 52\r\n"
-			+ "Tambi to Straylight = 65\r\n"
-			+ "Tambi to AlphaCentauri = 22\r\n"
-			+ "Tambi to Arbre = 143\r\n"
-			+ "Norrath to Snowdin = 8\r\n"
-			+ "Norrath to Straylight = 23\r\n"
-			+ "Norrath to AlphaCentauri = 136\r\n"
-			+ "Norrath to Arbre = 115\r\n"
-			+ "Snowdin to Straylight = 101\r\n"
-			+ "Snowdin to AlphaCentauri = 84\r\n"
-			+ "Snowdin to Arbre = 96\r\n"
-			+ "Straylight to AlphaCentauri = 107\r\n"
-			+ "Straylight to Arbre = 14\r\n"
-			+ "AlphaCentauri to Arbre = 46";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -47,7 +21,7 @@ public class Day09 implements IDay {
 		ArrayList<String> cities = new ArrayList<String>();
 		//keep track of distances in a hashmap of (source,dest) -> dist
 		HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//get number representation of source
 			if(!cities.contains(parts[0]))
@@ -116,7 +90,7 @@ public class Day09 implements IDay {
 		ArrayList<String> cities = new ArrayList<String>();
 		//keep track of distances in a hashmap of (source,dest) -> dist
 		HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//get number representation of source
 			if(!cities.contains(parts[0]))
@@ -152,7 +126,8 @@ public class Day09 implements IDay {
 		return Integer.toString(best);
 	}
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) {
+		input = Input.fetchInput(2015,9);
 		DayRunner.run(new Day09());
 	}
 

@@ -7,47 +7,15 @@ import java.util.HashSet;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day12 implements IDay {
 
-	String input = "initial state: #...#...##..####..##.####.#...#...#.#.#.#......##....#....######.####.##..#..#..##.##..##....#######\r\n"
-			+ "\r\n"
-			+ ".#### => .\r\n"
-			+ "...#. => .\r\n"
-			+ ".##.. => #\r\n"
-			+ "#.##. => .\r\n"
-			+ "#..## => .\r\n"
-			+ "##### => #\r\n"
-			+ "####. => #\r\n"
-			+ ".##.# => #\r\n"
-			+ "#.### => .\r\n"
-			+ "...## => #\r\n"
-			+ ".#.## => #\r\n"
-			+ "#..#. => #\r\n"
-			+ "#.#.. => #\r\n"
-			+ ".###. => #\r\n"
-			+ "##.## => #\r\n"
-			+ "##..# => .\r\n"
-			+ ".#... => #\r\n"
-			+ "###.# => .\r\n"
-			+ "..##. => .\r\n"
-			+ "..... => .\r\n"
-			+ "###.. => #\r\n"
-			+ "..#.# => .\r\n"
-			+ ".#..# => #\r\n"
-			+ "##... => #\r\n"
-			+ "#.... => .\r\n"
-			+ "##.#. => .\r\n"
-			+ "..#.. => #\r\n"
-			+ "....# => .\r\n"
-			+ "#...# => .\r\n"
-			+ "#.#.# => #\r\n"
-			+ "..### => .\r\n"
-			+ ".#.#. => #";
+	static String input;
 	
 	@Override
 	public String part1() {
-		String[] chunks = input.split("\r\n\r\n");
+		String[] chunks = input.split("\n\n");
 		
 		HashSet<Integer> plants = new HashSet<Integer>();
 		String plantStart = chunks[0].split(": ")[1];
@@ -58,7 +26,7 @@ public class Day12 implements IDay {
 		
 		//build rules list
 		HashMap<ArrayList<Boolean>,Boolean> rules = new HashMap<ArrayList<Boolean>,Boolean>();
-		for(String s : chunks[1].split("\r\n")) {
+		for(String s : chunks[1].split("\n")) {
 			String[] parts = s.split(" => ");
 			ArrayList<Boolean> rule = new ArrayList<Boolean>();
 			for(char c : parts[0].toCharArray())
@@ -84,7 +52,7 @@ public class Day12 implements IDay {
 
 	@Override
 	public String part2() {
-		String[] chunks = input.split("\r\n\r\n");
+		String[] chunks = input.split("\n\n");
 		
 		HashSet<Integer> plants = new HashSet<Integer>();
 		String plantStart = chunks[0].split(": ")[1];
@@ -95,7 +63,7 @@ public class Day12 implements IDay {
 		
 		//build rules list
 		HashMap<ArrayList<Boolean>,Boolean> rules = new HashMap<ArrayList<Boolean>,Boolean>();
-		for(String s : chunks[1].split("\r\n")) {
+		for(String s : chunks[1].split("\n")) {
 			String[] parts = s.split(" => ");
 			ArrayList<Boolean> rule = new ArrayList<Boolean>();
 			for(char c : parts[0].toCharArray())
@@ -143,6 +111,7 @@ public class Day12 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,12);
 		DayRunner.run(new Day12());
 	}
 

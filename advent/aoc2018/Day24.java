@@ -7,40 +7,19 @@ import java.util.HashSet;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 import advent.utilities.utils2018.Group;
 
 public class Day24 implements IDay {
 
-	String input = "Immune System:\r\n"
-			+ "698 units each with 10286 hit points with an attack that does 133 fire damage at initiative 9\r\n"
-			+ "6846 units each with 2773 hit points (weak to slashing, cold) with an attack that does 4 slashing damage at initiative 14\r\n"
-			+ "105 units each with 6988 hit points (weak to bludgeoning; immune to radiation) with an attack that does 616 radiation damage at initiative 17\r\n"
-			+ "5615 units each with 7914 hit points (weak to bludgeoning) with an attack that does 13 radiation damage at initiative 20\r\n"
-			+ "1021 units each with 10433 hit points (weak to cold; immune to slashing, bludgeoning) with an attack that does 86 bludgeoning damage at initiative 12\r\n"
-			+ "6099 units each with 11578 hit points with an attack that does 15 bludgeoning damage at initiative 13\r\n"
-			+ "82 units each with 1930 hit points (weak to bludgeoning; immune to cold) with an attack that does 179 bludgeoning damage at initiative 5\r\n"
-			+ "2223 units each with 9442 hit points (immune to bludgeoning) with an attack that does 38 cold damage at initiative 19\r\n"
-			+ "140 units each with 7594 hit points (weak to radiation) with an attack that does 452 fire damage at initiative 8\r\n"
-			+ "3057 units each with 3871 hit points (weak to bludgeoning) with an attack that does 11 radiation damage at initiative 16\r\n"
-			+ "\r\n"
-			+ "Infection:\r\n"
-			+ "263 units each with 48098 hit points (immune to radiation; weak to slashing) with an attack that does 293 bludgeoning damage at initiative 2\r\n"
-			+ "111 units each with 9893 hit points (immune to slashing) with an attack that does 171 fire damage at initiative 18\r\n"
-			+ "2790 units each with 36205 hit points with an attack that does 25 cold damage at initiative 4\r\n"
-			+ "3325 units each with 46479 hit points (weak to slashing) with an attack that does 27 radiation damage at initiative 1\r\n"
-			+ "3593 units each with 6461 hit points (weak to fire, slashing) with an attack that does 3 radiation damage at initiative 15\r\n"
-			+ "2925 units each with 13553 hit points (weak to cold, bludgeoning; immune to fire) with an attack that does 8 cold damage at initiative 10\r\n"
-			+ "262 units each with 43260 hit points (weak to cold) with an attack that does 327 radiation damage at initiative 6\r\n"
-			+ "4228 units each with 24924 hit points (weak to radiation, fire; immune to cold, bludgeoning) with an attack that does 11 cold damage at initiative 11\r\n"
-			+ "689 units each with 42315 hit points (weak to cold, slashing) with an attack that does 116 fire damage at initiative 7\r\n"
-			+ "2649 units each with 37977 hit points (weak to radiation) with an attack that does 24 cold damage at initiative 3";
+	static String input;
 	
 	@Override
 	public String part1() {
 		ArrayList<String> attackTypes = new ArrayList<String>();
 		ArrayList<Group> groups = new ArrayList<Group>();
-		String[] sections = input.split("\r\n\r\n");
-		String[] immuneLines = sections[0].split("\r\n");
+		String[] sections = input.split("\n\n");
+		String[] immuneLines = sections[0].split("\n");
 		for(int immuneCount = 1; immuneCount < immuneLines.length; immuneCount++) {
 			String line = immuneLines[immuneCount];
 			String[] words = line.split(" ");
@@ -82,7 +61,7 @@ public class Day24 implements IDay {
 			
 			groups.add(new Group(false,unitHp, unitCount, weak, immune, atkDamage, atkType, initiative));
 		}
-		String[] infectionLines = sections[1].split("\r\n");
+		String[] infectionLines = sections[1].split("\n");
 		for(int infectionCount = 1; infectionCount < infectionLines.length; infectionCount++) {
 			String line = infectionLines[infectionCount];
 			if(line.equals("Infection:"))
@@ -218,8 +197,8 @@ public class Day24 implements IDay {
 	public String part2() {
 		ArrayList<String> attackTypes = new ArrayList<String>();
 		ArrayList<Group> groupsBuffer = new ArrayList<Group>();
-		String[] sections = input.split("\r\n\r\n");
-		String[] immuneLines = sections[0].split("\r\n");
+		String[] sections = input.split("\n\n");
+		String[] immuneLines = sections[0].split("\n");
 		for(int immuneCount = 1; immuneCount < immuneLines.length; immuneCount++) {
 			String line = immuneLines[immuneCount];
 			String[] words = line.split(" ");
@@ -261,7 +240,7 @@ public class Day24 implements IDay {
 			
 			groupsBuffer.add(new Group(false,unitHp, unitCount, weak, immune, atkDamage, atkType, initiative));
 		}
-		String[] infectionLines = sections[1].split("\r\n");
+		String[] infectionLines = sections[1].split("\n");
 		for(int infectionCount = 1; infectionCount < infectionLines.length; infectionCount++) {
 			String line = infectionLines[infectionCount];
 			if(line.equals("Infection:"))
@@ -411,6 +390,7 @@ public class Day24 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,24);
 		DayRunner.run(new Day24());
 	}
 

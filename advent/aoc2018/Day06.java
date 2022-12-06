@@ -7,65 +7,17 @@ import java.util.HashSet;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day06 implements IDay {
 
-	String input = "84, 212\r\n"
-			+ "168, 116\r\n"
-			+ "195, 339\r\n"
-			+ "110, 86\r\n"
-			+ "303, 244\r\n"
-			+ "228, 338\r\n"
-			+ "151, 295\r\n"
-			+ "115, 49\r\n"
-			+ "161, 98\r\n"
-			+ "60, 197\r\n"
-			+ "40, 55\r\n"
-			+ "55, 322\r\n"
-			+ "148, 82\r\n"
-			+ "86, 349\r\n"
-			+ "145, 295\r\n"
-			+ "243, 281\r\n"
-			+ "91, 343\r\n"
-			+ "280, 50\r\n"
-			+ "149, 129\r\n"
-			+ "174, 119\r\n"
-			+ "170, 44\r\n"
-			+ "296, 148\r\n"
-			+ "152, 160\r\n"
-			+ "115, 251\r\n"
-			+ "266, 281\r\n"
-			+ "269, 285\r\n"
-			+ "109, 242\r\n"
-			+ "136, 241\r\n"
-			+ "236, 249\r\n"
-			+ "338, 245\r\n"
-			+ "71, 101\r\n"
-			+ "254, 327\r\n"
-			+ "208, 231\r\n"
-			+ "289, 184\r\n"
-			+ "282, 158\r\n"
-			+ "352, 51\r\n"
-			+ "326, 230\r\n"
-			+ "88, 240\r\n"
-			+ "292, 342\r\n"
-			+ "352, 189\r\n"
-			+ "231, 141\r\n"
-			+ "280, 350\r\n"
-			+ "296, 185\r\n"
-			+ "226, 252\r\n"
-			+ "172, 235\r\n"
-			+ "137, 161\r\n"
-			+ "207, 90\r\n"
-			+ "101, 133\r\n"
-			+ "156, 234\r\n"
-			+ "241, 185";
+	static String input;
 	
 	@Override
 	public String part1() {
 		ArrayList<Coord> points = new ArrayList<Coord>();
 	
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			int x = Integer.parseInt(s.split(", ")[0]);
 			int y = Integer.parseInt(s.split(", ")[1]);
 			points.add(new Coord(x,y));
@@ -124,7 +76,7 @@ public class Day06 implements IDay {
 	public String part2() {
 		ArrayList<Coord> points = new ArrayList<Coord>();
 		
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			int x = Integer.parseInt(s.split(", ")[0]);
 			int y = Integer.parseInt(s.split(", ")[1]);
 			points.add(new Coord(x,y));
@@ -147,6 +99,7 @@ public class Day06 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,6);
 		DayRunner.run(new Day06());
 	}
 

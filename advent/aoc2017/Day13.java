@@ -4,58 +4,17 @@ import java.util.HashMap;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day13 implements IDay {
 
-	String input = "0: 3\r\n"
-			+ "1: 2\r\n"
-			+ "2: 4\r\n"
-			+ "4: 4\r\n"
-			+ "6: 5\r\n"
-			+ "8: 6\r\n"
-			+ "10: 6\r\n"
-			+ "12: 8\r\n"
-			+ "14: 6\r\n"
-			+ "16: 6\r\n"
-			+ "18: 9\r\n"
-			+ "20: 8\r\n"
-			+ "22: 8\r\n"
-			+ "24: 8\r\n"
-			+ "26: 12\r\n"
-			+ "28: 8\r\n"
-			+ "30: 12\r\n"
-			+ "32: 12\r\n"
-			+ "34: 12\r\n"
-			+ "36: 10\r\n"
-			+ "38: 14\r\n"
-			+ "40: 12\r\n"
-			+ "42: 10\r\n"
-			+ "44: 8\r\n"
-			+ "46: 12\r\n"
-			+ "48: 14\r\n"
-			+ "50: 12\r\n"
-			+ "52: 14\r\n"
-			+ "54: 14\r\n"
-			+ "56: 14\r\n"
-			+ "58: 12\r\n"
-			+ "62: 14\r\n"
-			+ "64: 12\r\n"
-			+ "66: 12\r\n"
-			+ "68: 14\r\n"
-			+ "70: 14\r\n"
-			+ "72: 14\r\n"
-			+ "74: 17\r\n"
-			+ "76: 14\r\n"
-			+ "78: 18\r\n"
-			+ "84: 14\r\n"
-			+ "90: 20\r\n"
-			+ "92: 14";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//keep track of maximums of firewall
 		HashMap<Integer,Integer> firewall = new HashMap<Integer,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] nums = s.split(": +");
 			firewall.put(Integer.parseInt(nums[0]), Integer.parseInt(nums[1]));
 		}
@@ -78,7 +37,7 @@ public class Day13 implements IDay {
 	@Override
 	public String part2() {
 		HashMap<Integer,Integer> firewall = new HashMap<Integer,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] nums = s.split(": +");
 			firewall.put(Integer.parseInt(nums[0]), Integer.parseInt(nums[1]));
 		}
@@ -110,6 +69,7 @@ public class Day13 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,13);
 		DayRunner.run(new Day13());
 	}
 

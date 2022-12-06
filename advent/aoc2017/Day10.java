@@ -6,10 +6,11 @@ import java.util.Collections;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day10 implements IDay {
 
-	String input = "165,1,255,31,87,52,24,113,0,91,148,254,158,2,73,153";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -161,6 +162,7 @@ public class Day10 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,10).replace("\n","");
 		DayRunner.run(new Day10());
 	}
 

@@ -2,19 +2,15 @@ package advent.aoc2016;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day15 implements IDay {
 
-	String input = "Disc #1 has 17 positions; at time=0, it is at position 1.\r\n"
-			+ "Disc #2 has 7 positions; at time=0, it is at position 0.\r\n"
-			+ "Disc #3 has 19 positions; at time=0, it is at position 2.\r\n"
-			+ "Disc #4 has 5 positions; at time=0, it is at position 0.\r\n"
-			+ "Disc #5 has 3 positions; at time=0, it is at position 0.\r\n"
-			+ "Disc #6 has 13 positions; at time=0, it is at position 5.";
+	static String input;
 	
 	@Override
 	public String part1() {
-		int discCount = input.split("\r\n").length;
+		int discCount = input.split("\n").length;
 		//array of current disc positions
 		int[] disks = new int[discCount + 1];
 		//no disc at location 0
@@ -25,7 +21,7 @@ public class Day15 implements IDay {
 		disksMax[0] = 0;
 		//disk counter for input parsing
 		int inputDisk = 1;
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//current disk position
 			disks[inputDisk] = Integer.parseInt(parts[11].substring(0,parts[11].length() - 1));
@@ -55,7 +51,7 @@ public class Day15 implements IDay {
 
 	@Override
 	public String part2() {
-		int discCount = input.split("\r\n").length;
+		int discCount = input.split("\n").length;
 		//array of current disc positions
 		int[] disks = new int[discCount + 2];
 		//no disc at location 0
@@ -66,7 +62,7 @@ public class Day15 implements IDay {
 		disksMax[0] = 0;
 		//disk counter for input parsing
 		int inputDisk = 1;
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//current disk position
 			disks[inputDisk] = Integer.parseInt(parts[11].substring(0,parts[11].length() - 1));
@@ -98,6 +94,7 @@ public class Day15 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,15);
 		DayRunner.run(new Day15());
 	}
 

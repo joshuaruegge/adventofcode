@@ -2,15 +2,15 @@ package advent.aoc2020;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day13 implements IDay {
 
-	String input = "1002392\r\n"
-			+ "23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,37,x,x,x,x,x,421,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,17,x,19,x,x,x,x,x,x,x,x,x,29,x,487,x,x,x,x,x,x,x,x,x,x,x,x,13";
+	static String input;
 	
 	@Override
 	public String part1() {
-		String[] chunks = input.split("\r\n");
+		String[] chunks = input.split("\n");
 		int targetMin = Integer.parseInt(chunks[0]);
 		int lowestGap = Integer.MAX_VALUE;
 		int bestMin = 0;
@@ -31,7 +31,7 @@ public class Day13 implements IDay {
 
 	@Override
 	public String part2() {
-		String[] nums = input.split("\r\n")[1].split(",");
+		String[] nums = input.split("\n")[1].split(",");
 		int[] intervals = new int[nums.length];
 		for(int i = 0; i < nums.length; i++) {
 			if(nums[i].equals("x"))
@@ -76,7 +76,7 @@ public class Day13 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2020,13);
 		DayRunner.run(new Day13());
 	}
-
 }

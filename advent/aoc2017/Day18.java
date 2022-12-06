@@ -6,55 +6,16 @@ import java.util.HashMap;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 import advent.utilities.utils2017.Duet;
 
 public class Day18 implements IDay {
 
-	String input = "set i 31\r\n"
-			+ "set a 1\r\n"
-			+ "mul p 17\r\n"
-			+ "jgz p p\r\n"
-			+ "mul a 2\r\n"
-			+ "add i -1\r\n"
-			+ "jgz i -2\r\n"
-			+ "add a -1\r\n"
-			+ "set i 127\r\n"
-			+ "set p 735\r\n"
-			+ "mul p 8505\r\n"
-			+ "mod p a\r\n"
-			+ "mul p 129749\r\n"
-			+ "add p 12345\r\n"
-			+ "mod p a\r\n"
-			+ "set b p\r\n"
-			+ "mod b 10000\r\n"
-			+ "snd b\r\n"
-			+ "add i -1\r\n"
-			+ "jgz i -9\r\n"
-			+ "jgz a 3\r\n"
-			+ "rcv b\r\n"
-			+ "jgz b -1\r\n"
-			+ "set f 0\r\n"
-			+ "set i 126\r\n"
-			+ "rcv a\r\n"
-			+ "rcv b\r\n"
-			+ "set p a\r\n"
-			+ "mul p -1\r\n"
-			+ "add p b\r\n"
-			+ "jgz p 4\r\n"
-			+ "snd a\r\n"
-			+ "set a b\r\n"
-			+ "jgz 1 3\r\n"
-			+ "snd b\r\n"
-			+ "set f 1\r\n"
-			+ "add i -1\r\n"
-			+ "jgz i -11\r\n"
-			+ "snd a\r\n"
-			+ "jgz f -16\r\n"
-			+ "jgz a -19";
+	static String input;
 	
 	@Override
 	public String part1() {
-		ArrayList<String> program = new ArrayList<String>(Arrays.asList(input.split("\r\n")));
+		ArrayList<String> program = new ArrayList<String>(Arrays.asList(input.split("\n")));
 		HashMap<String,Long> registers = new HashMap<String,Long>();
 		int pointer = 0;
 		long lastSound = -1;
@@ -128,7 +89,7 @@ public class Day18 implements IDay {
 	static ArrayList<Duet> stack;
 	@Override
 	public String part2() {
-		ArrayList<String> program = new ArrayList<String>(Arrays.asList(input.split("\r\n")));
+		ArrayList<String> program = new ArrayList<String>(Arrays.asList(input.split("\n")));
 		stack = new ArrayList<Duet>();
 		stack.add(new Duet(program,0));
 		stack.add(new Duet(program,1));
@@ -145,6 +106,7 @@ public class Day18 implements IDay {
 	}
 	
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,18);
 		DayRunner.run(new Day18());
 	}
 

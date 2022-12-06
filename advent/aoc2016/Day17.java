@@ -6,10 +6,11 @@ import java.security.NoSuchAlgorithmException;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day17 implements IDay {
 
-	static String input = "yjjvjgan";
+	static String input;
 	
 	final static Coord END = new Coord(3,3);
 	
@@ -101,6 +102,7 @@ public class Day17 implements IDay {
 	public static boolean inBounds(Coord c) { 
 		return c.x > -1 && c.x < 4 && c.y > -1 && c.y < 4;
 	}
+
 	@Override
 	public String part2() {
 		return Integer.toString(longestPath(new Coord(0,0), ""));
@@ -160,6 +162,7 @@ public class Day17 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,17).replace("\n","");
 		DayRunner.run(new Day17());
 	}
 

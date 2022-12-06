@@ -1,13 +1,10 @@
 package advent.aoc2018;
 
-import advent.utilities.general.Coord;
-import advent.utilities.general.Coord3;
-import advent.utilities.general.DayRunner;
-import advent.utilities.general.IDay;
+import advent.utilities.general.*;
 
 public class Day11 implements IDay {
 
-	String input = "7672";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -81,6 +78,7 @@ public class Day11 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,11).trim();
 		DayRunner.run(new Day11());
 	}
 

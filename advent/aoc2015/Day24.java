@@ -2,41 +2,15 @@ package advent.aoc2015;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day24 implements IDay {
 
-	String input = "1\r\n"
-			+ "3\r\n"
-			+ "5\r\n"
-			+ "11\r\n"
-			+ "13\r\n"
-			+ "17\r\n"
-			+ "19\r\n"
-			+ "23\r\n"
-			+ "29\r\n"
-			+ "31\r\n"
-			+ "41\r\n"
-			+ "43\r\n"
-			+ "47\r\n"
-			+ "53\r\n"
-			+ "59\r\n"
-			+ "61\r\n"
-			+ "67\r\n"
-			+ "71\r\n"
-			+ "73\r\n"
-			+ "79\r\n"
-			+ "83\r\n"
-			+ "89\r\n"
-			+ "97\r\n"
-			+ "101\r\n"
-			+ "103\r\n"
-			+ "107\r\n"
-			+ "109\r\n"
-			+ "113";
+	static String input;
 	
 	@Override
 	public String part1() {
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int[] weights = new int[lines.length];
 		for(int i = 0; i < lines.length; i++)
 			weights[i] = Integer.parseInt(lines[i]);
@@ -80,7 +54,7 @@ public class Day24 implements IDay {
 	
 	@Override
 	public String part2() {
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int[] weights = new int[lines.length];
 		for(int i = 0; i < lines.length; i++)
 			weights[i] = Integer.parseInt(lines[i]);
@@ -135,6 +109,7 @@ public class Day24 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,24);
 		DayRunner.run(new Day24());
 	}
 

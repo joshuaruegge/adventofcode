@@ -4,10 +4,11 @@ import java.util.ArrayDeque;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day09 implements IDay {
 
-	String input = "426 players; last marble is worth 72058 points";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -60,6 +61,7 @@ public class Day09 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,9);
 		DayRunner.run(new Day09());
 	}
 

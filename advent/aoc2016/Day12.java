@@ -4,40 +4,19 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day12 implements IDay {
 
-	String input = "cpy 1 a\r\n"
-			+ "cpy 1 b\r\n"
-			+ "cpy 26 d\r\n"
-			+ "jnz c 2\r\n"
-			+ "jnz 1 5\r\n"
-			+ "cpy 7 c\r\n"
-			+ "inc d\r\n"
-			+ "dec c\r\n"
-			+ "jnz c -2\r\n"
-			+ "cpy a c\r\n"
-			+ "inc a\r\n"
-			+ "dec b\r\n"
-			+ "jnz b -2\r\n"
-			+ "cpy c b\r\n"
-			+ "dec d\r\n"
-			+ "jnz d -6\r\n"
-			+ "cpy 13 c\r\n"
-			+ "cpy 14 d\r\n"
-			+ "inc a\r\n"
-			+ "dec d\r\n"
-			+ "jnz d -2\r\n"
-			+ "dec c\r\n"
-			+ "jnz c -5";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//parse input into arraylist to store program
 		ArrayList<String> program = new ArrayList<String>();
-		for(String s : input.split("\r\n"))
+		for(String s : input.split("\n"))
 			program.add(s);
-		
+
 		//pointer and registers
 		int pointer = 0;
 		int a = 0;
@@ -155,7 +134,7 @@ public class Day12 implements IDay {
 	public String part2() {
 		//parse input into arraylist to store program
 		ArrayList<String> program = new ArrayList<String>();
-		for(String s : input.split("\r\n"))
+		for(String s : input.split("\n"))
 			program.add(s);
 		
 		//pointer and registers
@@ -271,6 +250,7 @@ public class Day12 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,12);
 		DayRunner.run(new Day12());
 	}
 

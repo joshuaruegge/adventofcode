@@ -6,10 +6,11 @@ import java.util.Arrays;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day05 implements IDay {
 
-	String input = "uqwqemis";
+	static String input;
 	
 	//enable for silly output
 	boolean coolscroll = false;
@@ -99,6 +100,7 @@ public class Day05 implements IDay {
 		return false;
 	}
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,5).replace("\n","");
 		DayRunner.run(new Day05());
 	}
 

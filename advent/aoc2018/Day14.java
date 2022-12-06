@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day14 implements IDay {
 
-	String input = "540391";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -99,6 +100,7 @@ public class Day14 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,14).trim();
 		DayRunner.run(new Day14());
 	}
 

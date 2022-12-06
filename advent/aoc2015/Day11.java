@@ -2,10 +2,11 @@ package advent.aoc2015;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day11 implements IDay {
 
-	String input = "hxbxwxba";
+	static String input;
 	
 	//buffer part 1 answer for part 2
 	String part1;
@@ -13,7 +14,7 @@ public class Day11 implements IDay {
 	@Override
 	public String part1() {
 		//store as character array to increment easily
-		char[] pass = input.toCharArray();
+		char[] pass = input.replace("\n","").toCharArray();
 		inc:
 		while(true) {
 			//first, increment password
@@ -102,6 +103,7 @@ public class Day11 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,11);
 		DayRunner.run(new Day11());
 	}
 

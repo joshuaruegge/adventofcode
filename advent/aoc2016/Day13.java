@@ -8,10 +8,11 @@ import java.util.Comparator;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day13 implements IDay {
 
-	String input = "1362";
+	static String input;
 	
 	static HashSet<Coord> path;
 	
@@ -103,6 +104,7 @@ public class Day13 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,13).replace("\n","");
 		DayRunner.run(new Day13());
 	}
 

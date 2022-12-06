@@ -5,78 +5,20 @@ import java.util.HashMap;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 import advent.utilities.utils2019.Order;
 import advent.utilities.utils2019.Recipe;
 
 public class Day14 implements IDay {
 
-	static String input = "11 RVCS => 8 CBMDT\r\n"
-			+ "29 QXPB, 8 QRGRH => 8 LGMKD\r\n"
-			+ "3 VPRVD => 6 PMFZG\r\n"
-			+ "1 CNWNQ, 11 MJVXS => 6 SPLM\r\n"
-			+ "13 SPDRZ, 13 PMFZG => 2 BLFM\r\n"
-			+ "8 QWPFN => 7 LWVB\r\n"
-			+ "1 SPLM => 8 TKWQ\r\n"
-			+ "2 QRGRH, 6 CNWNQ => 7 DTZW\r\n"
-			+ "2 DMLT, 1 SPLM, 1 TMDK => 9 NKNS\r\n"
-			+ "1 MJVXS, 1 HLBV => 7 PQCQH\r\n"
-			+ "1 JZHZP, 9 LWVB => 7 MJSCQ\r\n"
-			+ "29 DGFR => 7 QRGRH\r\n"
-			+ "14 XFLKQ, 2 NKNS, 4 KMNJF, 3 MLZGQ, 7 TKWQ, 24 WTDW, 11 CBMDT => 4 GJKX\r\n"
-			+ "4 TKWQ, 1 WLCFR => 4 PDKGT\r\n"
-			+ "2 NKNS => 4 GDKL\r\n"
-			+ "4 WRZST => 9 XFLKQ\r\n"
-			+ "19 DGFR => 4 VPRVD\r\n"
-			+ "10 MJSCQ, 4 QWPFN, 4 QXPB => 2 MLZGQ\r\n"
-			+ "1 JZHZP => 7 QWPFN\r\n"
-			+ "1 XFLKQ => 9 FQGVL\r\n"
-			+ "3 GQGXC => 9 VHGP\r\n"
-			+ "3 NQZTV, 1 JZHZP => 2 NVZWL\r\n"
-			+ "38 WLCFR, 15 GJKX, 44 LGMKD, 2 CBVXG, 2 GDKL, 77 FQGVL, 10 MKRCZ, 29 WJQD, 33 BWXGC, 19 PQCQH, 24 BKXD => 1 FUEL\r\n"
-			+ "102 ORE => 5 DGFR\r\n"
-			+ "17 NWKLB, 1 SBPLK => 5 HRQM\r\n"
-			+ "3 BWXGC => 8 TQDP\r\n"
-			+ "1 TQDP => 2 PSZDZ\r\n"
-			+ "2 MJVXS => 9 WNXG\r\n"
-			+ "2 NBTW, 1 HRQM => 2 SVHBH\r\n"
-			+ "8 CNWNQ, 1 DTZW => 4 RVCS\r\n"
-			+ "4 VHGP, 20 WNXG, 2 SVHBH => 3 SPDRZ\r\n"
-			+ "110 ORE => 5 TXMC\r\n"
-			+ "10 QRGRH => 5 NWKLB\r\n"
-			+ "1 SBPLK => 3 MJVXS\r\n"
-			+ "9 DGFR => 5 RFSRL\r\n"
-			+ "5 LBTV => 3 DMLT\r\n"
-			+ "1 NWKLB, 1 KMNJF, 1 HDQXB, 6 LBTV, 2 PSZDZ, 34 PMFZG, 2 SVHBH => 2 WJQD\r\n"
-			+ "1 RVCS => 5 MKRCZ\r\n"
-			+ "14 NQZTV, 3 FPLT, 1 SJMS => 2 GQGXC\r\n"
-			+ "18 RFSRL, 13 VHGP, 23 NBTW => 5 WTDW\r\n"
-			+ "1 VHGP, 6 TKWQ => 7 QXPB\r\n"
-			+ "1 JZHZP, 1 CNWNQ => 5 KMNJF\r\n"
-			+ "109 ORE => 9 BWXGC\r\n"
-			+ "2 CNWNQ, 1 PDKGT, 2 KMNJF => 5 HDQXB\r\n"
-			+ "1 PDKGT, 18 WRZST, 9 MJSCQ, 3 VHGP, 1 BLFM, 1 LGMKD, 7 WLCFR => 2 BKXD\r\n"
-			+ "11 MLJK => 6 FPLT\r\n"
-			+ "8 DGFR, 2 TXMC, 3 WJRC => 9 SJMS\r\n"
-			+ "2 SBPLK => 1 LBTV\r\n"
-			+ "22 QWPFN => 4 WRZST\r\n"
-			+ "5 WRZST, 22 WNXG, 1 VHGP => 7 NBTW\r\n"
-			+ "7 RVCS => 9 TMDK\r\n"
-			+ "1 DGFR, 14 TXMC => 5 JZHZP\r\n"
-			+ "2 JZHZP => 3 SBPLK\r\n"
-			+ "19 PDKGT => 8 HLBV\r\n"
-			+ "195 ORE => 6 WJRC\r\n"
-			+ "6 GQGXC => 8 CNWNQ\r\n"
-			+ "1 NVZWL, 4 GQGXC => 2 CBVXG\r\n"
-			+ "1 NVZWL, 1 KMNJF => 8 WLCFR\r\n"
-			+ "153 ORE => 4 MLJK\r\n"
-			+ "1 BWXGC => 6 NQZTV";
+	static String input;
 
 	@Override
 	public String part1() {
 		//a Recipe consists of an Order for the result, and an ArrayList<Order> of ingredients
 		//an Order object is essentially a pair of a name string and an int quantity
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] lineParts = s.split(" => ");
 			//make result of recipe
 			String[] resultParts = lineParts[1].split(" ");
@@ -146,7 +88,7 @@ public class Day14 implements IDay {
 		//a Recipe consists of an Order for the result, and an ArrayList<Order> of ingredients
 		//an Order object is essentially a pair of a name string and an int quantity
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] lineParts = s.split(" => ");
 			//make result of recipe
 			String[] resultParts = lineParts[1].split(" ");
@@ -208,6 +150,7 @@ public class Day14 implements IDay {
 			}
 			fuelProduced += 10000;
 		}
+
 		//now, produce fuel one-by-one until we've used up the last scraps of ore
 		while(totalOre > 0) {
 			orders.add(new Order("FUEL",1));
@@ -246,13 +189,8 @@ public class Day14 implements IDay {
 			}
 		}
 		return Integer.toString(fuelProduced);
-		
 	}
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day14());
-	}
-	
+
 	//locates order with name s in list a
 	public static Order findOrder(ArrayList<Order> a, String s) {
 		for(Order o : a) {
@@ -269,5 +207,10 @@ public class Day14 implements IDay {
 				return r;
 		}
 		return null;
+	}
+
+	public static void main(String[] args) {
+		input = Input.fetchInput(2019,14);
+		DayRunner.run(new Day14());
 	}
 }

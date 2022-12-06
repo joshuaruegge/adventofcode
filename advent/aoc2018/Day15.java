@@ -11,50 +11,13 @@ import java.util.LinkedList;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 import advent.utilities.utils2018.Unit;
 
 public class Day15 implements IDay {
 
-	String input = "################################\r\n"
-			+ "##############.#.#...G.#########\r\n"
-			+ "##############.........#########\r\n"
-			+ "##############...#.#...#########\r\n"
-			+ "##############.##..#...#########\r\n"
-			+ "##############..........########\r\n"
-			+ "#############.......G...########\r\n"
-			+ "############G............#######\r\n"
-			+ "############..#G...G.....#######\r\n"
-			+ "#############.##.G.G.#..########\r\n"
-			+ "###############......##.########\r\n"
-			+ "#######.##G...........##########\r\n"
-			+ "######..G.....#####...##########\r\n"
-			+ "#####...#....#######..##########\r\n"
-			+ "#####G......#########.##########\r\n"
-			+ "#####.G.....#########.##########\r\n"
-			+ "#######..#G.#########E######..##\r\n"
-			+ "#.######....#########....###...#\r\n"
-			+ "#..G####...E#########....###..##\r\n"
-			+ "#.....#G.....#######.........###\r\n"
-			+ "##....#.......#####..........###\r\n"
-			+ "##.......E#........E.........###\r\n"
-			+ "#....G.G........#E........E.####\r\n"
-			+ "#........#.......E...##....#####\r\n"
-			+ "#........###..G............#####\r\n"
-			+ "##G......##......#.E......######\r\n"
-			+ "##.#.........##..........#######\r\n"
-			+ "#G.#...#G.....#.........##.#####\r\n"
-			+ "#####..#......#.#.....#...E#####\r\n"
-			+ "########........#....###.....#.#\r\n"
-			+ "########.........#E..#####.#...#\r\n"
-			+ "################################";
-	String input2 = "#######\r\n"
-			+ "#G..#E#\r\n"
-			+ "#E#E.E#\r\n"
-			+ "#G.##.#\r\n"
-			+ "#...#E#\r\n"
-			+ "#...E.#\r\n"
-			+ "#######";
-	
+	static String input;
+
 	static HashSet<Coord> walls;
 	static ArrayList<Unit> units;
 	
@@ -71,7 +34,7 @@ public class Day15 implements IDay {
 		ArrayList<Unit> elves = new ArrayList<Unit>();
 		walls = new HashSet<Coord>();
 		int inY = 0;
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			for(int x = 0; x < s.length(); x++) {
 				char c = s.charAt(x);
 				if(c != '.') {
@@ -268,7 +231,7 @@ public class Day15 implements IDay {
 			ArrayList<Unit> elves = new ArrayList<Unit>();
 			walls = new HashSet<Coord>();
 			int inY = 0;
-			for(String s : input.split("\r\n")) {
+			for(String s : input.split("\n")) {
 				for(int x = 0; x < s.length(); x++) {
 					char c = s.charAt(x);
 					if(c != '.') {
@@ -406,6 +369,7 @@ public class Day15 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,15);
 		DayRunner.run(new Day15());
 	}
 

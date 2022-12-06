@@ -5,75 +5,24 @@ import java.util.LinkedList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day22 implements IDay {
 
 	//CRAB COMBAT!!!!!
-	String input = "Player 1:\r\n"
-			+ "4\r\n"
-			+ "25\r\n"
-			+ "3\r\n"
-			+ "11\r\n"
-			+ "2\r\n"
-			+ "29\r\n"
-			+ "41\r\n"
-			+ "23\r\n"
-			+ "30\r\n"
-			+ "21\r\n"
-			+ "50\r\n"
-			+ "8\r\n"
-			+ "1\r\n"
-			+ "24\r\n"
-			+ "27\r\n"
-			+ "10\r\n"
-			+ "42\r\n"
-			+ "43\r\n"
-			+ "38\r\n"
-			+ "15\r\n"
-			+ "18\r\n"
-			+ "13\r\n"
-			+ "32\r\n"
-			+ "37\r\n"
-			+ "34\r\n"
-			+ "\r\n"
-			+ "Player 2:\r\n"
-			+ "12\r\n"
-			+ "6\r\n"
-			+ "36\r\n"
-			+ "35\r\n"
-			+ "40\r\n"
-			+ "47\r\n"
-			+ "31\r\n"
-			+ "9\r\n"
-			+ "46\r\n"
-			+ "49\r\n"
-			+ "19\r\n"
-			+ "16\r\n"
-			+ "5\r\n"
-			+ "26\r\n"
-			+ "39\r\n"
-			+ "48\r\n"
-			+ "7\r\n"
-			+ "44\r\n"
-			+ "45\r\n"
-			+ "20\r\n"
-			+ "17\r\n"
-			+ "14\r\n"
-			+ "33\r\n"
-			+ "28\r\n"
-			+ "22";
+	static String input;
 	
 	@Override
 	public String part1() {
 		LinkedList<Integer> deck1 = new LinkedList<Integer>();
 		LinkedList<Integer> deck2 = new LinkedList<Integer>();
 		
-		String[] playerParts = input.split("\r\n\r\n");
-		String[] player1Cards = playerParts[0].split("\r\n");
+		String[] playerParts = input.split("\n\n");
+		String[] player1Cards = playerParts[0].split("\n");
 		for(int i = 1; i < player1Cards.length; i++)
 			deck1.add(Integer.parseInt(player1Cards[i]));
 		
-		String[] player2Cards = playerParts[1].split("\r\n");
+		String[] player2Cards = playerParts[1].split("\n");
 		for(int i = 1; i < player2Cards.length; i++)
 			deck2.add(Integer.parseInt(player2Cards[i]));
 		
@@ -104,12 +53,12 @@ public class Day22 implements IDay {
 		LinkedList<Integer> deck1 = new LinkedList<Integer>();
 		LinkedList<Integer> deck2 = new LinkedList<Integer>();
 		
-		String[] playerParts = input.split("\r\n\r\n");
-		String[] player1Cards = playerParts[0].split("\r\n");
+		String[] playerParts = input.split("\n\n");
+		String[] player1Cards = playerParts[0].split("\n");
 		for(int i = 1; i < player1Cards.length; i++)
 			deck1.add(Integer.parseInt(player1Cards[i]));
 		
-		String[] player2Cards = playerParts[1].split("\r\n");
+		String[] player2Cards = playerParts[1].split("\n");
 		for(int i = 1; i < player2Cards.length; i++)
 			deck2.add(Integer.parseInt(player2Cards[i]));
 		
@@ -175,7 +124,7 @@ public class Day22 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2020,22);
 		DayRunner.run(new Day22());
 	}
-
 }

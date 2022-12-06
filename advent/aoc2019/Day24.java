@@ -3,18 +3,11 @@ package advent.aoc2019;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import advent.utilities.general.Coord;
-import advent.utilities.general.Coord3;
-import advent.utilities.general.DayRunner;
-import advent.utilities.general.IDay;
+import advent.utilities.general.*;
 
 public class Day24 implements IDay {
 
-	static String input = ".###.\r\n"
-			+ "##...\r\n"
-			+ "...##\r\n"
-			+ ".#.#.\r\n"
-			+ "#.#.#";
+	static String input;
 	
 	static ArrayList<ArrayList<Integer>> map;
 	
@@ -23,13 +16,12 @@ public class Day24 implements IDay {
 	
 	static int minDepth = 0;
 	static int maxDepth = 0;
-	
 
 	@Override
 	public String part1() {
 		//parse input into two-dimensional int array list
 		map = new ArrayList<ArrayList<Integer>>();
-		for(String line : input.split("\r\n")) {
+		for(String line : input.split("\n")) {
 			ArrayList<Integer> row = new ArrayList<Integer>();
 			for(char c : line.toCharArray()) {
 				row.add((c == '.' ? 0 : 1));
@@ -167,8 +159,7 @@ public class Day24 implements IDay {
 					newMaxDepth++;
 				for(int y = 0; y < 5; y++) {
 					Coord3 next = new Coord3(0,y,newMaxDepth);
-					if(!newBugPos.contains(next))
-						newBugPos.add(next);
+					newBugPos.add(next);
 				}
 			}
 			//top middle, max depth
@@ -177,10 +168,7 @@ public class Day24 implements IDay {
 					newMaxDepth++;
 				for(int x = 0; x < 5; x++) {
 					Coord3 next = new Coord3(x,0,newMaxDepth);
-					if(!newBugPos.contains(next)) {
-						newBugPos.add(next);
-					}
-					
+					newBugPos.add(next);
 				}
 			}
 			//right middle, max depth
@@ -189,8 +177,7 @@ public class Day24 implements IDay {
 					newMaxDepth++;
 				for(int y = 0; y < 5; y++) {
 					Coord3 next = new Coord3(4,y,newMaxDepth);
-					if(!newBugPos.contains(next))
-						newBugPos.add(next);
+					newBugPos.add(next);
 				}
 			}
 			//bottom middle, max depth
@@ -199,10 +186,7 @@ public class Day24 implements IDay {
 					newMaxDepth++;
 				for(int x = 0; x < 5; x++) {
 					Coord3 next = new Coord3(x,4,newMaxDepth);
-					if(!newBugPos.contains(next)) {
-						newBugPos.add(next);
-					}
-					
+					newBugPos.add(next);
 				}
 			}
 			
@@ -213,11 +197,7 @@ public class Day24 implements IDay {
 		}
 		return Integer.toString(bugPositions2.size());
 	}
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day24());
-	}
-	
+
 	//"score" an array for part 1
 	public static long total(HashSet<Coord> a) {		
 		long total = 0;
@@ -316,5 +296,10 @@ public class Day24 implements IDay {
 			}
 		}
 		return count;
+	}
+
+	public static void main(String[] args) {
+		input = Input.fetchInput(2019,24);
+		DayRunner.run(new Day24());
 	}
 }

@@ -7,25 +7,17 @@ import java.util.LinkedList;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day11 implements IDay {
 
-	String input = "4112256372\r\n"
-			+ "3143253712\r\n"
-			+ "4516848631\r\n"
-			+ "3783477137\r\n"
-			+ "3746723582\r\n"
-			+ "5861358884\r\n"
-			+ "4843351774\r\n"
-			+ "2316447621\r\n"
-			+ "6643817745\r\n"
-			+ "6366815868";
+	static String input;
 	
 	@Override
 	public String part1() {
 		HashMap<Coord,Integer> level = new HashMap<Coord,Integer>();
 		int row = 0;
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			for(int i = 0; i < s.length(); i++) {
 				level.put(new Coord(row,i), Integer.parseInt(s.substring(i,i+1)));
 			}
@@ -67,7 +59,7 @@ public class Day11 implements IDay {
 	public String part2() {
 		HashMap<Coord,Integer> level = new HashMap<Coord,Integer>();
 		int row = 0;
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			for(int i = 0; i < s.length(); i++) {
 				level.put(new Coord(row,i), Integer.parseInt(s.substring(i,i+1)));
 			}
@@ -108,7 +100,7 @@ public class Day11 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2021,11);
 		DayRunner.run(new Day11());
 	}
-
 }

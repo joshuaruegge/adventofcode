@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day23 implements IDay {
 
-	String input = "135468729";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -32,7 +33,7 @@ public class Day23 implements IDay {
 			}
 			
 			//find index of destination - minimum cup is always 1, maximum always 9
-			while(cups.indexOf(cupAtCur) == -1) {
+			while(!cups.contains(cupAtCur)) {
 				cupAtCur--;
 				if(cupAtCur <= 0)
 					cupAtCur = 9;
@@ -70,8 +71,6 @@ public class Day23 implements IDay {
 		return num;
 	}
 
-	String input2 = "389125467";
-	
 	@Override
 	public String part2() {
 		//rather than a prohibitively big and time-consuming list, simply map cup -> cup after to replicate the circle
@@ -123,7 +122,7 @@ public class Day23 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2020,23).trim();
 		DayRunner.run(new Day23());
 	}
-
 }

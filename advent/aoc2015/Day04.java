@@ -1,17 +1,21 @@
 package advent.aoc2015;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day04 implements IDay {
 
-	String input = "iwrupvqb";
-	
+	static String input;
+
 	@Override
 	public String part1() {
+		//ensure trailing newline is trimmed
+		input = input.replace("\n","");
 		//use java MessageDigest class to perform MD5 hashing
 		//everyone say "thank you native java libraries"
 		MessageDigest m = null;
@@ -21,6 +25,8 @@ public class Day04 implements IDay {
 			//come on. run this on a normal computer. please
 			//even your toaster probably has native md5 implementation now
 			System.out.println("no.");
+			e.printStackTrace();
+			System.exit(0);
 		}
 		int counter = 1;
 		while(true) {
@@ -44,12 +50,15 @@ public class Day04 implements IDay {
 
 	@Override
 	public String part2() {
+		input.replace("\\n","");
 		MessageDigest m = null;
 		try {
 			m = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
 			//come on. run this on a normal computer. please
 			System.out.println("no.");
+			e.printStackTrace();
+			System.exit(0);
 		}
 		int counter = 1;
 		while(true) {
@@ -66,6 +75,7 @@ public class Day04 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,4);
 		DayRunner.run(new Day04());
 	}
 

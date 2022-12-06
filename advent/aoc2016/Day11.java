@@ -2,13 +2,11 @@ package advent.aoc2016;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day11 implements IDay {
 
-	String input = "The first floor contains a thulium generator, a thulium-compatible microchip, a plutonium generator, and a strontium generator.\r\n"
-			+ "The second floor contains a plutonium-compatible microchip and a strontium-compatible microchip.\r\n"
-			+ "The third floor contains a promethium generator, a promethium-compatible microchip, a ruthenium generator, and a ruthenium-compatible microchip.\r\n"
-			+ "The fourth floor contains nothing relevant.";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -22,7 +20,7 @@ public class Day11 implements IDay {
 		int[] floorCounts = new int[4];
 	
 		//now, count items from input
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int i = 0; i < 4; i++) {
 			String line = lines[i];
 			//number of items is, coincidentally, number of commas plus number of "and"s
@@ -59,7 +57,7 @@ public class Day11 implements IDay {
 		int[] floorCounts = new int[4];
 	
 		//now, count items from input
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int i = 0; i < 4; i++) {
 			String line = lines[i];
 			//number of items is, coincidentally, number of commas plus number of "and"s
@@ -86,6 +84,7 @@ public class Day11 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,11);
 		DayRunner.run(new Day11());
 	}
 

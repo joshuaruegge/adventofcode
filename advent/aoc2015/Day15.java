@@ -4,19 +4,17 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day15 implements IDay {
 
-	String input = "Sprinkles: capacity 2, durability 0, flavor -2, texture 0, calories 3\r\n"
-			+ "Butterscotch: capacity 0, durability 5, flavor -3, texture 0, calories 3\r\n"
-			+ "Chocolate: capacity 0, durability 0, flavor 5, texture -1, calories 8\r\n"
-			+ "Candy: capacity 0, durability -1, flavor 0, texture 5, calories 8";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//store ingredients as 5-item int array arraylist
 		ArrayList<int[]> ingredients = new ArrayList<int[]>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//trim commas and parse integers for different aspect values
 			int cap = Integer.parseInt(parts[2].substring(0,parts[2].length() - 1));
@@ -73,7 +71,7 @@ public class Day15 implements IDay {
 		
 		//store ingredients as 5-item int array arraylist
 		ArrayList<int[]> ingredients = new ArrayList<int[]>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//trim commas and parse integers for different aspect values
 			int cap = Integer.parseInt(parts[2].substring(0,parts[2].length() - 1));
@@ -125,6 +123,7 @@ public class Day15 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,15);
 		DayRunner.run(new Day15());
 	}
 

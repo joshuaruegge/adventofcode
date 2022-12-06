@@ -8,30 +8,11 @@ import java.util.PriorityQueue;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day10 implements IDay{
 	
-	static String input = "###..#########.#####.\r\n"
-			+ ".####.#####..####.#.#\r\n"
-			+ ".###.#.#.#####.##..##\r\n"
-			+ "##.####.#.###########\r\n"
-			+ "###...#.####.#.#.####\r\n"
-			+ "#.##..###.########...\r\n"
-			+ "#.#######.##.#######.\r\n"
-			+ ".#..#.#..###...####.#\r\n"
-			+ "#######.##.##.###..##\r\n"
-			+ "#.#......#....#.#.#..\r\n"
-			+ "######.###.#.#.##...#\r\n"
-			+ "####.#...#.#######.#.\r\n"
-			+ ".######.#####.#######\r\n"
-			+ "##.##.##.#####.##.#.#\r\n"
-			+ "###.#######..##.#....\r\n"
-			+ "###.##.##..##.#####.#\r\n"
-			+ "##.########.#.#.#####\r\n"
-			+ ".##....##..###.#...#.\r\n"
-			+ "#..#.####.######..###\r\n"
-			+ "..#.####.############\r\n"
-			+ "..##...###..#########";
+	static String input;
 	
 	static int maxX = 0;
 	static int maxY = 0;
@@ -39,13 +20,12 @@ public class Day10 implements IDay{
 	static ArrayList<Coord> asteroidPositions = new ArrayList<Coord>();
 	
 	static Coord bestCoord = new Coord();
-	
 
 	@Override
 	public String part1() {
 		int y = 0;
 		
-		for(String line : input.split("\r\n")) {
+		for(String line : input.split("\n")) {
 			for(int x = 0; x < line.length(); x++) {
 				if(line.charAt(x) == '#') {
 					asteroidPositions.add(new Coord(x,y));
@@ -83,8 +63,7 @@ public class Day10 implements IDay{
 			for(Coord c : stationVisibles) {
 				queue.add(c);
 			}
-			
-			
+
 			//evaluation loop
 			while(queue.size() > 0) {
 				//remove top of queue
@@ -163,11 +142,7 @@ public class Day10 implements IDay{
 		Coord twoHundred = destroyeds.get(199);
 		return Integer.toString(twoHundred.x * 100 + twoHundred.y);
 	}
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day10());
-	}
-	
+
 	//iterates through asteroid list to determine which ones are currently visible from origin
 	public static ArrayList<Coord> generateUnobstructed(ArrayList<Coord> asteroids,Coord origin) {
 		//if the list is sorted in angle order and then distance to origin order, then
@@ -242,4 +217,8 @@ public class Day10 implements IDay{
 		return cfs.get(cfs.size() - 1);
 	}
 
+	public static void main(String[] args) {
+		input = Input.fetchInput(2019,10);
+		DayRunner.run(new Day10());
+	}
 }

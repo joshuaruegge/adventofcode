@@ -8,65 +8,11 @@ import java.util.stream.IntStream;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day13 implements IDay {
 
-	String input = "Alice would lose 57 happiness units by sitting next to Bob.\r\n"
-			+ "Alice would lose 62 happiness units by sitting next to Carol.\r\n"
-			+ "Alice would lose 75 happiness units by sitting next to David.\r\n"
-			+ "Alice would gain 71 happiness units by sitting next to Eric.\r\n"
-			+ "Alice would lose 22 happiness units by sitting next to Frank.\r\n"
-			+ "Alice would lose 23 happiness units by sitting next to George.\r\n"
-			+ "Alice would lose 76 happiness units by sitting next to Mallory.\r\n"
-			+ "Bob would lose 14 happiness units by sitting next to Alice.\r\n"
-			+ "Bob would gain 48 happiness units by sitting next to Carol.\r\n"
-			+ "Bob would gain 89 happiness units by sitting next to David.\r\n"
-			+ "Bob would gain 86 happiness units by sitting next to Eric.\r\n"
-			+ "Bob would lose 2 happiness units by sitting next to Frank.\r\n"
-			+ "Bob would gain 27 happiness units by sitting next to George.\r\n"
-			+ "Bob would gain 19 happiness units by sitting next to Mallory.\r\n"
-			+ "Carol would gain 37 happiness units by sitting next to Alice.\r\n"
-			+ "Carol would gain 45 happiness units by sitting next to Bob.\r\n"
-			+ "Carol would gain 24 happiness units by sitting next to David.\r\n"
-			+ "Carol would gain 5 happiness units by sitting next to Eric.\r\n"
-			+ "Carol would lose 68 happiness units by sitting next to Frank.\r\n"
-			+ "Carol would lose 25 happiness units by sitting next to George.\r\n"
-			+ "Carol would gain 30 happiness units by sitting next to Mallory.\r\n"
-			+ "David would lose 51 happiness units by sitting next to Alice.\r\n"
-			+ "David would gain 34 happiness units by sitting next to Bob.\r\n"
-			+ "David would gain 99 happiness units by sitting next to Carol.\r\n"
-			+ "David would gain 91 happiness units by sitting next to Eric.\r\n"
-			+ "David would lose 38 happiness units by sitting next to Frank.\r\n"
-			+ "David would gain 60 happiness units by sitting next to George.\r\n"
-			+ "David would lose 63 happiness units by sitting next to Mallory.\r\n"
-			+ "Eric would gain 23 happiness units by sitting next to Alice.\r\n"
-			+ "Eric would lose 69 happiness units by sitting next to Bob.\r\n"
-			+ "Eric would lose 33 happiness units by sitting next to Carol.\r\n"
-			+ "Eric would lose 47 happiness units by sitting next to David.\r\n"
-			+ "Eric would gain 75 happiness units by sitting next to Frank.\r\n"
-			+ "Eric would gain 82 happiness units by sitting next to George.\r\n"
-			+ "Eric would gain 13 happiness units by sitting next to Mallory.\r\n"
-			+ "Frank would gain 77 happiness units by sitting next to Alice.\r\n"
-			+ "Frank would gain 27 happiness units by sitting next to Bob.\r\n"
-			+ "Frank would lose 87 happiness units by sitting next to Carol.\r\n"
-			+ "Frank would gain 74 happiness units by sitting next to David.\r\n"
-			+ "Frank would lose 41 happiness units by sitting next to Eric.\r\n"
-			+ "Frank would lose 99 happiness units by sitting next to George.\r\n"
-			+ "Frank would gain 26 happiness units by sitting next to Mallory.\r\n"
-			+ "George would lose 63 happiness units by sitting next to Alice.\r\n"
-			+ "George would lose 51 happiness units by sitting next to Bob.\r\n"
-			+ "George would lose 60 happiness units by sitting next to Carol.\r\n"
-			+ "George would gain 30 happiness units by sitting next to David.\r\n"
-			+ "George would lose 100 happiness units by sitting next to Eric.\r\n"
-			+ "George would lose 63 happiness units by sitting next to Frank.\r\n"
-			+ "George would gain 57 happiness units by sitting next to Mallory.\r\n"
-			+ "Mallory would lose 71 happiness units by sitting next to Alice.\r\n"
-			+ "Mallory would lose 28 happiness units by sitting next to Bob.\r\n"
-			+ "Mallory would lose 10 happiness units by sitting next to Carol.\r\n"
-			+ "Mallory would gain 44 happiness units by sitting next to David.\r\n"
-			+ "Mallory would gain 22 happiness units by sitting next to Eric.\r\n"
-			+ "Mallory would gain 79 happiness units by sitting next to Frank.\r\n"
-			+ "Mallory would lose 16 happiness units by sitting next to George.";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -75,7 +21,7 @@ public class Day13 implements IDay {
 		//store happiness changes as (id 1, id 2) -> change map
 		//use coord as improvised tuple
 		HashMap<Coord,Integer> happiness = new HashMap<Coord,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//trim period off last word to avoid conflicts
 			parts[10] = parts[10].substring(0,parts[10].length() - 1);
@@ -145,7 +91,7 @@ public class Day13 implements IDay {
 		//store happiness changes as (id 1, id 2) -> change map
 		//use coord as improvised tuple
 		HashMap<Coord,Integer> happiness = new HashMap<Coord,Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			//trim period off last word to avoid conflicts
 			parts[10] = parts[10].substring(0,parts[10].length() - 1);
@@ -191,6 +137,7 @@ public class Day13 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,13);
 		DayRunner.run(new Day13());
 	}
 

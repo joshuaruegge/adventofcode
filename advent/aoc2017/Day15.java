@@ -2,17 +2,17 @@ package advent.aoc2017;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day15 implements IDay {
 
-	String input = "Generator A starts with 634\r\n"
-			+ "Generator B starts with 301";
+	static String input;
 	
 	@Override
 	public String part1() {
 		long a, b;
-		a = Long.parseLong(input.split("\r\n")[0].split(" ")[4]);
-		b = Long.parseLong(input.split("\r\n")[1].split(" ")[4]);
+		a = Long.parseLong(input.split("\n")[0].split(" ")[4]);
+		b = Long.parseLong(input.split("\n")[1].split(" ")[4]);
 		
 		int pairs = 0;
 		for(int i = 0; i < 40000000; i++) {
@@ -32,8 +32,8 @@ public class Day15 implements IDay {
 	@Override
 	public String part2() {
 		long a, b;
-		a = Long.parseLong(input.split("\r\n")[0].split(" ")[4]);
-		b = Long.parseLong(input.split("\r\n")[1].split(" ")[4]);
+		a = Long.parseLong(input.split("\n")[0].split(" ")[4]);
+		b = Long.parseLong(input.split("\n")[1].split(" ")[4]);
 		
 		int pairs = 0;
 		for(int i = 0; i < 5000000; i++) {
@@ -60,6 +60,7 @@ public class Day15 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,15);
 		DayRunner.run(new Day15());
 	}
 

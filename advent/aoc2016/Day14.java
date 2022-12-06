@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day14 implements IDay {
 
-	String input = "qzyelonm";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -168,6 +169,7 @@ public class Day14 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,14).replace("\n","");
 		DayRunner.run(new Day14());
 	}
 

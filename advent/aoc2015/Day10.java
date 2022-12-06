@@ -2,14 +2,15 @@ package advent.aoc2015;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day10 implements IDay {
 
-	String input = "3113322113";
+	static String input;
 
 	@Override
 	public String part1() {
-		String sequence = input;
+		String sequence = input.replace("\n","");
 		for(int x = 0; x < 40; x++) {
 			//using a stringbuilder rather than a string reduces concat times 
 			//(concat is O(n^2)) and makes iteration trivial
@@ -40,7 +41,7 @@ public class Day10 implements IDay {
 
 	@Override
 	public String part2() {
-		String sequence = input;
+		String sequence = input.replace("\n","");
 		for(int x = 0; x < 50; x++) {
 			//using a stringbuilder rather than a string reduces concat times and makes iteration trivial
 			StringBuilder next = new StringBuilder();
@@ -68,6 +69,7 @@ public class Day10 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,10);
 		DayRunner.run(new Day10());
 	}
 

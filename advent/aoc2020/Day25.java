@@ -2,16 +2,16 @@ package advent.aoc2020;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day25 implements IDay {
 
-	String input = "9033205\r\n"
-			+ "9281649";
+	static String input;
 	
 	@Override
 	public String part1() {
-		int cardPublic = Integer.parseInt(input.split("\r\n")[0]);
-		int doorPublic = Integer.parseInt(input.split("\r\n")[1]);
+		int cardPublic = Integer.parseInt(input.split("\n")[0]);
+		int doorPublic = Integer.parseInt(input.split("\n")[1]);
 		
 		//determine loop size of cardPublic
 		int loopSize = 1;
@@ -42,6 +42,7 @@ public class Day25 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2020,25);
 		DayRunner.run(new Day25());
 	}
 

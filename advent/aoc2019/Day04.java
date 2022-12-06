@@ -2,14 +2,11 @@ package advent.aoc2019;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day04 implements IDay {
 	
-	static String input = "172851-675869";
-	
-	public static void main(String[] args) {
-		DayRunner.run(new Day04());
-	}
+	static String input;
 
 	@Override
 	public String part1() {
@@ -70,4 +67,10 @@ public class Day04 implements IDay {
 		}
 		return Integer.toString(valids);
 	}
+
+	public static void main(String[] args) {
+		input = Input.fetchInput(2019,4).trim();
+		DayRunner.run(new Day04());
+	}
+
 }

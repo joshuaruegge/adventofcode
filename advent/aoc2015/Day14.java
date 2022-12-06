@@ -5,26 +5,19 @@ import java.util.Collections;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day14 implements IDay {
 
-	String input = "Vixen can fly 19 km/s for 7 seconds, but then must rest for 124 seconds.\r\n"
-			+ "Rudolph can fly 3 km/s for 15 seconds, but then must rest for 28 seconds.\r\n"
-			+ "Donner can fly 19 km/s for 9 seconds, but then must rest for 164 seconds.\r\n"
-			+ "Blitzen can fly 19 km/s for 9 seconds, but then must rest for 158 seconds.\r\n"
-			+ "Comet can fly 13 km/s for 7 seconds, but then must rest for 82 seconds.\r\n"
-			+ "Cupid can fly 25 km/s for 6 seconds, but then must rest for 145 seconds.\r\n"
-			+ "Dasher can fly 14 km/s for 3 seconds, but then must rest for 38 seconds.\r\n"
-			+ "Dancer can fly 3 km/s for 16 seconds, but then must rest for 37 seconds.\r\n"
-			+ "Prancer can fly 25 km/s for 6 seconds, but then must rest for 143 seconds.";
+	static String input;
 	
-	int flightTime = 2503;
+	final int FLIGHT_TIME = 2503;
 	
 	@Override
 	public String part1() {
 		//store reindeer as 3-item int[] (speed, flight time, rest time)
 		ArrayList<int[]> deers = new ArrayList<int[]>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			deers.add(new int[] {Integer.parseInt(parts[3]), Integer.parseInt(parts[6]), Integer.parseInt(parts[13])});
 		}
@@ -35,12 +28,12 @@ public class Day14 implements IDay {
 			//time it takes for a deer to complete one run-rest cycle
 			int cycleLength = deer[1] + deer[2];
 			//number of full cycles completed over the time interval
-			int numCycles = flightTime / cycleLength;
+			int numCycles = FLIGHT_TIME / cycleLength;
 			//add total distance covered by full cycles
 			//speed * time running * number of cycles
 			distance += deer[0] * deer[1] * numCycles;
 			//determine remainder of time
-			int leftover = flightTime % cycleLength;
+			int leftover = FLIGHT_TIME % cycleLength;
 			//if remainder of time is less than run time, add remainder
 			if(leftover < deer[1]) {
 				distance += deer[0] * leftover;
@@ -60,7 +53,7 @@ public class Day14 implements IDay {
 		//now, it gets just a smidge more complicated
 		//store reindeer as 3-item int[]
 		ArrayList<int[]> deers = new ArrayList<int[]>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			deers.add(new int[] {Integer.parseInt(parts[3]), Integer.parseInt(parts[6]), Integer.parseInt(parts[13])});
 		}
@@ -69,7 +62,7 @@ public class Day14 implements IDay {
 		int[] scores = new int[deers.size()];
 		//additionally, track distances each reindeer has covered
 		int[] distances = new int[deers.size()];
-		for(int i = 0; i < flightTime; i++) {
+		for(int i = 0; i < FLIGHT_TIME; i++) {
 			//travel deer forwards if necessary
 			for(int j = 0; j < deers.size(); j++) {
 				int[] deer = deers.get(j);
@@ -104,6 +97,7 @@ public class Day14 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,14);
 		DayRunner.run(new Day14());
 	}
 

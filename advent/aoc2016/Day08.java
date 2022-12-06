@@ -2,161 +2,18 @@ package advent.aoc2016;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day08 implements IDay {
 
-	String input = "rect 1x1\r\n"
-			+ "rotate row y=0 by 5\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 6\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 5\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 2\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 5\r\n"
-			+ "rect 2x1\r\n"
-			+ "rotate row y=0 by 2\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 4\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 3\r\n"
-			+ "rect 2x1\r\n"
-			+ "rotate row y=0 by 7\r\n"
-			+ "rect 3x1\r\n"
-			+ "rotate row y=0 by 3\r\n"
-			+ "rect 1x1\r\n"
-			+ "rotate row y=0 by 3\r\n"
-			+ "rect 1x2\r\n"
-			+ "rotate row y=1 by 13\r\n"
-			+ "rotate column x=0 by 1\r\n"
-			+ "rect 2x1\r\n"
-			+ "rotate row y=0 by 5\r\n"
-			+ "rotate column x=0 by 1\r\n"
-			+ "rect 3x1\r\n"
-			+ "rotate row y=0 by 18\r\n"
-			+ "rotate column x=13 by 1\r\n"
-			+ "rotate column x=7 by 2\r\n"
-			+ "rotate column x=2 by 3\r\n"
-			+ "rotate column x=0 by 1\r\n"
-			+ "rect 17x1\r\n"
-			+ "rotate row y=3 by 13\r\n"
-			+ "rotate row y=1 by 37\r\n"
-			+ "rotate row y=0 by 11\r\n"
-			+ "rotate column x=7 by 1\r\n"
-			+ "rotate column x=6 by 1\r\n"
-			+ "rotate column x=4 by 1\r\n"
-			+ "rotate column x=0 by 1\r\n"
-			+ "rect 10x1\r\n"
-			+ "rotate row y=2 by 37\r\n"
-			+ "rotate column x=19 by 2\r\n"
-			+ "rotate column x=9 by 2\r\n"
-			+ "rotate row y=3 by 5\r\n"
-			+ "rotate row y=2 by 1\r\n"
-			+ "rotate row y=1 by 4\r\n"
-			+ "rotate row y=0 by 4\r\n"
-			+ "rect 1x4\r\n"
-			+ "rotate column x=25 by 3\r\n"
-			+ "rotate row y=3 by 5\r\n"
-			+ "rotate row y=2 by 2\r\n"
-			+ "rotate row y=1 by 1\r\n"
-			+ "rotate row y=0 by 1\r\n"
-			+ "rect 1x5\r\n"
-			+ "rotate row y=2 by 10\r\n"
-			+ "rotate column x=39 by 1\r\n"
-			+ "rotate column x=35 by 1\r\n"
-			+ "rotate column x=29 by 1\r\n"
-			+ "rotate column x=19 by 1\r\n"
-			+ "rotate column x=7 by 2\r\n"
-			+ "rotate row y=4 by 22\r\n"
-			+ "rotate row y=3 by 5\r\n"
-			+ "rotate row y=1 by 21\r\n"
-			+ "rotate row y=0 by 10\r\n"
-			+ "rotate column x=2 by 2\r\n"
-			+ "rotate column x=0 by 2\r\n"
-			+ "rect 4x2\r\n"
-			+ "rotate column x=46 by 2\r\n"
-			+ "rotate column x=44 by 2\r\n"
-			+ "rotate column x=42 by 1\r\n"
-			+ "rotate column x=41 by 1\r\n"
-			+ "rotate column x=40 by 2\r\n"
-			+ "rotate column x=38 by 2\r\n"
-			+ "rotate column x=37 by 3\r\n"
-			+ "rotate column x=35 by 1\r\n"
-			+ "rotate column x=33 by 2\r\n"
-			+ "rotate column x=32 by 1\r\n"
-			+ "rotate column x=31 by 2\r\n"
-			+ "rotate column x=30 by 1\r\n"
-			+ "rotate column x=28 by 1\r\n"
-			+ "rotate column x=27 by 3\r\n"
-			+ "rotate column x=26 by 1\r\n"
-			+ "rotate column x=23 by 2\r\n"
-			+ "rotate column x=22 by 1\r\n"
-			+ "rotate column x=21 by 1\r\n"
-			+ "rotate column x=20 by 1\r\n"
-			+ "rotate column x=19 by 1\r\n"
-			+ "rotate column x=18 by 2\r\n"
-			+ "rotate column x=16 by 2\r\n"
-			+ "rotate column x=15 by 1\r\n"
-			+ "rotate column x=13 by 1\r\n"
-			+ "rotate column x=12 by 1\r\n"
-			+ "rotate column x=11 by 1\r\n"
-			+ "rotate column x=10 by 1\r\n"
-			+ "rotate column x=7 by 1\r\n"
-			+ "rotate column x=6 by 1\r\n"
-			+ "rotate column x=5 by 1\r\n"
-			+ "rotate column x=3 by 2\r\n"
-			+ "rotate column x=2 by 1\r\n"
-			+ "rotate column x=1 by 1\r\n"
-			+ "rotate column x=0 by 1\r\n"
-			+ "rect 49x1\r\n"
-			+ "rotate row y=2 by 34\r\n"
-			+ "rotate column x=44 by 1\r\n"
-			+ "rotate column x=40 by 2\r\n"
-			+ "rotate column x=39 by 1\r\n"
-			+ "rotate column x=35 by 4\r\n"
-			+ "rotate column x=34 by 1\r\n"
-			+ "rotate column x=30 by 4\r\n"
-			+ "rotate column x=29 by 1\r\n"
-			+ "rotate column x=24 by 1\r\n"
-			+ "rotate column x=15 by 4\r\n"
-			+ "rotate column x=14 by 1\r\n"
-			+ "rotate column x=13 by 3\r\n"
-			+ "rotate column x=10 by 4\r\n"
-			+ "rotate column x=9 by 1\r\n"
-			+ "rotate column x=5 by 4\r\n"
-			+ "rotate column x=4 by 3\r\n"
-			+ "rotate row y=5 by 20\r\n"
-			+ "rotate row y=4 by 20\r\n"
-			+ "rotate row y=3 by 48\r\n"
-			+ "rotate row y=2 by 20\r\n"
-			+ "rotate row y=1 by 41\r\n"
-			+ "rotate column x=47 by 5\r\n"
-			+ "rotate column x=46 by 5\r\n"
-			+ "rotate column x=45 by 4\r\n"
-			+ "rotate column x=43 by 5\r\n"
-			+ "rotate column x=41 by 5\r\n"
-			+ "rotate column x=33 by 1\r\n"
-			+ "rotate column x=32 by 3\r\n"
-			+ "rotate column x=23 by 5\r\n"
-			+ "rotate column x=22 by 1\r\n"
-			+ "rotate column x=21 by 2\r\n"
-			+ "rotate column x=18 by 2\r\n"
-			+ "rotate column x=17 by 3\r\n"
-			+ "rotate column x=16 by 2\r\n"
-			+ "rotate column x=13 by 5\r\n"
-			+ "rotate column x=12 by 5\r\n"
-			+ "rotate column x=11 by 5\r\n"
-			+ "rotate column x=3 by 5\r\n"
-			+ "rotate column x=2 by 5\r\n"
-			+ "rotate column x=1 by 5";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//pre-set size as defined in puzzle
 		boolean[][] pixels = new boolean[50][6];
 	
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			if(parts.length == 2) {
 				//parse out numbers
@@ -206,7 +63,7 @@ public class Day08 implements IDay {
 		//pre-set size as defined in puzzle
 		boolean[][] pixels = new boolean[50][6];
 	
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			String[] parts = s.split(" ");
 			if(parts.length == 2) {
 				//parse out numbers
@@ -256,6 +113,7 @@ public class Day08 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,8);
 		DayRunner.run(new Day08());
 	}
 

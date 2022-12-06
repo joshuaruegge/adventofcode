@@ -2,17 +2,16 @@ package advent.aoc2015;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day21 implements IDay {
 
-	String input = "Hit Points: 104\r\n"
-			+ "Damage: 8\r\n"
-			+ "Armor: 1";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//parse out monster stats
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int monsterHp = Integer.parseInt(lines[0].split(": ")[1]);
 		int monsterDmg = Integer.parseInt(lines[1].split(": ")[1]);
 		int monsterArmor = Integer.parseInt(lines[2].split(": ")[1]);
@@ -154,7 +153,7 @@ public class Day21 implements IDay {
 		//same code, just reverse health and cost evaluations
 		
 		//parse out monster stats
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int monsterHp = Integer.parseInt(lines[0].split(": ")[1]);
 		int monsterDmg = Integer.parseInt(lines[1].split(": ")[1]);
 		int monsterArmor = Integer.parseInt(lines[2].split(": ")[1]);
@@ -289,6 +288,7 @@ public class Day21 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,21);
 		DayRunner.run(new Day21());
 	}
 

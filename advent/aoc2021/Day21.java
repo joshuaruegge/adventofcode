@@ -2,16 +2,16 @@ package advent.aoc2021;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day21 implements IDay {
 
-	String input = "Player 1 starting position: 7\r\n"
-			+ "Player 2 starting position: 8";
+	static String input;
 	
 	@Override
 	public String part1() {
-		int player1 = Integer.parseInt(input.split("\r\n")[0].split(" ")[4]);
-		int player2 = Integer.parseInt(input.split("\r\n")[1].split(" ")[4]);
+		int player1 = Integer.parseInt(input.split("\n")[0].split(" ")[4]);
+		int player2 = Integer.parseInt(input.split("\n")[1].split(" ")[4]);
 		
 		int dice = 1;
 		int diceCount = 0;
@@ -65,12 +65,12 @@ public class Day21 implements IDay {
 		p1 = 0;
 		p2 = 0;
 		
-		int player1 = Integer.parseInt(input.split("\r\n")[0].split(" ")[4]);
-		int player2 = Integer.parseInt(input.split("\r\n")[1].split(" ")[4]);
+		int player1 = Integer.parseInt(input.split("\n")[0].split(" ")[4]);
+		int player2 = Integer.parseInt(input.split("\n")[1].split(" ")[4]);
 		
 		recurse(1,player1,player2,0,0,true);
 
-		return Long.toString(p1 > p2 ? p1 : p2);
+		return Long.toString(Math.max(p1, p2));
 	}
 	
 	//mult represents the number of universes the given condition is currently taking place in
@@ -102,7 +102,7 @@ public class Day21 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2021,21);
 		DayRunner.run(new Day21());
 	}
-
 }

@@ -3,12 +3,14 @@ package advent.aoc2021;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day17 implements IDay {
 
-	String input = "target area: x=88..125, y=-157..-103";
+	static String input;
 	
 	static Coord rangeStart,rangeEnd;
+
 	@Override
 	public String part1() {
 		String[] parts = input.split(", ");
@@ -46,14 +48,6 @@ public class Day17 implements IDay {
 		return Integer.toString(highestY);
 	}
 
-	public boolean inBox(Coord c) {
-		return c.x >= rangeStart.x && c.x <= rangeEnd.x && c.y >= rangeStart.y && c.y <= rangeEnd.y;
-	}
-	
-	public boolean past(Coord c) {
-		return c.x > rangeEnd.x || c.y < rangeStart.y;
-	}
-	
 	@Override
 	public String part2() {
 		String[] parts = input.split(", ");
@@ -89,8 +83,16 @@ public class Day17 implements IDay {
 		return Integer.toString(successCount);
 	}
 
-	public static void main(String[] args) {
-		DayRunner.run(new Day17());
+	public boolean inBox(Coord c) {
+		return c.x >= rangeStart.x && c.x <= rangeEnd.x && c.y >= rangeStart.y && c.y <= rangeEnd.y;
 	}
 
+	public boolean past(Coord c) {
+		return c.x > rangeEnd.x || c.y < rangeStart.y;
+	}
+
+	public static void main(String[] args) {
+		input = Input.fetchInput(2021,17).trim();
+		DayRunner.run(new Day17());
+	}
 }

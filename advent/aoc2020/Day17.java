@@ -2,26 +2,16 @@ package advent.aoc2020;
 
 import java.util.HashSet;
 
-import advent.utilities.general.Coord3;
-import advent.utilities.general.Coord4;
-import advent.utilities.general.DayRunner;
-import advent.utilities.general.IDay;
+import advent.utilities.general.*;
 
 public class Day17 implements IDay {
 
-	String input = "##.#....\r\n"
-			+ "...#...#\r\n"
-			+ ".#.#.##.\r\n"
-			+ "..#.#...\r\n"
-			+ ".###....\r\n"
-			+ ".##.#...\r\n"
-			+ "#.##..##\r\n"
-			+ "#.####..";
+	static String input;
 	
 	@Override
 	public String part1() {
 		HashSet<Coord3> activeCubes = new HashSet<Coord3>();
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int y = 0; y < lines.length; y++) {
 			String line = lines[y];
 			for(int x = 0; x < line.length(); x++) {
@@ -73,7 +63,7 @@ public class Day17 implements IDay {
 	@Override
 	public String part2() {
 		HashSet<Coord4> activeCubes = new HashSet<Coord4>();
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int y = 0; y < lines.length; y++) {
 			String line = lines[y];
 			for(int x = 0; x < line.length(); x++) {
@@ -127,7 +117,7 @@ public class Day17 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2020,17);
 		DayRunner.run(new Day17());
 	}
-
 }

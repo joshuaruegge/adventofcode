@@ -6,44 +6,21 @@ import java.util.HashSet;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day22 implements IDay {
 
-	String input = ".#...#.#.##..##....##.#.#\r\n"
-			+ "###.###..##...##.##....##\r\n"
-			+ "....#.###..#...#####..#.#\r\n"
-			+ ".##.######..###.##..#...#\r\n"
-			+ "#..#..#..##..###...#..###\r\n"
-			+ "..####...#.##.#.#.##.####\r\n"
-			+ "#......#..####..###..###.\r\n"
-			+ "#####.##.#.#.##.###.#.#.#\r\n"
-			+ ".#.###....###....##....##\r\n"
-			+ ".......########.#.#...#..\r\n"
-			+ "...###.####.##..###.##..#\r\n"
-			+ "#.#.###.####.###.###.###.\r\n"
-			+ ".######...###.....#......\r\n"
-			+ "....##.###..#.#.###...##.\r\n"
-			+ "#.###..###.#.#.##.#.##.##\r\n"
-			+ "#.#.#..###...###.###.....\r\n"
-			+ "##..##.##...##.##..##.#.#\r\n"
-			+ ".....##......##..#.##...#\r\n"
-			+ "..##.#.###.#...#####.#.##\r\n"
-			+ "....##..#.#.#.#..###.#..#\r\n"
-			+ "###..##.##....##.#....##.\r\n"
-			+ "#..####...####.#.##..#.##\r\n"
-			+ "####.###...####..##.#.#.#\r\n"
-			+ "#.#.#.###.....###.##.###.\r\n"
-			+ ".#...##.#.##..###.#.###..";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//determine middle so that we can have (0,0) at middle and assign coords accordingly
-		int middle = input.split("\r\n").length / 2;
+		int middle = input.split("\n").length / 2;
 		
 		//store currently infected coords in set - if coord is not in set, is healthy
 		HashSet<Coord> infected = new HashSet<Coord>();
 		
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String line = lines[i];
 			for(int j = 0; j < line.length(); j++) {
@@ -80,7 +57,7 @@ public class Day22 implements IDay {
 	@Override
 	public String part2() {
 		//calculate middle
-		int middle = input.split("\r\n").length / 2;
+		int middle = input.split("\n").length / 2;
 		
 		//now, store states in hashmap
 		//not being present in hashmap still means clean
@@ -88,7 +65,7 @@ public class Day22 implements IDay {
 		//1- infected
 		//0 - flagged
 		HashMap<Coord,Integer> state = new HashMap<Coord,Integer>();
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		for(int i = 0; i < lines.length; i++) {
 			String line = lines[i];
 			for(int j = 0; j < line.length(); j++) {
@@ -139,6 +116,7 @@ public class Day22 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,22);
 		DayRunner.run(new Day22());
 	}
 

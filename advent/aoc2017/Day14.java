@@ -10,10 +10,11 @@ import java.util.LinkedList;
 import advent.utilities.general.Coord;
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day14 implements IDay {
 
-	String input = "hfdlxzhv";
+	static String input;
 	
 	@Override
 	public String part1() {
@@ -178,6 +179,7 @@ public class Day14 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2017,14).trim();
 		DayRunner.run(new Day14());
 	}
 

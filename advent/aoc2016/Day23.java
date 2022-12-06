@@ -4,41 +4,17 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day23 implements IDay {
 
-	String input = "cpy a b\r\n"
-			+ "dec b\r\n"
-			+ "cpy a d\r\n"
-			+ "cpy 0 a\r\n"
-			+ "cpy b c\r\n"
-			+ "inc a\r\n"
-			+ "dec c\r\n"
-			+ "jnz c -2\r\n"
-			+ "dec d\r\n"
-			+ "jnz d -5\r\n"
-			+ "dec b\r\n"
-			+ "cpy b c\r\n"
-			+ "cpy c d\r\n"
-			+ "dec d\r\n"
-			+ "inc c\r\n"
-			+ "jnz d -2\r\n"
-			+ "tgl c\r\n"
-			+ "cpy -16 c\r\n"
-			+ "jnz 1 c\r\n"
-			+ "cpy 97 c\r\n"
-			+ "jnz 79 d\r\n"
-			+ "inc a\r\n"
-			+ "inc d\r\n"
-			+ "jnz d -2\r\n"
-			+ "inc c\r\n"
-			+ "jnz c -5";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//parse input into arraylist to store program
 		ArrayList<String> program = new ArrayList<String>();
-		for(String s : input.split("\r\n"))
+		for(String s : input.split("\n"))
 			program.add(s);
 		
 		//pointer and registers
@@ -209,7 +185,7 @@ public class Day23 implements IDay {
 		//the final result is always equal to a! + (constant 1 * constant 2)
 		//where constant 1 and constant 2 are the numerical arguments in lines 19 and 20
 		//so, let's just pull all these values out and avoid running the program all together
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		long c1 = Integer.parseInt(lines[19].split(" ")[1]);
 		long c2 = Integer.parseInt(lines[20].split(" ")[1]);
 		long fac = 1;
@@ -222,6 +198,7 @@ public class Day23 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,23);
 		DayRunner.run(new Day23());
 	}
 

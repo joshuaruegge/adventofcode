@@ -5,48 +5,18 @@ import java.util.HashSet;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day21 implements IDay {
 
 	final String[] INSTRUCTIONS = new String[] {"addr", "addi", "mulr","muli","banr","bani","borr","bori","setr","seti","gtir","gtri","gtrr","eqir","eqri","eqrr"};
 
-	String input = "#ip 4\r\n"
-			+ "seti 123 0 1\r\n"
-			+ "bani 1 456 1\r\n"
-			+ "eqri 1 72 1\r\n"
-			+ "addr 1 4 4\r\n"
-			+ "seti 0 0 4\r\n"
-			+ "seti 0 3 1\r\n"
-			+ "bori 1 65536 5\r\n"
-			+ "seti 8586263 3 1\r\n"
-			+ "bani 5 255 2\r\n"
-			+ "addr 1 2 1\r\n"
-			+ "bani 1 16777215 1\r\n"
-			+ "muli 1 65899 1\r\n"
-			+ "bani 1 16777215 1\r\n"
-			+ "gtir 256 5 2\r\n"
-			+ "addr 2 4 4\r\n"
-			+ "addi 4 1 4\r\n"
-			+ "seti 27 8 4\r\n"
-			+ "seti 0 1 2\r\n"
-			+ "addi 2 1 3\r\n"
-			+ "muli 3 256 3\r\n"
-			+ "gtrr 3 5 3\r\n"
-			+ "addr 3 4 4\r\n"
-			+ "addi 4 1 4\r\n"
-			+ "seti 25 8 4\r\n"
-			+ "addi 2 1 2\r\n"
-			+ "seti 17 7 4\r\n"
-			+ "setr 2 0 5\r\n"
-			+ "seti 7 8 4\r\n"
-			+ "eqrr 1 0 2\r\n"
-			+ "addr 2 4 4\r\n"
-			+ "seti 5 4 4";
+	static String input;
 	
 	@Override
 	public String part1() {
 		
-		String[] lines = input.split("\r\n");
+		String[] lines = input.split("\n");
 		int pointerRegister = Integer.parseInt(lines[0].split(" ")[1]);
 		ArrayList<int[]> program = new ArrayList<int[]>();
 		for(int i = 1; i < lines.length; i++) {
@@ -151,7 +121,7 @@ public class Day21 implements IDay {
 		//we can extract the section that produces the number to be compared and recreate it in Java rather than pseudo-assembly
 		//allowing it to take advantage of complier efficiencies, etc.
 		//the process only relies on one unique value, the large number register 3 is initialized to
-		int initialize = Integer.parseInt(input.split("\r\n")[8].split(" ")[1]);
+		int initialize = Integer.parseInt(input.split("\n")[8].split(" ")[1]);
 		
 		int compare = 0;
 		//optimized version of comparison generation
@@ -182,6 +152,7 @@ public class Day21 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2018,21);
 		DayRunner.run(new Day21());
 	}
 

@@ -4,46 +4,18 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day25 implements IDay {
 
-	String input = "cpy a d\r\n"
-			+ "cpy 4 c\r\n"
-			+ "cpy 643 b\r\n"
-			+ "inc d\r\n"
-			+ "dec b\r\n"
-			+ "jnz b -2\r\n"
-			+ "dec c\r\n"
-			+ "jnz c -5\r\n"
-			+ "cpy d a\r\n"
-			+ "jnz 0 0\r\n"
-			+ "cpy a b\r\n"
-			+ "cpy 0 a\r\n"
-			+ "cpy 2 c\r\n"
-			+ "jnz b 2\r\n"
-			+ "jnz 1 6\r\n"
-			+ "dec b\r\n"
-			+ "dec c\r\n"
-			+ "jnz c -4\r\n"
-			+ "inc a\r\n"
-			+ "jnz 1 -7\r\n"
-			+ "cpy 2 b\r\n"
-			+ "jnz c 2\r\n"
-			+ "jnz 1 4\r\n"
-			+ "dec b\r\n"
-			+ "dec c\r\n"
-			+ "jnz 1 -4\r\n"
-			+ "jnz 0 0\r\n"
-			+ "out b\r\n"
-			+ "jnz a -19\r\n"
-			+ "jnz 1 -21";
+	static String input;
 	
 	@Override
 	public String part1() {
 		//only parse program once 
 		//parse input into arraylist to store program
 		ArrayList<String> program = new ArrayList<String>();
-		for(String s : input.split("\r\n"))
+		for(String s : input.split("\n"))
 			program.add(s);
 		
 		//iterate upwards until first value is found
@@ -183,6 +155,7 @@ public class Day25 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2016,25);
 		DayRunner.run(new Day25());
 	}
 

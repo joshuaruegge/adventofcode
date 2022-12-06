@@ -4,34 +4,16 @@ import java.util.ArrayList;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
+import advent.utilities.general.Input;
 
 public class Day17 implements IDay {
 
-	String input = "50\r\n"
-			+ "44\r\n"
-			+ "11\r\n"
-			+ "49\r\n"
-			+ "42\r\n"
-			+ "46\r\n"
-			+ "18\r\n"
-			+ "32\r\n"
-			+ "26\r\n"
-			+ "40\r\n"
-			+ "21\r\n"
-			+ "7\r\n"
-			+ "18\r\n"
-			+ "43\r\n"
-			+ "10\r\n"
-			+ "47\r\n"
-			+ "36\r\n"
-			+ "24\r\n"
-			+ "22\r\n"
-			+ "40";
+	static String input;
 	
 	@Override
 	public String part1() {
 		ArrayList<Integer> containers = new ArrayList<Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			containers.add(Integer.parseInt(s));
 		}
 		//use integer as bitmask for possible combinations
@@ -61,7 +43,7 @@ public class Day17 implements IDay {
 	@Override
 	public String part2() {
 		ArrayList<Integer> containers = new ArrayList<Integer>();
-		for(String s : input.split("\r\n")) {
+		for(String s : input.split("\n")) {
 			containers.add(Integer.parseInt(s));
 		}
 		int lowestContainers = Integer.MAX_VALUE;
@@ -96,6 +78,7 @@ public class Day17 implements IDay {
 	}
 
 	public static void main(String[] args) {
+		input = Input.fetchInput(2015,17);
 		DayRunner.run(new Day17());
 	}
 
