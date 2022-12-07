@@ -15,7 +15,7 @@ public class Day07 implements IDay {
         DirectoryTreeNode cur = root;
 
         for(String s : input.split("\n")) {
-            //dirs are irrelevant - we'll add them once (if) they're cd'd into
+            //dirs are irrelevant - we'll add them when (if) they're cd'd into
             if(s.endsWith("/") || s.startsWith("dir"))
                 continue;
             String[] words = s.split(" ");
@@ -32,7 +32,7 @@ public class Day07 implements IDay {
                         cur = next;
                     }
                 }
-            //only other possibility is file within directory - add its size to total
+            //only other possibility is file within current directory - add its size to total
             } else {
                 cur.filesTotal += Long.parseLong(words[0]);
             }
