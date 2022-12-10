@@ -75,8 +75,6 @@ public class Day09 implements IDay {
         return null;
     }
 
-
-
     @Override
     public String part2() {
         //now, store multiple tails in arraylist

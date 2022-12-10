@@ -8,7 +8,7 @@ Alternatively, [find your session cookie](https://www.youtube.com/watch?v=tUd33_
 
 All work is original with the exception of a few common helper datatypes, and almost all solutions are optimized to run in under 1 second.
 <!-- begin-year-badge -->
-[![](https://img.shields.io/badge/2022-18%20stars-755e1d)](./advent/aoc2022)
+[![](https://img.shields.io/badge/2022-20%20stars-6e621d)](./advent/aoc2022)
 [![](https://img.shields.io/badge/2021-50%20stars-239323)](./advent/aoc2021)
 [![](https://img.shields.io/badge/2020-50%20stars-239323)](./advent/aoc2020)
 [![](https://img.shields.io/badge/2019-50%20stars-239323)](./advent/aoc2019)
