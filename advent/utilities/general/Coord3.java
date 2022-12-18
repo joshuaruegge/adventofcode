@@ -2,6 +2,7 @@ package advent.utilities.general;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Coord3 {
 	public int x,y,z;
@@ -39,6 +40,20 @@ public class Coord3 {
 			for(int xOff = -1; xOff < 2; xOff++) {
 				for(int yOff = -1; yOff < 2; yOff++) {
 					if(!(zOff == 0 && xOff == 0 && yOff == 0)) {
+						neighbors.add(new Coord3(x+xOff,y+yOff,z+zOff));
+					}
+				}
+			}
+		}
+		return neighbors;
+	}
+
+	public ArrayList<Coord3> directNeighbors() {
+		ArrayList<Coord3> neighbors = new ArrayList<Coord3>();
+		for(int zOff = -1; zOff < 2; zOff++) {
+			for(int xOff = -1; xOff < 2; xOff++) {
+				for(int yOff = -1; yOff < 2; yOff++) {
+					if(!(zOff == 0 && xOff == 0 && yOff == 0) && (Math.abs(xOff) + Math.abs(yOff) + Math.abs(zOff) < 2)) {
 						neighbors.add(new Coord3(x+xOff,y+yOff,z+zOff));
 					}
 				}
