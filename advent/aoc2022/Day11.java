@@ -16,7 +16,7 @@ public class Day11 implements IDay {
 
     @Override
     public String part1() {
-        ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
+        ArrayList<Monkey> monkeys = new ArrayList<>();
         for(String s : input.split("\n\n")) {
             Monkey m = new Monkey();
             String[] lines = s.split("\n");
@@ -24,8 +24,7 @@ public class Day11 implements IDay {
                 lines[i] = lines[i].trim();
             //items
             String[] itemWords = lines[1].split(", | +");
-            System.out.println(Arrays.toString(itemWords));
-            ArrayList<Long> items = new ArrayList<Long>();
+            ArrayList<Long> items = new ArrayList<>();
             for(int i = 2; i < itemWords.length; i++)
                 items.add(Long.parseLong(itemWords[i]));
             m.items = items;
@@ -84,7 +83,7 @@ public class Day11 implements IDay {
 
     @Override
     public String part2() {
-        ArrayList<Monkey> monkeys = new ArrayList<Monkey>();
+        ArrayList<Monkey> monkeys = new ArrayList<>();
         for(String s : input.split("\n\n")) {
             Monkey m = new Monkey();
             String[] lines = s.split("\n");
@@ -92,8 +91,7 @@ public class Day11 implements IDay {
                 lines[i] = lines[i].trim();
             //items
             String[] itemWords = lines[1].split(", | +");
-            System.out.println(Arrays.toString(itemWords));
-            ArrayList<Long> items = new ArrayList<Long>();
+            ArrayList<Long> items = new ArrayList<>();
             for(int i = 2; i < itemWords.length; i++)
                 items.add(Long.parseLong(itemWords[i]));
             m.items = items;
@@ -119,7 +117,7 @@ public class Day11 implements IDay {
         //this keeps the numbers relatively small without affecting the results of the true/false check
         List<Integer> checks = monkeys.stream().map(x -> x.mod).toList();
         int lcm = lcm(checks,0);
-        System.out.println(lcm);
+
         long[] inspectionCounts = new long[monkeys.size()];
         for(int iter = 0; iter < 10000; iter++) {
             for(int monkeyNum = 0; monkeyNum < monkeys.size(); monkeyNum++) {

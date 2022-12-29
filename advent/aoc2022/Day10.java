@@ -54,7 +54,7 @@ public class Day10 implements IDay {
                 int signalAt = signal.get(y*40 + x);
                 //if x was within 1 of signal at cycle, print character
                 if(x == signalAt || x == signalAt - 1 || x == signalAt + 1)
-                    System.out.print("#");
+                    System.out.print("█");
                 else
                     System.out.print(" ");
             }

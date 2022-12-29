@@ -71,7 +71,7 @@ public class Day08 implements IDay {
                 int curHeight = map[i][j];
                 //start with 1 for multipliers
                 long scenic = 1;
-                inner:
+
                 for(Coord dir : DIRS) {
                     long dist = 0;
                     Coord cur = new Coord(i,j);

@@ -14,7 +14,7 @@ public class Day14 implements IDay {
     @Override
     public String part1() {
         //keep track of solid objects - starts with walls, sand is added as it comes to rest
-        HashSet<Coord> solids = new HashSet<Coord>();
+        HashSet<Coord> solids = new HashSet<>();
         for(String s : input.split("\n")) {
             String[] words = s.split(" -> ");
             for(int i = 1; i < words.length; i++) {
@@ -82,7 +82,7 @@ public class Day14 implements IDay {
     @Override
     public String part2() {
         //keep track of solid objects - starts with walls, sand is added as it comes to rest
-        HashSet<Coord> solids = new HashSet<Coord>();
+        HashSet<Coord> solids = new HashSet<>();
         for(String s : input.split("\n")) {
             String[] words = s.split(" -> ");
             for(int i = 1; i < words.length; i++) {

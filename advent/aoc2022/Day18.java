@@ -42,12 +42,7 @@ public class Day18 implements IDay {
 
         //find the coord with the smallest x,y, and z
         //this is likely to have external air adjacent to it
-        Coord3 minimum = droplets.stream().min(new Comparator<Coord3>() {
-            @Override
-            public int compare(Coord3 o1, Coord3 o2) {
-                return Integer.compare(o1.x + o1.y + o1.z, o2.x + o2.y + o2.z);
-            }
-        }).get();
+        Coord3 minimum = droplets.stream().min(Comparator.comparingInt(o -> o.x + o.y + o.z)).get();
 
         //find first coordinate around the min x, y, and z that is air
         //hopefully, this will be external
@@ -60,9 +55,9 @@ public class Day18 implements IDay {
         }
 
         //flood-fill (kinda?) from first air block?
-        LinkedList<Coord3> queue = new LinkedList<Coord3>();
+        LinkedList<Coord3> queue = new LinkedList<>();
         queue.add(firstAir);
-        HashSet<Coord3> airBlocks = new HashSet<Coord3>();
+        HashSet<Coord3> airBlocks = new HashSet<>();
         while(queue.size() > 0) {
             Coord3 cur = queue.poll();
             airBlocks.add(cur);

@@ -11,7 +11,7 @@ public class Day17 implements IDay {
 
     @Override
     public String part1() {
-        HashSet<Coord> rocksInCave = new HashSet<Coord>();
+        HashSet<Coord> rocksInCave = new HashSet<>();
         //put in floor
         for(int i = 0; i < 7; i++) {
             rocksInCave.add(new Coord(i,-1));
@@ -25,7 +25,7 @@ public class Day17 implements IDay {
         //for each rock, x=0 is the leftmost point and y=0 is the bottommost point
 
         //horizontal line
-        HashSet<Coord> horizLine = new HashSet<Coord>();
+        HashSet<Coord> horizLine = new HashSet<>();
         for(int i = 0; i < 4; i++)
             horizLine.add(new Coord(i,0));
 
@@ -65,7 +65,7 @@ public class Day17 implements IDay {
 
         int jetCounter = 0;
         for(int rockCount = 0; rockCount < 2022; rockCount++) {
-            HashSet<Coord> curRock = new HashSet<Coord>(rocks.get(rockCount % 5));
+            HashSet<Coord> curRock = new HashSet<>(rocks.get(rockCount % 5));
 
             int maxY = rocksInCave.stream().map(x -> x.y).max(Integer::compare).get();
 
@@ -119,7 +119,7 @@ public class Day17 implements IDay {
     public String part2() {
         final long LENGTH = 1000000000000L;
 
-        HashSet<Coord> rocksInCave = new HashSet<Coord>();
+        HashSet<Coord> rocksInCave = new HashSet<>();
         //put in floor
         for(int i = 0; i < 7; i++) {
             rocksInCave.add(new Coord(i,-1));
@@ -133,7 +133,7 @@ public class Day17 implements IDay {
         //for each rock, x=0 is the leftmost point and y=0 is the bottommost point
 
         //horizontal line
-        HashSet<Coord> horizLine = new HashSet<Coord>();
+        HashSet<Coord> horizLine = new HashSet<>();
         for(int i = 0; i < 4; i++)
             horizLine.add(new Coord(i,0));
 
@@ -174,14 +174,14 @@ public class Day17 implements IDay {
         int jetCounter = 0;
 
         //cache keeps track of seen states in the form of the top 30 rows of the state, mapped to the rock it occurred on and the max Y at the time
-        HashMap<HashSet<Coord>,Coord> cache = new HashMap<HashSet<Coord>,Coord>();
+        HashMap<HashSet<Coord>,Coord> cache = new HashMap<>();
 
         boolean cycleFound = false;
         long heightFromCycleRepeat = 0;
 
         long rockCount = 0;
         while(rockCount < LENGTH) {
-            HashSet<Coord> curRock = new HashSet<Coord>(rocks.get((int) (rockCount % 5)));
+            HashSet<Coord> curRock = new HashSet<>(rocks.get((int) (rockCount % 5)));
 
             int maxY = rocksInCave.stream().map(x -> x.y).max(Integer::compare).get();
 

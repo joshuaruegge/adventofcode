@@ -13,7 +13,8 @@ public class Day20 implements IDay {
 
     @Override
     public String part1() {
-        ArrayList<NumWrapper> nums = new ArrayList<NumWrapper>();
+        //to avoid issues with duplicate numbers, use a wrapper class that also includes original index
+        ArrayList<NumWrapper> nums = new ArrayList<>();
         String[] lines = input.split("\n");
         NumWrapper zero = null;
         for(int i = 0; i < lines.length; i++) {
@@ -21,7 +22,7 @@ public class Day20 implements IDay {
             if(Integer.parseInt(lines[i]) == 0)
                 zero = new NumWrapper(Integer.parseInt(lines[i]),i);
         }
-        mix(nums, new ArrayList<NumWrapper>(nums));
+        mix(nums, new ArrayList<>(nums));
         int startIndex = nums.indexOf(zero);
         return Long.toString(nums.get((startIndex + 1000) % nums.size()).num + nums.get((startIndex + 2000) % nums.size()).num + nums.get((startIndex + 3000) % nums.size()).num);
     }
@@ -40,6 +41,7 @@ public class Day20 implements IDay {
     public String part2() {
         final long key = 811589153;
         String[] lines = input.split("\n");
+        //to avoid issues with duplicate numbers, use a wrapper class that also includes original index
         ArrayList<NumWrapper> nums = new ArrayList<>();
         NumWrapper zero = null;
         for(int i = 0; i < lines.length; i++) {

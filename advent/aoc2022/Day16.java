@@ -14,7 +14,7 @@ public class Day16 implements IDay {
     @Override
     public String part1() {
         //parse input into Valve objects. valve object has its name, flow rate, and connections
-        ArrayList<Valve> valves = new ArrayList<Valve>();
+        ArrayList<Valve> valves = new ArrayList<>();
         for(String s : input.split("\n")) {
             String[] words = s.split(", |; | ");
             Valve v = new Valve();
@@ -25,13 +25,13 @@ public class Day16 implements IDay {
         }
 
         //build map of paths: each string key links to a map that contains the distance to each other path
-        HashMap<String,HashMap<String,Integer>> paths = new HashMap<String,HashMap<String,Integer>>();
+        HashMap<String,HashMap<String,Integer>> paths = new HashMap<>();
         for(Valve v : valves) {
-            LinkedList<Valve> queue = new LinkedList<Valve>();
+            LinkedList<Valve> queue = new LinkedList<>();
             queue.add(v);
-            HashMap<String,Integer> dists = new HashMap<String,Integer>();
+            HashMap<String,Integer> dists = new HashMap<>();
             dists.put(v.name,0);
-            HashSet<String> seen = new HashSet<String>();
+            HashSet<String> seen = new HashSet<>();
             seen.add(v.name);
 
             while(queue.size() > 0) {
@@ -50,7 +50,7 @@ public class Day16 implements IDay {
             paths.put(v.name,dists);
         }
 
-        ArrayList<Valve> nonzeroFlow = new ArrayList<Valve>(valves.stream().filter(x -> x.flow > 0).toList());
+        ArrayList<Valve> nonzeroFlow = new ArrayList<>(valves.stream().filter(x -> x.flow > 0).toList());
 
         final int BITSET_MAX = 1 << nonzeroFlow.size();
 
@@ -145,7 +145,7 @@ public class Day16 implements IDay {
     @Override
     public String part2() {
         //parse input into Valve objects. valve object has its name, flow rate, and connections
-        ArrayList<Valve> valves = new ArrayList<Valve>();
+        ArrayList<Valve> valves = new ArrayList<>();
         for(String s : input.split("\n")) {
             String[] words = s.split(", |; | ");
             Valve v = new Valve();
@@ -156,13 +156,13 @@ public class Day16 implements IDay {
         }
 
         //build map of paths: each string key links to a map that contains the distance to each other path
-        HashMap<String,HashMap<String,Integer>> paths = new HashMap<String,HashMap<String,Integer>>();
+        HashMap<String,HashMap<String,Integer>> paths = new HashMap<>();
         for(Valve v : valves) {
-            LinkedList<Valve> queue = new LinkedList<Valve>();
+            LinkedList<Valve> queue = new LinkedList<>();
             queue.add(v);
-            HashMap<String,Integer> dists = new HashMap<String,Integer>();
+            HashMap<String,Integer> dists = new HashMap<>();
             dists.put(v.name,0);
-            HashSet<String> seen = new HashSet<String>();
+            HashSet<String> seen = new HashSet<>();
             seen.add(v.name);
 
             while(queue.size() > 0) {
@@ -181,7 +181,7 @@ public class Day16 implements IDay {
             paths.put(v.name,dists);
         }
 
-        ArrayList<Valve> nonzeroFlow = new ArrayList<Valve>(valves.stream().filter(x -> x.flow > 0).toList());
+        ArrayList<Valve> nonzeroFlow = new ArrayList<>(valves.stream().filter(x -> x.flow > 0).toList());
 
         final int BITSET_MAX = 1 << nonzeroFlow.size();
 

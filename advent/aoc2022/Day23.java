@@ -18,7 +18,7 @@ public class Day23 implements IDay {
     @Override
     public String part1() {
         LinkedList<Coord> dirs = new LinkedList<>(Arrays.asList(Coord.UP, Coord.DOWN, Coord.LEFT, Coord.RIGHT));
-        HashSet<Coord> elves = new HashSet<Coord>();
+        HashSet<Coord> elves = new HashSet<>();
         String[] lines = input.split("\n");
         for(int y = 0; y < lines.length; y++) {
             String line = lines[y];
@@ -27,6 +27,7 @@ public class Day23 implements IDay {
                     elves.add(new Coord(x,y));
             }
         }
+
         for(int iter = 0; iter < 10; iter++) {
             //first half
             HashMap<Coord,Coord> proposals = new HashMap<>();
@@ -39,7 +40,7 @@ public class Day23 implements IDay {
                     continue;
                 //try proposing each direction in order
                 for(Coord c : dirs) {
-                    ArrayList<Coord> checks = new ArrayList<Coord>();
+                    ArrayList<Coord> checks = new ArrayList<>();
                     checks.add(elf.sum(c));
                     checks.addAll(diags(c).stream().map(elf::sum).toList());
                     checks.retainAll(adj);
@@ -52,7 +53,7 @@ public class Day23 implements IDay {
             //second half
             HashSet<Coord> newElves = new HashSet<>();
             //get frequency map of proposed locations
-            HashMap<Coord,Long> propFreq = new HashMap<Coord,Long>(proposals.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+            HashMap<Coord,Long> propFreq = new HashMap<>(proposals.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
             for(Coord elf : elves) {
                 //if elf has no proposed location or if its proposed location has a value of more than one in the frequency map, do not move
                 if(propFreq.getOrDefault(proposals.getOrDefault(elf,null),2L) > 1L)
@@ -100,7 +101,7 @@ public class Day23 implements IDay {
     @Override
     public String part2() {
         LinkedList<Coord> dirs = new LinkedList<>(Arrays.asList(Coord.UP, Coord.DOWN, Coord.LEFT, Coord.RIGHT));
-        HashSet<Coord> elves = new HashSet<Coord>();
+        HashSet<Coord> elves = new HashSet<>();
         String[] lines = input.split("\n");
         for(int y = 0; y < lines.length; y++) {
             String line = lines[y];
@@ -120,7 +121,7 @@ public class Day23 implements IDay {
                 if(adj.size() == 0)
                     continue;
                 for(Coord c : dirs) {
-                    ArrayList<Coord> checks = new ArrayList<Coord>();
+                    ArrayList<Coord> checks = new ArrayList<>();
                     checks.add(elf.sum(c));
                     checks.addAll(diags(c).stream().map(elf::sum).toList());
                     checks.retainAll(adj);
@@ -131,7 +132,7 @@ public class Day23 implements IDay {
                 }
             }
             HashSet<Coord> newElves = new HashSet<>();
-            HashMap<Coord,Long> propFreq = new HashMap<Coord,Long>(proposals.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+            HashMap<Coord,Long> propFreq = new HashMap<>(proposals.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
             for(Coord elf : elves) {
                 if(propFreq.getOrDefault(proposals.getOrDefault(elf,null),2L) > 1L)
                     newElves.add(elf);

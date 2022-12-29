@@ -20,7 +20,7 @@ public class Day24 implements IDay {
     @Override
     public String part1() {
         ArrayList<Blizzard> blizzards = new ArrayList<>();
-        bounds =  new HashSet<Coord>();
+        bounds = new HashSet<>();
         String[] lines = input.split("\n");
         for(int y = 0; y < lines.length; y++) {
             String line = lines[y];
@@ -43,8 +43,8 @@ public class Day24 implements IDay {
         for(int x = 0; x <= maxX; x++) {
             if(!bounds.contains(new Coord(x,0)))
                 start = new Coord(x,0);
-            if(!bounds.contains(new Coord(x,lines.length - 1)))
-                end = new Coord(x,lines.length - 1);
+            if(!bounds.contains(new Coord(x,maxY)))
+                end = new Coord(x,maxY);
         }
 
         //make sure we cant sneak around the outside of the maze
@@ -56,13 +56,13 @@ public class Day24 implements IDay {
         bounds.add(end.sum(new Coord(1,1)));
 
         int min = 0;
-        HashSet<Coord> curReachable = new HashSet<Coord>();
+        HashSet<Coord> curReachable = new HashSet<>();
         curReachable.add(start);
 
         do {
             blizzards = new ArrayList<>(blizzards.stream().map(this::updateBlizzard).toList());
             HashSet<Coord> blizzardsPos = (HashSet<Coord>) blizzards.stream().map(x -> x.pos).collect(Collectors.toSet());
-            HashSet<Coord> newReachable = new HashSet<Coord>();
+            HashSet<Coord> newReachable = new HashSet<>();
             for(Coord c : curReachable) {
                 for(Coord adj : c.directNeighbors())
                     if(!bounds.contains(adj) && !blizzardsPos.contains(adj))
@@ -95,7 +95,7 @@ public class Day24 implements IDay {
     @Override
     public String part2() {
         ArrayList<Blizzard> blizzards = new ArrayList<>();
-        bounds =  new HashSet<Coord>();
+        bounds = new HashSet<>();
         String[] lines = input.split("\n");
         for(int y = 0; y < lines.length; y++) {
             String line = lines[y];
@@ -132,13 +132,14 @@ public class Day24 implements IDay {
 
         int totalTrip = 0;
 
+        //one trip, start to end
         int min = 0;
-        HashSet<Coord> curReachable = new HashSet<Coord>();
+        HashSet<Coord> curReachable = new HashSet<>();
         curReachable.add(start);
         do {
             blizzards = new ArrayList<>(blizzards.stream().map(this::updateBlizzard).toList());
             HashSet<Coord> blizzardsPos = (HashSet<Coord>) blizzards.stream().map(x -> x.pos).collect(Collectors.toSet());
-            HashSet<Coord> newReachable = new HashSet<Coord>();
+            HashSet<Coord> newReachable = new HashSet<>();
             for(Coord c : curReachable) {
                 for(Coord adj : c.directNeighbors())
                     if(!bounds.contains(adj) && !blizzardsPos.contains(adj))
@@ -150,6 +151,7 @@ public class Day24 implements IDay {
             min++;
         } while(!curReachable.contains(end));
 
+        //next trip, end to start
         totalTrip += min;
         min = 0;
         curReachable = new HashSet<>();
@@ -157,7 +159,7 @@ public class Day24 implements IDay {
         do {
             blizzards = new ArrayList<>(blizzards.stream().map(this::updateBlizzard).toList());
             HashSet<Coord> blizzardsPos = (HashSet<Coord>) blizzards.stream().map(x -> x.pos).collect(Collectors.toSet());
-            HashSet<Coord> newReachable = new HashSet<Coord>();
+            HashSet<Coord> newReachable = new HashSet<>();
             for(Coord c : curReachable) {
                 for(Coord adj : c.directNeighbors())
                     if(!bounds.contains(adj) && !blizzardsPos.contains(adj))
@@ -174,10 +176,11 @@ public class Day24 implements IDay {
         curReachable = new HashSet<>();
         curReachable.add(start);
 
+        //last trip, start to end again
         do {
             blizzards = new ArrayList<>(blizzards.stream().map(this::updateBlizzard).toList());
             HashSet<Coord> blizzardsPos = (HashSet<Coord>) blizzards.stream().map(x -> x.pos).collect(Collectors.toSet());
-            HashSet<Coord> newReachable = new HashSet<Coord>();
+            HashSet<Coord> newReachable = new HashSet<>();
             for(Coord c : curReachable) {
                 for(Coord adj : c.directNeighbors())
                     if(!bounds.contains(adj) && !blizzardsPos.contains(adj))

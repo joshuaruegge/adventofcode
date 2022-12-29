@@ -21,7 +21,7 @@ public class Day22 implements IDay {
     public String part1() {
         String[] inputParts = input.split("\n\n");
         //0 for path, 1 for wall
-        HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
+        HashMap<Coord,Integer> map = new HashMap<>();
         String[] mapLines = inputParts[0].split("\n");
         for(int y = 0; y < mapLines.length; y++) {
             String line = mapLines[y];
@@ -36,7 +36,7 @@ public class Day22 implements IDay {
             }
         }
 
-        ArrayList<String> instructions = new ArrayList<String>();
+        ArrayList<String> instructions = new ArrayList<>();
         char[] digits = inputParts[1].trim().toCharArray();
         for(int i = 0; i < digits.length; i++) {
             char c = digits[i];
@@ -106,8 +106,8 @@ public class Day22 implements IDay {
 
     //returns a two-item list, representing new position and new facing, respectively
     //finds the next position for a step off the edge and onto a different face based on hard-coded edge matches for a folded cube map of the net provided
-    public ArrayList<Coord> warp(HashMap<Coord,Integer> region, HashMap<Coord,Integer> map, Coord cur, Coord facing) {
-        ArrayList<Coord> ret = new ArrayList<Coord>();
+    public ArrayList<Coord> warp(HashMap<Coord,Integer> region, Coord cur, Coord facing) {
+        ArrayList<Coord> ret = new ArrayList<>();
         int curRegion = region.get(cur);
         switch (curRegion) {
             case 0 -> {
@@ -234,7 +234,7 @@ public class Day22 implements IDay {
     public String part2() {
         String[] inputParts = input.split("\n\n");
         //0 for path, 1 for wall
-        HashMap<Coord,Integer> map = new HashMap<Coord,Integer>();
+        HashMap<Coord,Integer> map = new HashMap<>();
         String[] mapLines = inputParts[0].split("\n");
         for(int y = 0; y < mapLines.length; y++) {
             String line = mapLines[y];
@@ -255,7 +255,7 @@ public class Day22 implements IDay {
         // 2
         //34
         //5
-        HashMap<Coord,Integer> region = new HashMap<Coord,Integer>();
+        HashMap<Coord,Integer> region = new HashMap<>();
         for(Coord c : map.keySet()) {
             //first face
             if(c.x > 49 && c.x < 100 && c.y < 50) {
@@ -278,7 +278,7 @@ public class Day22 implements IDay {
                 region.put(c,5);
         }
 
-        ArrayList<String> instructions = new ArrayList<String>();
+        ArrayList<String> instructions = new ArrayList<>();
         char[] digits = inputParts[1].trim().toCharArray();
         for(int i = 0; i < digits.length; i++) {
             char c = digits[i];
@@ -309,7 +309,7 @@ public class Day22 implements IDay {
                 for(int i = 0; i < steps; i++) {
                     Coord next = cur.sum(facing);
                     if(!map.containsKey(next)) {
-                        ArrayList<Coord> result = warp(region,map,cur,facing);
+                        ArrayList<Coord> result = warp(region,cur,facing);
                         next = result.get(0);
                         if(map.get(next) == 1)
                             break;

@@ -16,6 +16,7 @@ public class Day19 implements IDay {
 
     @Override
     public String part1() {
+        maxTime = 24;
         int quality = 0;
         String[] lines = input.split("\n");
         for(int i = 0; i < lines.length; i++) {
@@ -33,8 +34,6 @@ public class Day19 implements IDay {
             //geode bot
             cost[4] = Integer.parseInt(bots[4].split(" ")[4]);
             cost[5] = Integer.parseInt(bots[4].split(" ")[7]);
-
-            maxTime = 24;
 
             quality += (i+1) * mostGeodes(0,0,0,0,1,0,0,0,0);
         }
@@ -99,6 +98,7 @@ public class Day19 implements IDay {
 
     @Override
     public String part2() {
+        maxTime = 32;
         int quality = 1;
         String[] lines = input.split("\n");
         for(int i = 0; i < 3; i++) {
@@ -116,8 +116,6 @@ public class Day19 implements IDay {
             //geode bot
             cost[4] = Integer.parseInt(bots[4].split(" ")[4]);
             cost[5] = Integer.parseInt(bots[4].split(" ")[7]);
-
-            maxTime = 32;
 
             quality *= mostGeodes(0,0,0,0,1,0,0,0,0);
         }

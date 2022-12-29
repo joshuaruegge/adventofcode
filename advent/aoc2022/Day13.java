@@ -68,7 +68,7 @@ public class Day13 implements IDay {
         return packet;
     }
 
-    //returns 1 if the packets are in the correct order, -1 if they are not, and
+    //returns 1 if the packets are in the correct order, -1 if they are not, and 0 if unable to determine
     public static int compare(PacketList left, PacketList right) {
         int compareIndex = 0;
         while(compareIndex < left.sublists.size() || compareIndex < right.sublists.size()) {
@@ -159,7 +159,7 @@ public class Day13 implements IDay {
         sortedPackets.add(two);
         sortedPackets.add(six);
         //fun fact: my compare method needed zero changes from part 1 to do this. the spirit of java itself guided me to write it in the form of a proper compare method cause it knew what was coming
-        Collections.sort(sortedPackets,Day13::compare);
+        sortedPackets.sort(Day13::compare);
         Collections.reverse(sortedPackets);
         //return indexes of now-sorted divider packets, multiplied
         return Integer.toString((sortedPackets.indexOf(two) + 1) * (sortedPackets.indexOf(six) + 1));

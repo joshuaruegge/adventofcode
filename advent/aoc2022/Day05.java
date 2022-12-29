@@ -15,9 +15,12 @@ public class Day05 implements IDay {
     public String part1() {
         String[] parts = input.split("\n\n");
         String[] initial = parts[0].split("\n");
-        ArrayList<LinkedList<Character>> stacks = new ArrayList<LinkedList<Character>>();
+        //create stacks
+        ArrayList<LinkedList<Character>> stacks = new ArrayList<>();
         for(int i = 0; i < 9; i++)
-            stacks.add(new LinkedList<Character>());
+            stacks.add(new LinkedList<>());
+        //use last row to convert string index to stack number
+        //index of a character in the input is in the stack at the same index in the last row
         String stackNums = initial[initial.length - 1];
         for(int i = 0; i < initial.length - 1; i++) {
             String row = initial[i];
@@ -38,19 +41,22 @@ public class Day05 implements IDay {
                 stacks.get(dest).addFirst(stacks.get(src).removeFirst());
             }
         }
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
         for(LinkedList<Character> s : stacks)
-            answer += s.getFirst();
-        return answer;
+            answer.append(s.getFirst());
+        return answer.toString();
     }
 
     @Override
     public String part2() {
         String[] parts = input.split("\n\n");
         String[] initial = parts[0].split("\n");
-        ArrayList<LinkedList<Character>> stacks = new ArrayList<LinkedList<Character>>();
+        //create stacks
+        ArrayList<LinkedList<Character>> stacks = new ArrayList<>();
         for(int i = 0; i < 9; i++)
-            stacks.add(new LinkedList<Character>());
+            stacks.add(new LinkedList<>());
+        //use last row to convert string index to stack number
+        //index of a character in the input is in the stack at the same index in the last row
         String stackNums = initial[initial.length - 1];
         for(int i = 0; i < initial.length - 1; i++) {
             String row = initial[i];
@@ -67,16 +73,18 @@ public class Day05 implements IDay {
             int count = Integer.parseInt(words[1]);
             int src = Integer.parseInt(words[3]) - 1;
             int dest = Integer.parseInt(words[5]) - 1;
-            LinkedList<Character> temp = new LinkedList<Character>();
+            //put characters onto buffer so that order stays correct
+            LinkedList<Character> temp = new LinkedList<>();
             for (int i = 0; i < count; i++) {
                 temp.add(stacks.get(src).removeFirst());
             }
+            //move entire buffer
             stacks.get(dest).addAll(0,temp);
         }
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
         for(LinkedList<Character> s : stacks)
-            answer += s.getFirst();
-        return answer;
+            answer.append(s.getFirst());
+        return answer.toString();
     }
 
     public static void main(String[] args) {

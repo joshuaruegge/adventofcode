@@ -1,7 +1,6 @@
 package advent.aoc2022;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
@@ -27,16 +26,16 @@ public class Day01 implements IDay {
 	@Override
 	public String part2() {
 		//keep track of all totals
-		ArrayList<Integer> cals = new ArrayList<Integer>();
+		ArrayList<Integer> cals = new ArrayList<>();
 		for(String s : input.split("\n\n")) {
 			int total = 0;
 			for(String t : s.split("\n"))
 				total += Integer.parseInt(t);
 			cals.add(total);
 		}
-		//sort least to greatest, then reverse
-		Collections.sort(cals);
-		Collections.reverse(cals);
+		//sort greatest to least (opposite of normal)
+		cals.sort((a, b) -> b - a);
+
 		//get total of best 3
 		return Integer.toString((cals.get(0) + cals.get(1) + cals.get(2)));
 	}

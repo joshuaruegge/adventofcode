@@ -42,7 +42,6 @@ public class Day15 implements IDay {
             //if range has multiple ranges, we have a gap! now to find it
             if(ranges.size() > 1) {
                 //locate first x coordinate that is outside all ranges
-                int trueX = 0;
                 xFind:
                 for(int x = 0; x < 4000000; x++) {
                     for(Coord c : ranges) {
@@ -50,11 +49,8 @@ public class Day15 implements IDay {
                             continue xFind;
                         }
                     }
-                    trueX = x;
-                    break;
+                    return Long.toString(x * 4000000L + y);
                 }
-
-                return Long.toString(trueX * 4000000L + y);
             }
         }
         return null;
@@ -62,7 +58,7 @@ public class Day15 implements IDay {
 
     //collects list of ranges that cannot contain a beacon on row Y
     public ArrayList<Coord> noBeaconRanges(HashMap<Coord,Coord> map, int y) {
-        ArrayList<Coord> ranges = new ArrayList<Coord>();
+        ArrayList<Coord> ranges = new ArrayList<>();
         for(Coord c : map.keySet()) {
             int dist = c.dist(map.get(c));
             //possible range of X values on row is max manhattan distance minus distance portion used for y
@@ -77,17 +73,11 @@ public class Day15 implements IDay {
 
     //tries to remove overlaps in ranges and condense down to one coord
     public ArrayList<Coord> mergeRanges(ArrayList<Coord> ranges) {
-
         //make sure in proper order
-        ranges.sort(new Comparator<Coord>() {
-            @Override
-            public int compare(Coord o1, Coord o2) {
-                return Integer.compare(o1.x,o2.x);
-            }
-        });
+        ranges.sort(Comparator.comparingInt(o -> o.x));
 
         //create return list, stick first coord in
-        ArrayList<Coord> newRanges = new ArrayList<Coord>();
+        ArrayList<Coord> newRanges = new ArrayList<>();
         newRanges.add(ranges.get(0));
         for(int i = 1; i < ranges.size(); i++) {
             Coord range = ranges.get(i);

@@ -44,6 +44,7 @@ public class Day06 implements IDay {
         return Integer.toString(solution);
     }
 
+    //creates character hash set out of provided string
     public HashSet<Character> stringToHashSet(String s) {
         HashSet<Character> a = new HashSet<Character>();
         for(char c : s.toCharArray())

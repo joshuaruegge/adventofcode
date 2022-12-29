@@ -5,7 +5,6 @@ import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 import advent.utilities.general.Input;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,7 +16,7 @@ public class Day12 implements IDay {
 
     @Override
     public String part1() {
-        heights = new HashMap<Coord,Integer>();
+        heights = new HashMap<>();
         String[] lines = input.split("\n");
         Coord start = null;
         Coord end = null;
@@ -41,20 +40,14 @@ public class Day12 implements IDay {
 
     //simple BFS pathfinding method
     public int pathfind(Coord start, Coord end) {
-        HashMap<Coord,Integer> gCost = new HashMap<Coord,Integer>();
-        HashMap<Coord,Coord> parent = new HashMap<Coord,Coord>();
+        HashMap<Coord,Integer> gCost = new HashMap<>();
         LinkedList<Coord> queue = new LinkedList<>();
         gCost.put(start,0);
         queue.add(start);
         while(queue.size() > 0) {
             Coord cur = queue.poll();
             if(cur.equals(end)) {
-                ArrayList<Coord> path = new ArrayList<>();
-                while(parent.containsKey(cur)) {
-                    path.add(cur);
-                    cur = parent.get(cur);
-                }
-                return path.size();
+                return gCost.get(end);
             }
             for(Coord c : cur.directNeighbors()) {
                 //skip if outside bounds or if height is more than one above current
@@ -63,7 +56,6 @@ public class Day12 implements IDay {
                 int tentativeG = gCost.get(cur) + 1;
                 if(tentativeG < gCost.getOrDefault(c,Integer.MAX_VALUE)) {
                     gCost.put(c,tentativeG);
-                    parent.put(c,cur);
                     queue.add(c);
                 }
             }
@@ -73,7 +65,7 @@ public class Day12 implements IDay {
 
     @Override
     public String part2() {
-        heights = new HashMap<Coord,Integer>();
+        heights = new HashMap<>();
         String[] lines = input.split("\n");
         Coord start = null;
         Coord end = null;
