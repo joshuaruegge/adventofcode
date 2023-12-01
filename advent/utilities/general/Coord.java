@@ -23,22 +23,15 @@ public class Coord implements Comparable<Coord> {
         y = 0;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(y, x);
+    //returns this coord "rotated" to the left
+    //ex: (0, -1) (up) becomes (-1,0) (left), (-1, 0) becomes (0, 1) (down), etc.
+    public Coord left() {
+        return new Coord(y, -x);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        Coord other = (Coord) obj;
-        return x == other.x && y == other.y;
-    }
-
-    public String toString() {
-        return "(" + x + "," + y + ")";
+    //does the same, but rotates to the right
+    public Coord right() {
+        return new Coord(-y, x);
     }
 
     //updates this object to the value of this + o (i.e., (this.x + o.x, this.y + o.y))
@@ -106,14 +99,21 @@ public class Coord implements Comparable<Coord> {
         else return (o.x > this.x ? -1 : 1);
     }
 
-    //returns this coord "rotated" to the left
-    //ex: (0, -1) (up) becomes (-1,0) (left), (-1, 0) becomes (0, 1) (down), etc.
-    public Coord left() {
-        return new Coord(y, -x);
+    @Override
+    public int hashCode() {
+        return Objects.hash(y, x);
     }
 
-    //does the same, but rotates to the right
-    public Coord right() {
-        return new Coord(-y, x);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        Coord other = (Coord) obj;
+        return x == other.x && y == other.y;
+    }
+
+    public String toString() {
+        return "(" + x + "," + y + ")";
     }
 }

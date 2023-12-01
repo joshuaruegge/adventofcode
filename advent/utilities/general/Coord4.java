@@ -6,18 +6,18 @@ import java.util.Objects;
 public class Coord4 {
     public int x, y, z, a;
 
-    public Coord4() {
-        x = 0;
-        y = 0;
-        z = 0;
-        a = 0;
-    }
-
     public Coord4(int x, int y, int z, int a) {
         this.x = x;
         this.y = y;
         this.z = z;
         this.a = a;
+    }
+
+    public Coord4() {
+        x = 0;
+        y = 0;
+        z = 0;
+        a = 0;
     }
 
     //returns manhattan distance from o

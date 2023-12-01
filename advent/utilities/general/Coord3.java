@@ -6,16 +6,16 @@ import java.util.Objects;
 public class Coord3 {
     public int x, y, z;
 
-    public Coord3() {
-        x = 0;
-        y = 0;
-        z = 0;
-    }
-
     public Coord3(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Coord3() {
+        x = 0;
+        y = 0;
+        z = 0;
     }
 
     //updates this coord to the value of this + o
@@ -33,6 +33,11 @@ public class Coord3 {
     //returns a coord representing this - o
     public Coord3 diff(Coord3 o) {
         return new Coord3(x - o.x, y - o.y, z - o.z);
+    }
+
+    //returns Manhattan distance from o
+    public int dist(Coord3 o) {
+        return Math.abs(o.x - x) + Math.abs(o.y - y) + Math.abs(o.z - z);
     }
 
     //returns a list of all 26 adjacent neighbors to this coord
@@ -88,8 +93,4 @@ public class Coord3 {
         return new Coord3(x, y, z);
     }
 
-    //returns Manhattan distance from o
-    public int dist(Coord3 o) {
-        return Math.abs(o.x - x) + Math.abs(o.y - y) + Math.abs(o.z - z);
-    }
 }
