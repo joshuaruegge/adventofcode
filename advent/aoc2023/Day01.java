@@ -87,7 +87,7 @@ public class Day01 implements IDay {
             } else {
                 lastNum = indices.indexOf(Collections.max(indices)) + 1;
             }
-            
+
             total += firstNum+lastNum;
         }
         return Integer.toString(total);
