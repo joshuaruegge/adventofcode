@@ -1,12 +1,12 @@
 package advent.utilities.utils2023;
 
-public class BTreeNode {
+public class BinaryTreeNode {
 
-    public BTreeNode left, right;
+    public BinaryTreeNode left, right;
 
     public String name;
 
-    public BTreeNode(String name) {
+    public BinaryTreeNode(String name) {
         this.name = name;
         left = null;
         right = null;

@@ -5,8 +5,8 @@ import advent.utilities.general.DayRunner;
 import advent.utilities.general.IDay;
 import advent.utilities.general.Input;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Day03 implements IDay {
 
@@ -22,42 +22,50 @@ public class Day03 implements IDay {
     public String part1() {
         int total = 0;
         String[] lines = input.split("\n");
-        char[][] grid = new char[input.split("\n").length][input.split("\n")[0].length()];
-        for(int i = 0; i < lines.length; i++) {
-            for(int j = 0; j < lines[0].length(); j++) {
-                grid[i][j] = lines[i].charAt(j);
-            }
+        char[][] grid = new char[lines.length][lines[0].length()];
+        for (int i = 0; i < lines.length; i++) {
+            grid[i] = lines[i].toCharArray();
         }
-        ArrayList<Coord> validIndices = new ArrayList<>();
-        for(int i = 0; i < lines.length; i++) {
-            for(int j = 0; j < lines.length; j++) {
-                if(Character.isDigit(grid[i][j])) {
-                    ArrayList<Coord> nums = new ArrayList<>();
-                    while(j < grid[0].length && Character.isDigit(grid[i][j])) {
-                        nums.add(new Coord(i,j));
-                        j++;
-                    }
 
-                    outer:
-                    for(Coord c : nums) {
-                        for(Coord d : c.allNeighbors()) {
-                            if(d.x < 0 || d.y < 0 || d.x >= grid.length || d.y >= grid[0].length)
-                                continue;
-                            if(!Character.isDigit(grid[d.x][d.y]) && grid[d.x][d.y] != '.') {
-                                validIndices.add(nums.get(0));
-                                break outer;
-                            }
-                        }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                //we only want to examine the symbols
+                if (grid[i][j] == '.' || Character.isDigit(grid[i][j])) {
+                    continue;
+                }
+
+                //first step: collect all digits around symbol
+                Coord symbol = new Coord(j, i);
+                LinkedList<Coord> digits = new LinkedList<>();
+                for (Coord c : symbol.allNeighbors()) {
+                    if (Character.isDigit(grid[c.y][c.x])) {
+                        digits.add(c);
                     }
                 }
+
+                //now, the issue is that some digits around a symbol are two separate digits of one contiguous number
+                //so, move from left to right to capture entire number, and add any digits we collect to skip
+                //to avoid re-checking them a second time
+                HashSet<Coord> skip = new HashSet<>();
+                for (Coord c : digits) {
+                    if (skip.contains(c)) continue;
+                    int left = c.x;
+                    int right = c.x;
+                    while (left - 1 >= 0 && Character.isDigit(grid[c.y][left - 1])) {
+                        left--;
+                    }
+                    while (right + 1 < grid[0].length && Character.isDigit(grid[c.y][right + 1])) {
+                        right++;
+                    }
+                    String num = "";
+                    for (int x = left; x <= right; x++) {
+                        if (!c.equals(new Coord(x, c.y)) && digits.contains(new Coord(x, c.y)))
+                            skip.add(new Coord(x, c.y));
+                        num += grid[c.y][x];
+                    }
+                    total += Integer.parseInt(num);
+                }
             }
-        }
-        for(Coord c : validIndices) {
-            int j = c.y;
-            while(j < grid[0].length && Character.isDigit(grid[c.x][j])) {
-                j++;
-            }
-            total += Integer.parseInt(lines[c.x].substring(c.y, j));
         }
         return Integer.toString(total);
     }
@@ -66,53 +74,58 @@ public class Day03 implements IDay {
     public String part2() {
         String[] lines = input.split("\n");
         char[][] grid = new char[lines.length][lines[0].length()];
-        for(int i = 0; i < lines.length; i++) {
-            for(int j = 0; j < lines[0].length(); j++) {
-                grid[i][j] = lines[i].charAt(j);
-            }
+        for (int i = 0; i < lines.length; i++) {
+            grid[i] = lines[i].toCharArray();
         }
 
-        long tot = 0;
-        for(int i = 0; i < grid.length; i++) {
-            for(int  j = 0; j < grid[0].length; j++) {
-                if(grid[i][j] != '*') {
+        int sum = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != '*') {
                     continue;
                 }
 
-                Coord gear = new Coord(i,j);
-                ArrayList<Coord> nums = new ArrayList<>();
-                for(Coord c : gear.allNeighbors()) {
-                    if(Character.isDigit(grid[c.x][c.y])) {
-                        nums.add(c);
+                //first step: collect all digits around gear
+                Coord gear = new Coord(j, i);
+                LinkedList<Coord> digits = new LinkedList<>();
+                for (Coord c : gear.allNeighbors()) {
+                    if (Character.isDigit(grid[c.y][c.x])) {
+                        digits.add(c);
                     }
                 }
-                long mult = 1;
+
+
+                //now, the issue is that some digits around a gear are two separate digits of one contiguous number
+                //so, move from left to right to capture entire number, and add any digits we collect to skip
+                long product = 1;
                 HashSet<Coord> skip = new HashSet<>();
-                for(Coord c : nums) {
-                    if(skip.contains(c))
-                        continue;
-                    int left = c.y;
-                    int right = c.y;
-                    while(left-1 >= 0 && Character.isDigit(grid[c.x][left-1])) {
+                for (Coord c : digits) {
+                    if (skip.contains(c)) continue;
+                    int left = c.x;
+                    int right = c.x;
+                    while (left - 1 >= 0 && Character.isDigit(grid[c.y][left - 1])) {
                         left--;
                     }
-                    while(right+1 < grid[0].length && Character.isDigit(grid[c.x][right+1])) {
+                    while (right + 1 < grid[0].length && Character.isDigit(grid[c.y][right + 1])) {
                         right++;
                     }
                     String num = "";
-                    for(int y = left; y <= right; y++) {
-                        if(!c.equals(new Coord(c.x,y)) && nums.contains(new Coord(c.x,y)))
-                            skip.add(new Coord(c.x,y));
-                        num += grid[c.x][y];
+                    for (int x = left; x <= right; x++) {
+                        //avoid adding the current value to skip, but add values other than current
+                        if (!c.equals(new Coord(x, c.y)) && digits.contains(new Coord(x, c.y)))
+                            skip.add(new Coord(x, c.y));
+                        num += grid[c.y][x];
                     }
-                    mult *= Long.parseLong(num);
+                    product *= Long.parseLong(num);
                 }
-                System.out.println(nums + " " + skip);
-                if(nums.size() - skip.size() == 2) {
-                    tot += mult;
+
+                //however, we run into the issue that we need to find the count of actual numbers, not just of digits
+                //thankfully, digits total - digits skipped will give us the count of actual numbers
+                if (digits.size() - skip.size() == 2) {
+                    sum += product;
                 }
             }
         }
-        return Long.toString(tot);
+        return Integer.toString(sum);
     }
 }

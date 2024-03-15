@@ -28,6 +28,8 @@ hs_err_pid*
 /out/
 *.xml
 *.iml
+*.json
+*.jfr
 
 #input and token files
 *.txt

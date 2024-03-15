@@ -20,30 +20,31 @@ public class Day07 implements IDay {
     @Override
     public String part1() {
         ArrayList<Hand> hands = new ArrayList<>();
-        for(String s : input.split("\n")) {
+        for (String s : input.split("\n")) {
             String[] parts = s.split(" ");
-            hands.add(new Hand(parts[0],Integer.parseInt(parts[1]),false));
+            hands.add(new Hand(parts[0], Integer.parseInt(parts[1]), false));
         }
+        //hands are sorted in winning order per problem definition
         Collections.sort(hands);
-        int tot = 0;
-        for(int i = 0; i < hands.size(); i++) {
-            tot += (i+1)*hands.get(i).bid;
+        int sum = 0;
+        for (int i = 0; i < hands.size(); i++) {
+            sum += (i + 1) * hands.get(i).bid;
         }
-        return Integer.toString(tot);
+        return Integer.toString(sum);
     }
 
     @Override
     public String part2() {
         ArrayList<Hand> hands = new ArrayList<>();
-        for(String s : input.split("\n")) {
+        for (String s : input.split("\n")) {
             String[] parts = s.split(" ");
-            hands.add(new Hand(parts[0],Integer.parseInt(parts[1]),true));
+            hands.add(new Hand(parts[0], Integer.parseInt(parts[1]), true));
         }
         Collections.sort(hands);
-        int tot = 0;
-        for(int i = 0; i < hands.size(); i++) {
-            tot += (i+1)*hands.get(i).bid;
+        int sum = 0;
+        for (int i = 0; i < hands.size(); i++) {
+            sum += (i + 1) * hands.get(i).bid;
         }
-        return Integer.toString(tot);
+        return Integer.toString(sum);
     }
 }
