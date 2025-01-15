@@ -10,6 +10,8 @@ public class Coord implements Comparable<Coord> {
     public static final Coord LEFT = new Coord(-1, 0);
     public static final Coord RIGHT = new Coord(1, 0);
 
+    public static final Coord[] DIRS = {UP, RIGHT, DOWN, LEFT};
+
     public int x;
     public int y;
 
